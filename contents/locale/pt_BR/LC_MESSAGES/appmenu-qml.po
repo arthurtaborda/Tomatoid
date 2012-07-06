@@ -1,0 +1,120 @@
+# plasma-applet-appmenu-qml language translation file.
+# Copyright (C) 2012 Glad Deschrijver
+# This file is distributed under the same license as the plasma-applet-appmenu-qml package.
+#
+#
+# Arthur Taborda <arthur.hvt@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.7\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-07-04 04:49-0300\n"
+"PO-Revision-Date: 2012-07-04 04:41-0300\n"
+"Last-Translator: Arthur Taborda <arthur.hvt@gmail.com>\n"
+"Language-Team: Brazilian Portuguese <kde-i18n-pt_br@mail.kde.org>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.4\n"
+
+#: ui/LeaveToolBar.qml:58
+msgid "Lock Session"
+msgstr "Bloquear Tela"
+
+#: ui/LeaveToolBar.qml:68
+msgid "Leave"
+msgstr "Sair"
+
+#: ui/LeaveToolBar.qml:78
+msgid "Switch User"
+msgstr "Trocar Usuário"
+
+#: ui/main.qml:47 ui/main.qml:427
+msgid "Favorites"
+msgstr "Favoritos"
+
+#: ui/main.qml:298
+msgid "Menu Editor"
+msgstr "Editor de Menu"
+
+#: ui/main.qml:375
+msgid "Search application..."
+msgstr "Buscar aplicativo..."
+
+#: ui/main.qml:428
+msgid "Applications"
+msgstr "Programas"
+
+#: ui/Menu.qml:71
+msgid "No entries"
+msgstr "Nada encontrado"
+
+#: rc.js:1
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Arthur Taborda"
+
+#: rc.js:2
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "arthur.hvt@gmail.com"
+
+#~ msgid "Launcher"
+#~ msgstr "Lançador"
+
+#~ msgid "Choose launcher &icon:"
+#~ msgstr "Escolha o &icone do lançador :"
+
+#~ msgid "Menus"
+#~ msgstr "Menus"
+
+#~ msgid "Show &favorites list"
+#~ msgstr "Mostrar &favoritos"
+
+#~ msgid "&Reset menu each time it is shown"
+#~ msgstr "&Reiniciar menu em cada abertura"
+
+#~ msgid ""
+#~ "Menu lists can be scrolled &outside of their bounds (nicer animation)"
+#~ msgstr "&Menus podem ser rolados além das bordas (melhor animação)"
+
+#~ msgid "Icon &size:"
+#~ msgstr "&Tamanho dos icones :"
+
+#~ msgid "S&mall icon size:"
+#~ msgstr "Tamanho &dos icones menores :"
+
+#~ msgid "&Leave buttons icon size:"
+#~ msgstr "Tamanho dos icones de &botões de desligamento :"
+
+#~ msgid "Number of &columns:"
+#~ msgstr "Número de &colunas :"
+
+#~ msgid "List of favorite applications"
+#~ msgstr "Lista de programas favoritos"
+
+#~ msgid "Icon on the launcher button"
+#~ msgstr "Icone de botão do lançador"
+
+#~ msgid "Show favorites list"
+#~ msgstr "Mostrar lista de favoritos"
+
+#~ msgid "Menu lists can be scrolled outside of their bounds (nicer animation)"
+#~ msgstr "Menus podem ser rolados além das bordas (melhor animação)"
+
+#~ msgid "Icon size"
+#~ msgstr "Tamanho dos icones"
+
+#~ msgid "Small icon size"
+#~ msgstr "Tamando dos icones pequenos"
+
+#~ msgid "Leave buttons icon size"
+#~ msgstr "Tamanho dos icones de botões de desligamento :"
+
+#~ msgid "Number of visible columns"
+#~ msgstr "Número de colunas :"
+
+#~ msgid "Reset menu each time it is shown"
+#~ msgstr "Reiniciar menu em cada abertura"

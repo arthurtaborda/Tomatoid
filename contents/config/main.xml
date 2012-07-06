@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+  <kcfgfile name=""/>
+
+  <group name="General">
+    <entry name="favorites" type="String">
+      <label>List of favorite applications</label>
+      <default></default>
+    </entry>
+    <entry name="icon" type="String">
+      <label>Icon on the launcher button</label>
+      <default>start-here-kde</default>
+    </entry>
+    <entry name="favoritesVisible" type="Bool">
+      <label>Show favorites list</label>
+      <default>true</default>
+    </entry>
+    <entry name="scrollOverBounds" type="Bool">
+      <label>Menu lists can be scrolled outside of their bounds (nicer animation)</label>
+      <default>true</default>
+    </entry>
+    <entry name="iconSize" type="Int">
+      <label>Icon size</label>
+      <default>22</default>
+    </entry>
+    <entry name="smallIconSize" type="Int">
+      <label>Small icon size</label>
+      <default>16</default>
+    </entry>
+    <entry name="leaveButtonsIconSize" type="Int">
+      <label>Leave buttons icon size</label>
+      <default>16</default>
+    </entry>
+    <entry name="numOfColumns" type="Int">
+      <label>Number of visible columns</label>
+      <default>2</default>
+    </entry>
+    <entry name="resetOnShow" type="Bool">
+      <label>Reset menu each time it is shown</label>
+      <default>false</default>
+    </entry>
+  </group>
+
+</kcfg>

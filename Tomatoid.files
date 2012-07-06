@@ -1,0 +1,10 @@
+contents/config/main.xml
+contents/ui/ActionItem.qml
+contents/ui/config.ui
+contents/ui/TaskItem.qml
+contents/ui/main.qml
+contents/ui/StatusBar.qml
+metadata.desktop
+contents/ui/TopBar.qml
+contents/ui/ToolButton.qml
+contents/ui/IconLoader.qml
