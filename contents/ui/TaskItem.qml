@@ -24,21 +24,27 @@ import org.kde.qtextracomponents 0.1
 
 Item {
     id: taskItem
-    property string icon
+    property string iconImage
     property string taskName
 
-    property int iconSize: 22
+    property string startIconImage: "chronometer"
+    property string completeIconImage: "dialog-ok-apply"
+    property string removeIconImage: "edit-delete"
+
+    property int iconSize: 14
     property int iconMargin: 8
+    property int toolIconSize: 22
 
     QIconItem {
-        id: deviceIcon
-        width: 22
-        height: 22
-        icon: new QIcon(parent.icon)
+        id: taskIcon
+        width: taskItem.iconSize
+        height: taskItem.iconSize
+        icon: new QIcon(parent.iconImage)
         anchors {
             left: parent.left
             leftMargin: 10
             top: parent.top
+            verticalCenter: taskLabel.verticalCenter
         }
     }
 
@@ -46,164 +52,54 @@ Item {
     PlasmaComponents.Label {
         id: taskLabel
         text: taskName
+        font.bold: true
         anchors {
             top: parent.top
-            left: deviceIcon.right
-            leftMargin: 5
+            left: taskIcon.right
+            leftMargin: 7
         }
         verticalAlignment: Text.AlignVCenter
     }
 
-    PlasmaCore.Theme { id: theme }
 
-    Item {
-        id: freeSpaceBarPlaceholder
-        anchors.fill: freeSpaceBar
-        z: 900
-    }
-
-    PlasmaCore.ToolTip {
-        target: freeSpaceBarPlaceholder
-        subText: i18nc("@info:status Free disk space", "%1 free", model["Free Space Text"])
-    }
-
-    MouseArea {
-        anchors.fill: parent
-        hoverEnabled: true
-        onClicked: menuItem.clicked(source);
-        onEntered: menuListView.currentIndex = index;
-    }
-
-
-    MouseArea {
-        anchors.top: parent.top
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        width: parent.width
-        hoverEnabled: true
-
-        Item {
-            id: controlButtons
-            anchors.top: parent.top
-            anchors.right: parent.right
-            anchors.topMargin: taskItem.iconMargin
-            anchors.rightMargin: taskItem.iconMargin
-            width: taskItem.width
-            visible: false
-
-
-
-            ToolButton {
-                id: playButton
-                anchors.top: parent.top
-                anchors.right: parent.right
-                visible: false
-                iconSource: "kt-start"
-                width: taskItem.iconSize
-                height: taskItem.iconSize
-            }
-
-            ToolButton {
-                id: removeButton
-                anchors.top: parent.top
-                anchors.right: playButton.left
-                visible: false
-                iconSource: "edit-delete"
-                width: taskItem.iconSize
-                height: taskItem.iconSize
-                onClicked: {
-                }
-            }
-
-            ToolButton {
-                id: completeButton
-                anchors.top: parent.top
-                anchors.right: removeButton.left
-                visible: false
-                iconSource: "dialog-ok-apply"
-                width: taskItem.iconSize
-                height: taskItem.iconSize
-                onClicked: {
-                }
-            }
-        }
-
-        onEntered: {
-            menuListView.currentIndex = index; // same as in the MouseArea above
-            controlButtons.visible = isApp && favoritesVisible
-            playButton.visible = !isFavorite;
-            removeFavoriteIcon.visible = isFavorite;
-            moveFavoriteDownIcon.visible = isFavorite && isInFavoritesList && index < menuListView.count - 1;
-            moveFavoriteUpIcon.visible = isFavorite && isInFavoritesList && index > 0;
-        }
-        onExited: {
-            controlButtons.visible = false;
-        }
-        onClicked: menuItem.clicked(source); // same as in the MouseArea above
-    }
-
-    PlasmaCore.ToolTip {
-        target: leftAction
-        subText: {
-            if (!model["Accessible"]) {
-                return i18n("Click to mount this device.")
-            } else if (model["Device Types"].indexOf("Optical Disk") != -1) {
-                return i18n("Click to eject this disc.")
-            } else if (model["Removable"]) {
-                return i18n("Click to safely remove this device.")
-            } else {
-                return i18n("Click to access this device from other applications.")
-            }
-        }
-    }
-
-    PlasmaCore.ToolTip {
-        target: deviceIcon
-        subText: {
-            if (model["Accessible"]) {
-                if (model["Removable"]) {
-                    return i18n("It is currently <b>not safe</b> to remove this device: applications may be accessing it. Click the eject button to safely remove this device.")
-                } else {
-                    return i18n("This device is currently accessible.")
-                }
-            } else {
-                if (model["Removable"]) {
-                    if (model["In Use"]) {
-                        return i18n("It is currently <b>not safe</b> to remove this device: applications may be accessing other volumes on this device. Click the eject button on these other volumes to safely remove this device.");
-                    } else {
-                        return i18n("It is currently safe to remove this device.")
-                    }
-                } else {
-                    return i18n("This device is not currently accessible.")
-                }
-            }
-        }
-    }
-
-    MouseArea {
-        id: mouseArea
+    Row {
+        id: toolBar
+        visible: !tomatoid.inPomodoro && !tomatoid.inBreak
         anchors {
             top: parent.top
-            left: parent.left
             right: parent.right
-            bottom: freeSpaceBar.bottom
-            // to remove the gap between device items
-            bottomMargin: -actionsList.anchors.topMargin
         }
-        hoverEnabled: true
-        onEntered: {
-            notifierDialog.currentIndex = index;
-            notifierDialog.highlightItem.opacity = 1;
+
+        PlasmaComponents.ToolButton {
+            id: startButton
+            iconSource: taskItem.startIconImage
+            width: taskItem.toolIconSize
+            height: taskItem.toolIconSize
+            anchors {
+                top: parent.top
+                right: parent.right
+            }
         }
-        onExited: {
-            notifierDialog.highlightItem.opacity = expanded ? 1 : 0;
+
+        PlasmaComponents.ToolButton {
+            id: completeButton
+            iconSource: taskItem.completeIconImage
+            width: taskItem.toolIconSize
+            height: taskItem.toolIconSize
+            anchors {
+                top: parent.top
+                right: startButton.left
+            }
         }
-        onClicked: {
-            if (leftAction.visible
-                    && mouse.x>=leftAction.x && mouse.x<=leftAction.x+leftAction.width
-                    && mouse.y>=leftAction.y && mouse.y<=leftAction.y+leftAction.height)
-            {
-                leftActionTriggered();
+
+        PlasmaComponents.ToolButton {
+            id: removeButton
+            iconSource: taskItem.removeIconImage
+            width: taskItem.toolIconSize
+            height: taskItem.toolIconSize
+            anchors {
+                top: parent.top
+                right: completeButton.left
             }
         }
     }

@@ -21,15 +21,16 @@ import QtQuick 1.1
 import org.kde.plasma.core 0.1 as PlasmaCore
 import org.kde.plasma.components 0.1 as PlasmaComponents
 
-Item {
-    id: devicenotifier
+PlasmaComponents.Page {
+    id: tomatoid
     property int minimumWidth: 190
-    property int minimumHeight: 240
+    property int minimumHeight: 220
+    property bool inPomodoro: false
+    property bool inBreak: false
+    property string completeTaskIconImage: "task-complete"
+    property string incompleteTaskIconImage: "task-accepted"
 
-    PlasmaCore.Theme {
-        id: theme
-    }
-
+    tools: topBar
 
     TopBar {
         id: topBar
@@ -41,34 +42,90 @@ Item {
         }
     }
 
+    PlasmaComponents.TabBar {
+        id: tabBar
+        height: 30
 
-    ListView {
-        id: taskList
+        PlasmaComponents.TabButton { tab: incompleteTaskPage; text: "Undone Tasks" }
+        PlasmaComponents.TabButton { tab: completeTaskPage; text: "Done Tasks" }
+
         anchors {
             top: topBar.bottom
-            left: topBar.left
-            right: topBar.right
+            left: parent.left
+            right: parent.right
             topMargin: 10
-        }
-
-        PlasmaComponents.Label {
-            id: labelTasks
-            text: "Tasks"
-            font.italic: true
-            font.pointSize: 8
-            color: "#444444"
-        }
-
-        TaskItem {
-            id: item
-            height: 10
-            icon: "rajce"
-            taskName: "teste"
-            anchors {
-                top: labelTasks.bottom
-            }
+            horizontalCenter: parent.horizontalCenter
         }
     }
 
+    PlasmaComponents.TabGroup {
+        id: toolBarLayout
+        anchors {
+            top: tabBar.bottom
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+            topMargin: 10
+        }
 
+        PlasmaComponents.Page {
+            id: incompleteTaskPage
+            ListView {
+                id: incompleteTaskList
+                anchors {
+                    top: parent.top
+                    left: parent.left
+                    right: parent.right
+                }
+
+                TaskItem {
+                    id: undoneItem
+                    height: 25
+                    iconImage: tomatoid.incompleteTaskIconImage
+                    taskName: "Undone Task"
+                    anchors {
+                        top: parent.top
+                        left: parent.left
+                        right: parent.right
+                    }
+                }
+
+                TaskItem {
+                    id: undoneItem2
+                    height: 25
+                    iconImage: tomatoid.incompleteTaskIconImage
+                    taskName: "Undone Task"
+                    anchors {
+                        top: undoneItem.bottom
+                        left: parent.left
+                        right: parent.right
+                    }
+                }
+            }
+        }
+
+        PlasmaComponents.Page {
+            id: completeTaskPage
+            ListView {
+                id: completeTaskList
+                anchors {
+                    top: parent.top
+                    left: parent.left
+                    right: parent.right
+                }
+
+                TaskItem {
+                    id: doneItem
+                    height: 10
+                    iconImage: tomatoid.completeTaskIconImage
+                    taskName: "Done Task"
+                    anchors {
+                        top: parent.top
+                        left: parent.left
+                        right: parent.right
+                    }
+                }
+            }
+        }
+    }
 }

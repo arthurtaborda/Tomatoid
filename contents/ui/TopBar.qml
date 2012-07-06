@@ -1,18 +1,18 @@
 import QtQuick 1.0
 import org.kde.plasma.core 0.1 as PlasmaCore
 import org.kde.plasma.components 0.1 as PlasmaComponents
-import org.kde.qtextracomponents 0.1
+import org.kde.qtextracomponents 0.1 as QtExtras
 
-Item {
-    id: topbar
+Row {
+    id: topBar
     height: 20
     property string icon
 
-    QIconItem {
-        id: headerIcon
+    QtExtras.QIconItem {
+        id: topBarIcon
         width: 26
         height: 26
-        icon: new QIcon(topbar.icon)
+        icon: new QIcon(topBar.icon)
         anchors {
             top: parent.top
             topMargin: -4
@@ -28,9 +28,66 @@ Item {
         anchors {
             top: parent.top
             leftMargin: 3
-            left: headerIcon.right
+            left: topBarIcon.right
         }
         verticalAlignment: Text.AlignVCenter
+    }
+
+
+    Row {
+        id: playingToolBar
+        visible: tomatoid.inPomodoro && !tomatoid.inBreak
+        anchors {
+            top: parent.top
+            topMargin: -4
+            leftMargin: 15
+            right: parent.right
+        }
+
+        PlasmaComponents.ToolButton {
+            id: pauseButton
+            iconSource: "media-playback-pause"
+            width: 22
+            height: 22
+            anchors {
+                top: parent.top
+                right: parent.right
+            }
+        }
+
+        PlasmaComponents.ToolButton {
+            id: stopButton
+            iconSource: "media-playback-stop"
+            width: 22
+            height: 22
+            anchors {
+                top: parent.top
+                right: pauseButton.left
+            }
+        }
+    }
+
+
+    Row {
+        id: notPlayingToolBar
+        visible: !tomatoid.inPomodoro && !tomatoid.inBreak
+        anchors {
+            top: parent.top
+            topMargin: -4
+            leftMargin: 15
+            right: parent.right
+        }
+
+        PlasmaComponents.ToolButton {
+            id: addTaskButton
+            iconSource: "list-add"
+            width: 22
+            height: 22
+            anchors {
+                top: parent.top
+                right: parent.right
+            }
+        }
     }
 
 
