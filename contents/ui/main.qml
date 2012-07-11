@@ -21,48 +21,10 @@ import QtQuick 1.1
 import org.kde.plasma.core 0.1 as PlasmaCore
 import org.kde.plasma.components 0.1 as PlasmaComponents
 
-PlasmaComponents.Page {
-    id: tomatoid
-    property int minimumWidth: 190
-    property int minimumHeight: 220
-    property bool inPomodoro: false
-    property bool inBreak: false
-
-    property variant completeTasks: []
-    property variant incompleteTasks: []
-
-    Component.onCompleted: {
-        configChanged()
-    }
-
-    function configChanged()
-    {
-        var tasksSourcesString = plasmoid.readConfig("tasks").toString();
-        var tasks = new Array();
-        if (tasksSourcesString.length > 0)
-            tasks = tasksSourcesString.split("|");
-        
-        var complete = new Array();
-        var incomplete = new Array();
-
-        for(var i = 0; i < tasks.length; i++) {
-            var task = tasks[i].split(",");
-            if(task[0] == "1") {
-                complete.push(task);
-            } else {
-                incomplete.push(task);
-            }
-        }
-        
-        completeTasks = complete;
-        incompleteTasks = incomplete;
-    }
-
-    tools: topBar
-
-    TopBar {
-        id: topBar
-        icon: "rajce"
+Item {
+    PlasmaComponents.ToolBar {
+        id: toolBar
+        z: 10
         anchors {
             top: parent.top
             left: parent.left
@@ -70,16 +32,17 @@ PlasmaComponents.Page {
         }
     }
 
-    TaskContainer {
-        id: taskContainer
-        completeTasks: completeTasks
-        incompleteTasks: incompleteTasks
-        
+
+    PlasmaComponents.PageStack {
+        id: pageStack
+        toolBar: toolBar
+        clip: true
         anchors {
-            top: topBar.bottom
+            top: toolBar.bottom
             left: parent.left
             right: parent.right
             bottom: parent.bottom
         }
+        initialPage: Qt.createComponent("MainContainer.qml")
     }
 }

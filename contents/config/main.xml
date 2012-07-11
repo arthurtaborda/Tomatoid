@@ -6,9 +6,13 @@
   <kcfgfile name=""/>
 
   <group name="General">
-    <entry name="tasks" type="String">
+    <entry name="completeTasks" type="String">
       <label>Tasks</label>
-      <default>0,Default Task,4,2|1,Done Task,3,3</default>
+      <default>Done Task,3,3|Done Task2,1,2</default>
+    </entry>
+    <entry name="incompleteTasks" type="String">
+      <label>Tasks</label>
+      <default>Default Task,4,2|Default Task2,1,1|Default Task3,2,3</default>
     </entry>
     <entry name="pomodoroTime" type="Int">
       <label>The time in minutes of one pomodoro</label>

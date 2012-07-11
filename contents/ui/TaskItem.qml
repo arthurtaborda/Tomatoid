@@ -20,68 +20,61 @@
 import QtQuick 1.1
 import org.kde.plasma.components 0.1 as PlasmaComponents
 import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.qtextracomponents 0.1
+import org.kde.qtextracomponents 0.1 as QtExtras
 
 Item {
     id: taskItem
-    property string iconImage
     property string taskName
     property bool completeTask: false
-
+    
     property string completeTaskIconImage: "task-complete"
-    property string startIconImage: "chronometer"
     property string completeIconImage: "dialog-ok-apply"
     property string removeIconImage: "edit-delete"
-
+    
     property int iconSize: 16
-    property int iconMargin: 8
     property int toolIconSize: 22
-
-
-    MouseArea {
-        id: mouseArea
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-        }
-        hoverEnabled: true
-
+    
+    Row {
+        spacing: 10
+        anchors.left: parent.left
+        
         PlasmaComponents.Switch {
-            id: startButton
-            text: taskName
-            visible: !taskItem.completeTask
-            anchors {
-                left: parent.left
-                leftMargin: 10
-                top: parent.top
-            }
+            visible: !taskItem.completeTask            
         }
-
-        Row {
-            id: toolBar
-            visible: !tomatoid.inPomodoro && !tomatoid.inBreak
-            anchors {
-                top: parent.top
-                right: parent.right
-            }
-
-            PlasmaComponents.ToolButton {
-                id: completeButton
-                visible: mouseArea.containsMouse
-                iconSource: taskItem.completeIconImage
-                width: taskItem.toolIconSize
-                height: taskItem.toolIconSize
-            }
-
-            PlasmaComponents.ToolButton {
-                id: removeButton
-                visible: mouseArea.containsMouse
-                iconSource: taskItem.removeIconImage
-                width: taskItem.toolIconSize
-                height: taskItem.toolIconSize
-            }
+        
+        QtExtras.QIconItem {
+            icon: new QIcon(taskItem.completeTaskIconImage)
+            visible: taskItem.completeTask
+            height: taskItem.toolIconSize
+            width: taskItem.toolIconSize
+        }
+        
+        PlasmaComponents.Label {            
+            text: taskName
+        }
+    }
+    
+    
+    
+    Row {
+        id: toolBar
+        visible: !tomatoid.inPomodoro && !tomatoid.inBreak
+        anchors.right: parent.right
+        
+        PlasmaComponents.ToolButton {
+            id: completeButton
+            visible: true
+            iconSource: taskItem.completeIconImage
+            width: taskItem.toolIconSize
+            height: taskItem.toolIconSize
+        }
+        
+        PlasmaComponents.ToolButton {
+            id: removeButton
+            visible: true
+            iconSource: taskItem.removeIconImage
+            width: taskItem.toolIconSize
+            height: taskItem.toolIconSize
         }
     }
 }
