@@ -26,80 +26,61 @@ Item {
     id: taskItem
     property string iconImage
     property string taskName
+    property bool completeTask: false
 
+    property string completeTaskIconImage: "task-complete"
     property string startIconImage: "chronometer"
     property string completeIconImage: "dialog-ok-apply"
     property string removeIconImage: "edit-delete"
 
-    property int iconSize: 14
+    property int iconSize: 16
     property int iconMargin: 8
     property int toolIconSize: 22
 
-    QIconItem {
-        id: taskIcon
-        width: taskItem.iconSize
-        height: taskItem.iconSize
-        icon: new QIcon(parent.iconImage)
+
+    MouseArea {
+        id: mouseArea
         anchors {
+            top: parent.top
             left: parent.left
-            leftMargin: 10
-            top: parent.top
-            verticalCenter: taskLabel.verticalCenter
-        }
-    }
-
-
-    PlasmaComponents.Label {
-        id: taskLabel
-        text: taskName
-        font.bold: true
-        anchors {
-            top: parent.top
-            left: taskIcon.right
-            leftMargin: 7
-        }
-        verticalAlignment: Text.AlignVCenter
-    }
-
-
-    Row {
-        id: toolBar
-        visible: !tomatoid.inPomodoro && !tomatoid.inBreak
-        anchors {
-            top: parent.top
             right: parent.right
+            bottom: parent.bottom
+        }
+        hoverEnabled: true
+
+        PlasmaComponents.Switch {
+            id: startButton
+            text: taskName
+            visible: !taskItem.completeTask
+            anchors {
+                left: parent.left
+                leftMargin: 10
+                top: parent.top
+            }
         }
 
-        PlasmaComponents.ToolButton {
-            id: startButton
-            iconSource: taskItem.startIconImage
-            width: taskItem.toolIconSize
-            height: taskItem.toolIconSize
+        Row {
+            id: toolBar
+            visible: !tomatoid.inPomodoro && !tomatoid.inBreak
             anchors {
                 top: parent.top
                 right: parent.right
             }
-        }
 
-        PlasmaComponents.ToolButton {
-            id: completeButton
-            iconSource: taskItem.completeIconImage
-            width: taskItem.toolIconSize
-            height: taskItem.toolIconSize
-            anchors {
-                top: parent.top
-                right: startButton.left
+            PlasmaComponents.ToolButton {
+                id: completeButton
+                visible: mouseArea.containsMouse
+                iconSource: taskItem.completeIconImage
+                width: taskItem.toolIconSize
+                height: taskItem.toolIconSize
             }
-        }
 
-        PlasmaComponents.ToolButton {
-            id: removeButton
-            iconSource: taskItem.removeIconImage
-            width: taskItem.toolIconSize
-            height: taskItem.toolIconSize
-            anchors {
-                top: parent.top
-                right: completeButton.left
+            PlasmaComponents.ToolButton {
+                id: removeButton
+                visible: mouseArea.containsMouse
+                iconSource: taskItem.removeIconImage
+                width: taskItem.toolIconSize
+                height: taskItem.toolIconSize
             }
         }
     }

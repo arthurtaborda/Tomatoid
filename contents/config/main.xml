@@ -6,41 +6,25 @@
   <kcfgfile name=""/>
 
   <group name="General">
-    <entry name="favorites" type="String">
-      <label>List of favorite applications</label>
-      <default></default>
+    <entry name="tasks" type="String">
+      <label>Tasks</label>
+      <default>0,Default Task,4,2|1,Done Task,3,3</default>
     </entry>
-    <entry name="icon" type="String">
-      <label>Icon on the launcher button</label>
-      <default>start-here-kde</default>
+    <entry name="pomodoroTime" type="Int">
+      <label>The time in minutes of one pomodoro</label>
+      <default>25</default>
     </entry>
-    <entry name="favoritesVisible" type="Bool">
-      <label>Show favorites list</label>
-      <default>true</default>
+    <entry name="pomodorosToLongBreak" type="Int">
+      <label>The amount of pomodoros needed to take a long break</label>
+      <default>4</default>
     </entry>
-    <entry name="scrollOverBounds" type="Bool">
-      <label>Menu lists can be scrolled outside of their bounds (nicer animation)</label>
-      <default>true</default>
+    <entry name="smallBreakTime" type="Int">
+      <label>The time in minutes of a small break</label>
+      <default>5</default>
     </entry>
-    <entry name="iconSize" type="Int">
-      <label>Icon size</label>
-      <default>22</default>
-    </entry>
-    <entry name="smallIconSize" type="Int">
-      <label>Small icon size</label>
-      <default>16</default>
-    </entry>
-    <entry name="leaveButtonsIconSize" type="Int">
-      <label>Leave buttons icon size</label>
-      <default>16</default>
-    </entry>
-    <entry name="numOfColumns" type="Int">
-      <label>Number of visible columns</label>
-      <default>2</default>
-    </entry>
-    <entry name="resetOnShow" type="Bool">
-      <label>Reset menu each time it is shown</label>
-      <default>false</default>
+    <entry name="longBreakTime" type="Int">
+      <label>The time in minutes of a long break</label>
+      <default>30</default>
     </entry>
   </group>
 

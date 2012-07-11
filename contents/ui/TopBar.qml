@@ -3,7 +3,7 @@ import org.kde.plasma.core 0.1 as PlasmaCore
 import org.kde.plasma.components 0.1 as PlasmaComponents
 import org.kde.qtextracomponents 0.1 as QtExtras
 
-Row {
+Item {
     id: topBar
     height: 20
     property string icon
@@ -49,10 +49,6 @@ Row {
             iconSource: "media-playback-pause"
             width: 22
             height: 22
-            anchors {
-                top: parent.top
-                right: parent.right
-            }
         }
 
         PlasmaComponents.ToolButton {
@@ -60,10 +56,6 @@ Row {
             iconSource: "media-playback-stop"
             width: 22
             height: 22
-            anchors {
-                top: parent.top
-                right: pauseButton.left
-            }
         }
     }
 
@@ -83,10 +75,6 @@ Row {
             iconSource: "list-add"
             width: 22
             height: 22
-            anchors {
-                top: parent.top
-                right: parent.right
-            }
         }
     }
 

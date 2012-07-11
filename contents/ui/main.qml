@@ -27,8 +27,36 @@ PlasmaComponents.Page {
     property int minimumHeight: 220
     property bool inPomodoro: false
     property bool inBreak: false
-    property string completeTaskIconImage: "task-complete"
-    property string incompleteTaskIconImage: "task-accepted"
+
+    property variant completeTasks: []
+    property variant incompleteTasks: []
+
+    Component.onCompleted: {
+        configChanged()
+    }
+
+    function configChanged()
+    {
+        var tasksSourcesString = plasmoid.readConfig("tasks").toString();
+        var tasks = new Array();
+        if (tasksSourcesString.length > 0)
+            tasks = tasksSourcesString.split("|");
+        
+        var complete = new Array();
+        var incomplete = new Array();
+
+        for(var i = 0; i < tasks.length; i++) {
+            var task = tasks[i].split(",");
+            if(task[0] == "1") {
+                complete.push(task);
+            } else {
+                incomplete.push(task);
+            }
+        }
+        
+        completeTasks = complete;
+        incompleteTasks = incomplete;
+    }
 
     tools: topBar
 
@@ -42,90 +70,16 @@ PlasmaComponents.Page {
         }
     }
 
-    PlasmaComponents.TabBar {
-        id: tabBar
-        height: 30
-
-        PlasmaComponents.TabButton { tab: incompleteTaskPage; text: "Undone Tasks" }
-        PlasmaComponents.TabButton { tab: completeTaskPage; text: "Done Tasks" }
-
+    TaskContainer {
+        id: taskContainer
+        completeTasks: completeTasks
+        incompleteTasks: incompleteTasks
+        
         anchors {
             top: topBar.bottom
             left: parent.left
             right: parent.right
-            topMargin: 10
-            horizontalCenter: parent.horizontalCenter
-        }
-    }
-
-    PlasmaComponents.TabGroup {
-        id: toolBarLayout
-        anchors {
-            top: tabBar.bottom
-            left: parent.left
-            right: parent.right
             bottom: parent.bottom
-            topMargin: 10
-        }
-
-        PlasmaComponents.Page {
-            id: incompleteTaskPage
-            ListView {
-                id: incompleteTaskList
-                anchors {
-                    top: parent.top
-                    left: parent.left
-                    right: parent.right
-                }
-
-                TaskItem {
-                    id: undoneItem
-                    height: 25
-                    iconImage: tomatoid.incompleteTaskIconImage
-                    taskName: "Undone Task"
-                    anchors {
-                        top: parent.top
-                        left: parent.left
-                        right: parent.right
-                    }
-                }
-
-                TaskItem {
-                    id: undoneItem2
-                    height: 25
-                    iconImage: tomatoid.incompleteTaskIconImage
-                    taskName: "Undone Task"
-                    anchors {
-                        top: undoneItem.bottom
-                        left: parent.left
-                        right: parent.right
-                    }
-                }
-            }
-        }
-
-        PlasmaComponents.Page {
-            id: completeTaskPage
-            ListView {
-                id: completeTaskList
-                anchors {
-                    top: parent.top
-                    left: parent.left
-                    right: parent.right
-                }
-
-                TaskItem {
-                    id: doneItem
-                    height: 10
-                    iconImage: tomatoid.completeTaskIconImage
-                    taskName: "Done Task"
-                    anchors {
-                        top: parent.top
-                        left: parent.left
-                        right: parent.right
-                    }
-                }
-            }
         }
     }
 }
