@@ -32,7 +32,7 @@ Item {
     property string removeIconImage: "edit-delete"
     
     property int iconSize: 16
-    property int toolIconSize: 22
+    property int toolIconSize: 16
     
     Row {
         spacing: 10
@@ -58,6 +58,7 @@ Item {
     
     Row {
         id: toolBar
+        spacing: 5
         visible: !tomatoid.inPomodoro && !tomatoid.inBreak
         anchors.right: parent.right
         

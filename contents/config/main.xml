@@ -8,11 +8,11 @@
   <group name="General">
     <entry name="completeTasks" type="String">
       <label>Tasks</label>
-      <default>Done Task,3,3|Done Task2,1,2</default>
+      <default>Done Task 2,3,3|Done Task,1,2</default>
     </entry>
     <entry name="incompleteTasks" type="String">
       <label>Tasks</label>
-      <default>Default Task,4,2|Default Task2,1,1|Default Task3,2,3</default>
+      <default>Default Task 2,4,2|Default Task,1,1|Default Task 3,2,3</default>
     </entry>
     <entry name="pomodoroTime" type="Int">
       <label>The time in minutes of one pomodoro</label>

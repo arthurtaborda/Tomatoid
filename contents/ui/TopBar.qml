@@ -22,32 +22,6 @@ PlasmaComponents.ToolBarLayout {
         width: 26
         height: 26
         icon: new QIcon(topBar.icon)
-        anchors.right: parent.right
-    }
-    
-    
-    Row {
-        id: playingToolBar
-        visible: tomatoid.inPomodoro && !tomatoid.inBreak
-        anchors {
-            top: parent.top
-            topMargin: -4
-            leftMargin: 15
-            right: parent.right
-        }
-        
-        PlasmaComponents.ToolButton {
-            id: pauseButton
-            iconSource: "media-playback-pause"
-            width: 22
-            height: 22
-        }
-        
-        PlasmaComponents.ToolButton {
-            id: stopButton
-            iconSource: "media-playback-stop"
-            width: 22
-            height: 22
-        }
+        //anchors.right: parent.right
     }
 }
