@@ -24,36 +24,22 @@ import org.kde.qtextracomponents 0.1 as QtExtras
 
 Item {
     id: taskItem
+    property bool done
     property string taskName
-    property bool completeTask: false
     
-    property string completeTaskIconImage: "task-complete"
-    property string completeIconImage: "dialog-ok-apply"
+    property string startIconImage: "chronometer"
     property string removeIconImage: "edit-delete"
     
-    property int iconSize: 16
+    property int iconSize: 22
     property int toolIconSize: 16
     
-    Row {
-        spacing: 10
-        anchors.left: parent.left
-        
-        PlasmaComponents.Switch {
-            visible: !taskItem.completeTask            
-        }
-        
-        QtExtras.QIconItem {
-            icon: new QIcon(taskItem.completeTaskIconImage)
-            visible: taskItem.completeTask
-            height: taskItem.toolIconSize
-            width: taskItem.toolIconSize
-        }
-        
-        PlasmaComponents.Label {            
-            text: taskName
-        }
-    }
     
+    PlasmaComponents.CheckBox {
+        checked: taskItem.done
+        text: taskName
+        anchors.left: parent.left
+        anchors.verticalCenter: toolBar.verticalCenter
+    }
     
     
     Row {
@@ -63,19 +49,19 @@ Item {
         anchors.right: parent.right
         
         PlasmaComponents.ToolButton {
-            id: completeButton
-            visible: true
-            iconSource: taskItem.completeIconImage
-            width: taskItem.toolIconSize
-            height: taskItem.toolIconSize
+            id: removeButton
+            iconSource: taskItem.removeIconImage
+            width: taskItem.iconSize
+            height: taskItem.iconSize
         }
         
-        PlasmaComponents.ToolButton {
-            id: removeButton
-            visible: true
-            iconSource: taskItem.removeIconImage
-            width: taskItem.toolIconSize
-            height: taskItem.toolIconSize
+        PlasmaComponents.Button {
+            id: startButton
+            visible: !taskItem.done
+            text: "Start"
+            iconSource: taskItem.startIconImage
+            width: 53
+            height: taskItem.iconSize
         }
     }
 }

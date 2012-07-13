@@ -51,8 +51,8 @@ PlasmaComponents.Page {
         id: tabBar
         height: 30
         
-        PlasmaComponents.TabButton { tab: incompleteTaskList; text: "Incomplete Tasks" }
-        PlasmaComponents.TabButton { tab: completeTaskList; text: "Complete Tasks" }
+        PlasmaComponents.TabButton { tab: incompleteTaskList; text: "Tasks" }
+        PlasmaComponents.TabButton { tab: completeTaskList; text: "Completed" }
         
         anchors {
             top: toolBar.bottom
@@ -81,8 +81,8 @@ PlasmaComponents.Page {
             model: incompleteTasks
             delegate: TaskItem {
                 taskName: name
-                completeTask: false
-                height: 25
+                done: false
+                height: 27
                 anchors.margins: 10
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -102,7 +102,7 @@ PlasmaComponents.Page {
             model: completeTasks
             delegate: TaskItem {
                 taskName: name
-                completeTask: true
+                done: true
                 height: 25
                 anchors.margins: 10
                 anchors.left: parent.left
