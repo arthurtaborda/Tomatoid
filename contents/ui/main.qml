@@ -23,13 +23,15 @@ import org.kde.plasma.components 0.1 as PlasmaComponents
 
 import "plasmapackage:/code/logic.js" as Logic
 
-PlasmaComponents.Page {
+Item {
     id: tomatoid
     
-    property int minimumWidth: 190
-    property int minimumHeight: 220
+    property int minimumWidth: 240
+    property int minimumHeight: 280
     property bool inPomodoro: false
     property bool inBreak: false
+    
+    property int completedPomodoros: 0
     
     ListModel { id: completeTasks }
     ListModel { id: incompleteTasks }
@@ -37,6 +39,8 @@ PlasmaComponents.Page {
     Component.onCompleted: {
         Logic.parseConfig("completeTasks", completeTasks)
         Logic.parseConfig("incompleteTasks", incompleteTasks)
+        
+        plasmoid.popupIcon("rajce")
     }
     
     PlasmaComponents.ToolBar {
@@ -69,47 +73,56 @@ PlasmaComponents.Page {
             top: tabBar.bottom
             left: parent.left
             right: parent.right
-            bottom: parent.bottom
-            topMargin: 10
+            bottom: tomatoidTimer.top
+            margins: 5
         }
         
-        ListView {
+        TaskList {
             id: incompleteTaskList
-            anchors.fill: parent
-            clip: true
             
             model: incompleteTasks
-            delegate: TaskItem {
-                taskName: name
-                done: false
-                height: 27
-                anchors.margins: 10
-                anchors.left: parent.left
-                anchors.right: parent.right
-                
-                Component.onCompleted: {
-                    console.log("container: " + name)
-                    console.log("container: " + incompleteTasks)
-                }
-            }
+            done: false
         }
         
-        
-        ListView {
+        TaskList {
             id: completeTaskList
-            anchors.fill: parent
             
             model: completeTasks
-            delegate: TaskItem {
-                taskName: name
-                done: true
-                height: 25
-                anchors.margins: 10
-                anchors.left: parent.left
-                anchors.right: parent.right
-                
-                Component.onCompleted: console.log(model)
-            }
-        }       
+            done: true
+        }   
+    }
+    
+    
+    PlasmaComponents.Label {
+        
+    }
+    
+    
+    TomatoidTimer {
+        id: tomatoidTimer
+        height: 22
+        visible: inPomodoro || inBreak
+        anchors {
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+            leftMargin: 5
+            bottomMargin: 5
+        }
+        
+        onStoped: {
+            Logic.stop()
+            incompleteTaskList.highlightFollowsCurrentItem = true
+        }
+        
+        onPomodoroEnded: {
+            console.log(taskId)
+            Logic.completePomodoro(taskId)
+            Logic.startBreak()
+        }
+        
+        onBreakEnded: {
+            Logic.stop()
+        }
     }
 }

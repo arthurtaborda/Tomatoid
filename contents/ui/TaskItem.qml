@@ -24,44 +24,86 @@ import org.kde.qtextracomponents 0.1 as QtExtras
 
 Item {
     id: taskItem
+    
     property bool done
+    property int pomos
+    property int identity
     property string taskName
     
     property string startIconImage: "chronometer"
     property string removeIconImage: "edit-delete"
     
     property int iconSize: 22
-    property int toolIconSize: 16
+    property int margin: 8
     
+    signal entered(int index)
+    signal taskDone()
+    signal removed()
+    signal started()
     
-    PlasmaComponents.CheckBox {
-        checked: taskItem.done
-        text: taskName
-        anchors.left: parent.left
-        anchors.verticalCenter: toolBar.verticalCenter
-    }
+    height: 37
+    anchors.leftMargin: margin
+    anchors.rightMargin: margin
     
-    
-    Row {
-        id: toolBar
-        spacing: 5
-        visible: !tomatoid.inPomodoro && !tomatoid.inBreak
-        anchors.right: parent.right
-        
-        PlasmaComponents.ToolButton {
-            id: removeButton
-            iconSource: taskItem.removeIconImage
-            width: taskItem.iconSize
-            height: taskItem.iconSize
-        }
-        
-        PlasmaComponents.Button {
-            id: startButton
-            visible: !taskItem.done
-            text: "Start"
-            iconSource: taskItem.startIconImage
-            width: 53
-            height: taskItem.iconSize
+    MouseArea {
+        anchors.fill: parent
+        hoverEnabled: true
+        onEntered: {
+            taskItem.entered(index)
         }
     }
+    
+    Item {
+        id: row
+        width: parent.width
+        height: parent.height
+        
+        PlasmaComponents.CheckBox {
+            id: checkBox
+            checked: done
+            enabled: !tomatoid.inPomodoro && !tomatoid.inBreak
+            anchors.left: parent.left
+            anchors.verticalCenter: parent.verticalCenter
+            
+            onClicked: taskDone()            
+        }
+        
+        
+        PlasmaComponents.Label {            
+            text: "( " + pomos + " ) " + taskName
+            anchors.left: checkBox.right
+            anchors.leftMargin: 4
+            anchors.verticalCenter: parent.verticalCenter
+        }
+        
+        
+        Row {
+            id: toolBar
+            spacing: 5
+            visible: !tomatoid.inPomodoro && !tomatoid.inBreak
+            anchors.right: parent.right
+            anchors.verticalCenter: parent.verticalCenter
+            
+            PlasmaComponents.ToolButton {
+                id: removeButton
+                iconSource: removeIconImage
+                width: iconSize
+                height: iconSize
+                
+                onClicked: removed()
+            }
+            
+            PlasmaComponents.Button {
+                id: startButton
+                visible: !done
+                text: "Start"
+                iconSource: startIconImage
+                width: 58
+                height: iconSize
+                
+                onClicked: started()
+            }
+        }
+    }
+    
 }
