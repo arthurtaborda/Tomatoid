@@ -1,5 +1,5 @@
 /*
- *   Copyright 2011 Viranch Mehta <viranch.mehta@gmail.com>
+ *   Copyright 2012 Arthur Taborda <arthur.hvt@gmail.com>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU Library General Public License as
@@ -26,10 +26,17 @@ import "plasmapackage:/code/logic.js" as Logic
 Item {
     id: tomatoid
     
+    property string appName: "Tomatoid"
+    property string appIcon: "plasmapackage:/images/tomatoid-icon.png"
     property int minimumWidth: 240
     property int minimumHeight: 280
     property bool inPomodoro: false
     property bool inBreak: false
+    
+    property int pomodoroLenght
+    property int shortBreakLenght
+    property int longBreakLenght
+    property int pomodorosPerLongBreak
     
     property int completedPomodoros: 0
     
@@ -37,11 +44,23 @@ Item {
     ListModel { id: incompleteTasks }
     
     Component.onCompleted: {
+        plasmoid.addEventListener("ConfigChanged", configChanged);
+        configChanged();
+        
         Logic.parseConfig("completeTasks", completeTasks)
         Logic.parseConfig("incompleteTasks", incompleteTasks)
         
-        plasmoid.popupIcon("rajce")
+        plasmoid.popupIcon(appIcon)
     }
+    
+    
+    function configChanged() {
+        pomodoroLenght = plasmoid.readConfig("pomodoroLenght");
+        shortBreakLenght = plasmoid.readConfig("shortBreakLenght");
+        longBreakLenght = plasmoid.readConfig("longBreakLenght");
+        pomodorosPerLongBreak = plasmoid.readConfig("pomodorosPerLongBreak");
+    }
+    
     
     PlasmaComponents.ToolBar {
         id: toolBar
@@ -119,10 +138,12 @@ Item {
             console.log(taskId)
             Logic.completePomodoro(taskId)
             Logic.startBreak()
+            Logic.notify("Pomodoro completed", "Great job! Now take a break and relax for a moment.");
         }
         
         onBreakEnded: {
             Logic.stop()
+            Logic.notify("Relax time is over", "Get back to work. Choose a task and start again.");
         }
     }
 }

@@ -1,3 +1,22 @@
+/*
+ *   Copyright 2012 Arthur Taborda <arthur.hvt@gmail.com>
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU Library General Public License as
+ *   published by the Free Software Foundation; either version 2 or
+ *   (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details
+ *
+ *   You should have received a copy of the GNU Library General Public
+ *   License along with this program; if not, write to the
+ *   Free Software Foundation, Inc.,
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
 import QtQuick 1.0
 import org.kde.plasma.core 0.1 as PlasmaCore
 import org.kde.plasma.components 0.1 as PlasmaComponents
@@ -72,8 +91,8 @@ Item {
             left: {
                 if(buttons.visible)
                     return buttons.right
-                else 
-                    return parent.left
+                    else 
+                        return parent.left
             }
             right: parent.right
             bottom: parent.bottom
@@ -81,20 +100,22 @@ Item {
         }
         
         Rectangle {
-            radius: 4
-            width: 35
-            height: 15
+            radius: 5
+            width: 48
+            height: 18
             anchors {
                 verticalCenter: parent.verticalCenter
                 horizontalCenter: parent.horizontalCenter
-            }
-            
-            PlasmaComponents.Label {
-                text: timeText
-                anchors {
-                    verticalCenter: parent.verticalCenter
-                    horizontalCenter: parent.horizontalCenter
-                }
+            }            
+        }
+        
+        PlasmaComponents.Label {
+            text: timeText
+            font.bold: true
+            font.pointSize: 13
+            anchors {
+                verticalCenter: parent.verticalCenter
+                horizontalCenter: parent.horizontalCenter
             }
         }
     }
@@ -114,8 +135,8 @@ Item {
                 totalSeconds = 0;
                 if(tomatoid.inPomodoro)
                     pomodoroEnded()
-                else
-                    breakEnded()
+                    else
+                        breakEnded()
             }
         }
     }

@@ -1,3 +1,22 @@
+/*
+ *   Copyright 2012 Arthur Taborda <arthur.hvt@gmail.com>
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU Library General Public License as
+ *   published by the Free Software Foundation; either version 2 or
+ *   (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details
+ *
+ *   You should have received a copy of the GNU Library General Public
+ *   License along with this program; if not, write to the
+ *   Free Software Foundation, Inc.,
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
 function parseConfig(configName, model) {
     var tasksSourcesString = plasmoid.readConfig(configName).toString();
     var tasks = new Array();
@@ -31,20 +50,21 @@ function addTask(taskName, pomodoros, model, configName) {
     var tasks = "";
     
     for(var i = 0; i < model.count; i++) {
-        console.log(model.get(i).taskId)
         tasks += model.get(i).taskId + "," + model.get(i).name + "," + model.get(i).pomodoros + "|"
     }
     
     var id = 0;
     
-    if(model.count > 0)
+    if(model.count > 0) {
         var id = parseInt(model.get(model.count-1).taskId) + 1
-        
-        tasks += id + "," + taskName + "," + pomodoros
-        
-        console.log(id)
-        
-        plasmoid.writeConfig(configName, tasks);
+    }
+    
+    
+    tasks += id + "," + taskName + "," + pomodoros
+    
+    
+    console.log(tasks);    
+    plasmoid.writeConfig(configName, tasks);
     model.append({"taskId":id,"name":taskName,"pomodoros":pomodoros});
 }
 
@@ -59,23 +79,23 @@ function removeCompleteTask(id) {
 }
 
 
-function removeTask(id, model, configName) {
-    console.log(id)
-    
+function removeTask(id, model, configName) {    
     var tasks = "";
     var index = 0;
     
     for(var i = 0; i < model.count; i++) {
         if(id != model.get(i).taskId) {
-            tasks += model.get(i).taskId + "," + model.get(i).name + "," + model.get(i).pomodoros;
-            if(i < model.count + 1) {
+            if(tasks != "") {
                 tasks += "|";
             }
+            tasks += model.get(i).taskId + "," + model.get(i).name + "," + model.get(i).pomodoros;
+            
         } else {
             index = i;
         }
     }
     
+    console.log(tasks);
     plasmoid.writeConfig(configName, tasks);
     model.remove(index);
 }
@@ -97,7 +117,7 @@ function undoTask(id, name, pomodoros) {
 function startTask(id) {
     console.log(id)
     tomatoidTimer.taskId = id;
-    tomatoidTimer.totalSeconds = 5;
+    tomatoidTimer.totalSeconds = pomodoroLenght * 60;
     tomatoidTimer.running = true;
     inPomodoro = true;
     inBreak = false;
@@ -107,10 +127,10 @@ function startTask(id) {
 
 function startBreak() {
     console.log(completedPomodoros)
-    if(completedPomodoros % 4 == 0) {
-        tomatoidTimer.totalSeconds = 15;
+    if(completedPomodoros % pomodorosPerLongBreak == 0) {
+        tomatoidTimer.totalSeconds = longBreakLenght * 60;
     } else {
-        tomatoidTimer.totalSeconds = 5;
+        tomatoidTimer.totalSeconds = shortBreakLenght * 60;
     }
     
     tomatoidTimer.running = true;
@@ -150,4 +170,22 @@ function completePomodoro(taskId) {
     completedPomodoros += 1
     plasmoid.writeConfig("incompleteTasks", tasks);
     incompleteTasks.setProperty(index, "pomodoros", incompleteTasks.get(index).pomodoros + 1)
+}
+
+
+
+
+function notify(summary, body) {
+    var engine = dataEngine("notifications");
+    var service = engine.serviceForSource("notification");
+    var op = service.operationDescription("createNotification");
+    op["appName"] = tomatoid.appName;
+    op["appIcon"] = "chronometer"
+    op["summary"] = summary;
+    op["body"] = body;
+    op["timeout"] = 5000;
+    
+    service.startOperationCall(op);
+    
+    console.log(op)
 }
