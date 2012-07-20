@@ -27,7 +27,6 @@ Item {
     id: tomatoid
     
     property string appName: "Tomatoid"
-    property string appIcon: "plasmapackage:/images/tomatoid-icon.png"
     property int minimumWidth: 240
     property int minimumHeight: 280
     property bool inPomodoro: false
@@ -50,7 +49,7 @@ Item {
         Logic.parseConfig("completeTasks", completeTasks)
         Logic.parseConfig("incompleteTasks", incompleteTasks)
         
-        plasmoid.popupIcon(appIcon)
+        plasmoid.popupIcon("plasmapackage:tomatoid-icon.png")
     }
     
     
@@ -108,12 +107,15 @@ Item {
             
             model: completeTasks
             done: true
-        }   
+        }
     }
     
     
-    PlasmaComponents.Label {
-        
+    PlasmaCore.FrameSvgItem {
+        id: delegateFrame
+        anchors.fill: toolBarLayout
+        imagePath: "widgets/frame"
+        prefix: "sunken"  
     }
     
     

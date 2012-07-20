@@ -65,5 +65,5 @@ ListView {
         onStarted: {
             Logic.startTask(identity)
         }
-    }
+    }      
 }
