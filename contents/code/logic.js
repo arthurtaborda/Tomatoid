@@ -70,16 +70,17 @@ function addTask(taskName, pomodoros, model, configName) {
 
 
 function removeIncompleteTask(id) {
-    removeTask(id, incompleteTasks, "incompleteTasks");
+    return removeTask(id, incompleteTasks, "incompleteTasks");
 }
 
 
 function removeCompleteTask(id) {
-    removeTask(id, completeTasks, "completeTasks");
+    return removeTask(id, completeTasks, "completeTasks");
 }
 
 
-function removeTask(id, model, configName) {    
+function removeTask(id, model, configName) {
+    var removedTask = "";
     var tasks = "";
     var index = 0;
     
@@ -91,6 +92,7 @@ function removeTask(id, model, configName) {
             tasks += model.get(i).taskId + "," + model.get(i).name + "," + model.get(i).pomodoros;
             
         } else {
+            removedTask = model.get(i).name + "," + model.get(i).pomodoros;
             index = i;
         }
     }
@@ -98,24 +100,38 @@ function removeTask(id, model, configName) {
     console.log(tasks);
     plasmoid.writeConfig(configName, tasks);
     model.remove(index);
+    
+    return removedTask; //return taskName,pomodoros
 }
 
 
-function doTask(id, name, pomodoros) {    
-    insertCompleteTask(name, pomodoros);
-    removeIncompleteTask(id);
+function doTask(id) {
+    var removedTask = removeIncompleteTask(id);
+    var split = removedTask.split(",");
+    
+    console.log(removedTask);
+    console.log(split);
+    
+    insertCompleteTask(split[0], split[1]);
 }
 
 
-function undoTask(id, name, pomodoros) {    
-    insertIncompleteTask(name, pomodoros);
-    removeCompleteTask(id);
+function undoTask(id) {    
+    var removedTask = removeCompleteTask(id);
+    var split = removedTask.split(",");
+    
+    console.log(removedTask);
+    console.log(split);
+    
+    insertIncompleteTask(split[0], split[1]);    
 }
 
 
 
 function startTask(id) {
-    console.log(id)
+    //plasmoid.popupIcon = QIcon("yakuake");
+    
+    console.log(plasmoid.popupIcon)
     tomatoidTimer.taskId = id;
     tomatoidTimer.totalSeconds = pomodoroLenght * 60;
     tomatoidTimer.running = true;
@@ -126,13 +142,15 @@ function startTask(id) {
 
 
 function startBreak() {
-    console.log(completedPomodoros)
+    //plasmoid.popupIcon = "konsole";
+    
+    console.log(plasmoid.popupIcon)
+    
     if(completedPomodoros % pomodorosPerLongBreak == 0) {
         tomatoidTimer.totalSeconds = longBreakLenght * 60;
     } else {
         tomatoidTimer.totalSeconds = shortBreakLenght * 60;
     }
-    
     tomatoidTimer.running = true;
     inPomodoro = false;
     inBreak = true;
@@ -140,6 +158,10 @@ function startBreak() {
 
 
 function stop() {
+    //plasmoid.popupIcon = QIcon("ktip");
+    
+    console.log(plasmoid.popupIcon)
+    
     tomatoidTimer.totalSeconds = 0;
     tomatoidTimer.running = false;
     inPomodoro = false;

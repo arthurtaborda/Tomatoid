@@ -49,7 +49,7 @@ Item {
         Logic.parseConfig("completeTasks", completeTasks)
         Logic.parseConfig("incompleteTasks", incompleteTasks)
         
-        plasmoid.popupIcon("plasmapackage:tomatoid-icon.png")
+        //plasmoid.popupIcon = QIcon("kde");
     }
     
     
@@ -85,6 +85,14 @@ Item {
     }
     
     
+    PlasmaCore.FrameSvgItem {
+        id: taskFrame
+        anchors.fill: toolBarLayout
+        imagePath: "widgets/frame"
+        prefix: "sunken"
+    }
+    
+    
     PlasmaComponents.TabGroup {
         id: toolBarLayout
         anchors {
@@ -100,6 +108,10 @@ Item {
             
             model: incompleteTasks
             done: false
+            
+            onDoTask: Logic.doTask(taskIdentity)            
+            onRemoveTask: Logic.removeIncompleteTask(taskIdentity)
+            onStartTask: Logic.startTask(taskIdentity)
         }
         
         TaskList {
@@ -107,15 +119,10 @@ Item {
             
             model: completeTasks
             done: true
+            
+            onDoTask: Logic.undoTask(taskIdentity)
+            onRemoveTask: Logic.removeCompleteTask(taskIdentity)
         }
-    }
-    
-    
-    PlasmaCore.FrameSvgItem {
-        id: delegateFrame
-        anchors.fill: toolBarLayout
-        imagePath: "widgets/frame"
-        prefix: "sunken"  
     }
     
     
@@ -133,7 +140,6 @@ Item {
         
         onStoped: {
             Logic.stop()
-            incompleteTaskList.highlightFollowsCurrentItem = true
         }
         
         onPomodoroEnded: {

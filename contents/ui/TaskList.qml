@@ -29,7 +29,11 @@ ListView {
     id: taskList
     anchors.fill: parent
     clip: true
-    highlightFollowsCurrentItem: !tomatoid.inPomodoro && !tomatoid.inBreak
+    highlightFollowsCurrentItem: !tomatoid.inPomodoro && !tomatoid.inBreak    
+    
+    signal doTask(int taskIdentity)
+    signal removeTask(int taskIdentity)
+    signal startTask(int taskIdentity)
     
     highlight: PlasmaComponents.Highlight {
         width: parent.width
@@ -44,26 +48,9 @@ ListView {
         anchors.left: parent.left
         anchors.right: parent.right
         
-        onEntered: taskList.currentIndex = index;
-        
-        onTaskDone: {
-            if (!item.done) {
-                Logic.doTask(identity, taskName, pomos)
-            } else {
-                Logic.undoTask(identity, taskName, pomos)
-            }
-        }
-        
-        onRemoved: {
-            if(item.done) {
-                Logic.removeCompleteTask(identity)
-            } else {
-                Logic.removeIncompleteTask(identity)
-            }
-        }
-        
-        onStarted: {
-            Logic.startTask(identity)
-        }
+        onEntered: taskList.currentIndex = index;        
+        onTaskDone: doTask(identity)        
+        onRemoved: removeTask(identity)        
+        onStarted: startTask(identity)
     }      
 }
