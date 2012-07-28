@@ -33,8 +33,8 @@ Item {
     
     property string timeText: Qt.formatTime(new Date(0,0,0,0,0, seconds), "mm:ss")
     
-    property int seconds
-    property int totalSeconds
+    property int seconds //variable
+    property int totalSeconds //constant
     
     property int taskId
     
@@ -43,7 +43,6 @@ Item {
     signal pomodoroEnded()
     
     onTotalSecondsChanged: {
-        console.log("changed!")
         seconds = totalSeconds;
     } 
     
@@ -98,25 +97,30 @@ Item {
             bottom: parent.bottom
             top: parent.top
         }
-        
-        Rectangle {
-            radius: 5
-            width: 48
-            height: 18
-            anchors {
-                verticalCenter: parent.verticalCenter
-                horizontalCenter: parent.horizontalCenter
-            }            
-        }
-        
-        PlasmaComponents.Label {
-            text: timeText
-            font.bold: true
-            font.pointSize: 13
-            anchors {
-                verticalCenter: parent.verticalCenter
-                horizontalCenter: parent.horizontalCenter
-            }
+    }
+    
+    
+    Rectangle {
+        id: timerRect
+        radius: 5
+        width: 50
+        height: 20
+        border.width: 1
+        border.color: "#777777"
+        anchors {
+            //right: parent.right
+            verticalCenter: progressBar.verticalCenter
+            horizontalCenter: progressBar.horizontalCenter
+        }            
+    }
+    
+    PlasmaComponents.Label {
+        text: timeText
+        //font.bold: true
+        font.pointSize: 12
+        anchors {
+            verticalCenter: timerRect.verticalCenter
+            horizontalCenter: timerRect.horizontalCenter
         }
     }
     
@@ -133,10 +137,11 @@ Item {
                 seconds -= 1;
             } else {
                 totalSeconds = 0;
-                if(tomatoid.inPomodoro)
+                if(tomatoid.inPomodoro) {
                     pomodoroEnded()
-                    else
-                        breakEnded()
+                } else {
+                    breakEnded()
+                }
             }
         }
     }
