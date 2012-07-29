@@ -40,6 +40,7 @@ Item {
     signal taskDone()
     signal removed()
     signal started()
+    signal exited()
     
     height: 37
     anchors.leftMargin: margin
@@ -51,59 +52,63 @@ Item {
         onEntered: {
             taskItem.entered(index)
         }
-    }
-    
-    Item {
-        id: row
-        width: parent.width
-        height: parent.height
         
-        PlasmaComponents.CheckBox {
-            id: checkBox
-            checked: done
-            enabled: !tomatoid.inPomodoro && !tomatoid.inBreak
-            anchors.left: parent.left
-            anchors.verticalCenter: parent.verticalCenter
-            
-            onClicked: taskDone()            
+        onExited: {
+            taskItem.exited(index)
         }
         
         
-        PlasmaComponents.Label {            
-            text: "( " + pomos + " ) " + taskName
-            anchors.left: checkBox.right
-            anchors.leftMargin: 4
-            anchors.verticalCenter: parent.verticalCenter
-        }
-        
-        
-        Row {
-            id: toolBar
-            spacing: 5
-            visible: !tomatoid.inPomodoro && !tomatoid.inBreak
-            anchors.right: parent.right
-            anchors.verticalCenter: parent.verticalCenter
+        Item {
+            id: row
+            width: parent.width
+            height: parent.height
             
-            PlasmaComponents.ToolButton {
-                id: removeButton
-                iconSource: removeIconImage
-                width: iconSize
-                height: iconSize
+            PlasmaComponents.CheckBox {
+                id: checkBox
+                checked: done
+                enabled: !tomatoid.inPomodoro && !tomatoid.inBreak
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
                 
-                onClicked: removed()
+                onClicked: taskDone()            
             }
             
-            PlasmaComponents.Button {
-                id: startButton
-                visible: !done
-                text: "Start"
-                iconSource: startIconImage
-                width: 58
-                height: iconSize
-                
-                onClicked: started()
+            
+            PlasmaComponents.Label {            
+                text: "( " + pomos + " ) " + taskName
+                anchors.left: checkBox.right
+                anchors.leftMargin: 4
+                anchors.verticalCenter: parent.verticalCenter
             }
-        }
-    }
-    
+            
+            
+            Row {
+                id: toolBar
+                spacing: 5
+                visible: !tomatoid.inPomodoro && !tomatoid.inBreak
+                anchors.right: parent.right
+                anchors.verticalCenter: parent.verticalCenter
+                
+                PlasmaComponents.ToolButton {
+                    id: removeButton
+                    iconSource: removeIconImage
+                    width: iconSize
+                    height: iconSize
+                    
+                    onClicked: removed()
+                }
+                
+                PlasmaComponents.Button {
+                    id: startButton
+                    visible: !done
+                    text: "Start"
+                    iconSource: startIconImage
+                    width: 58
+                    height: iconSize
+                    
+                    onClicked: started()
+                }
+            }
+        }        
+    }    
 }

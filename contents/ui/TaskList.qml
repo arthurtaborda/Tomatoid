@@ -24,12 +24,14 @@ import org.kde.plasma.components 0.1 as PlasmaComponents
 import "plasmapackage:/code/logic.js" as Logic
 
 ListView {
-    property bool done
+    property bool done //is a list of done tasks?
     
     id: taskList
     anchors.fill: parent
     clip: true
-    highlightFollowsCurrentItem: !tomatoid.inPomodoro && !tomatoid.inBreak    
+    highlightFollowsCurrentItem: !tomatoid.inPomodoro && !tomatoid.inBreak //when timer is running the highlight will not change
+    
+    Component.onCompleted: currentIndex = -1
     
     signal doTask(int taskIdentity)
     signal removeTask(int taskIdentity)
@@ -37,6 +39,13 @@ ListView {
     
     highlight: PlasmaComponents.Highlight {
         width: parent.width
+        opacity: 0
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 300
+                easing.type: Easing.OutQuad
+            }
+        }
     }
     
     delegate: TaskItem {
@@ -48,9 +57,22 @@ ListView {
         anchors.left: parent.left
         anchors.right: parent.right
         
-        onEntered: taskList.currentIndex = index;        
+        onEntered: {
+            taskList.currentIndex = index;
+            
+            if(!done || highlightFollowsCurrentItem) { //dont enable highlight in completed task list when timer is running
+                taskList.highlightItem.opacity = 1; //reenable opacity when entered an item
+            }
+        }      
         onTaskDone: doTask(identity)        
         onRemoved: removeTask(identity)        
         onStarted: startTask(identity)
+        onExited: {
+            if(highlightFollowsCurrentItem) { //when timer is not running turn off highlight when exited an item
+                taskList.highlightItem.opacity = 0;
+            } else {
+                taskList.highlightItem.opacity = done ? 0 : 1; //when timer is running dont turn off highlight in undone task list
+            }
+        }
     }      
 }

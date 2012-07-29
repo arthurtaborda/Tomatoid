@@ -133,7 +133,7 @@ function startTask(id) {
     
     console.log(plasmoid.popupIcon)
     tomatoidTimer.taskId = id;
-    tomatoidTimer.totalSeconds = 3;//pomodoroLenght * 60;
+    tomatoidTimer.totalSeconds = pomodoroLenght * 60;
     tomatoidTimer.running = true;
     inPomodoro = true;
     inBreak = false;
@@ -147,9 +147,9 @@ function startBreak() {
     console.log(plasmoid.popupIcon)
     
     if(completedPomodoros % pomodorosPerLongBreak == 0) {
-        tomatoidTimer.totalSeconds = 10;//longBreakLenght * 60;
+        tomatoidTimer.totalSeconds = longBreakLenght * 60;
     } else {
-        tomatoidTimer.totalSeconds = 5;//shortBreakLenght * 60;
+        tomatoidTimer.totalSeconds = shortBreakLenght * 60;
     }
     tomatoidTimer.running = true;
     inPomodoro = false;
