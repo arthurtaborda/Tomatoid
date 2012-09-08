@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+    http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+        <kcfgfile name=""/>
+        
+        <group name="General">
+            <entry name="incompleteTasks" type="String">
+                <label>Tasks</label>
+                <default></default>
+            </entry>
+            <entry name="completeTasks" type="String">
+                <label>Tasks</label>
+                <default></default>
+            </entry>
+            <entry name="pomodoroLenght" type="Int">
+                <label>The lenght in minutes of one pomodoro</label>
+                <default>25</default>
+            </entry>
+            <entry name="shortBreakLenght" type="Int">
+                <label>The lenght in minutes of a short break</label>
+                <default>5</default>
+            </entry>
+            <entry name="longBreakLenght" type="Int">
+                <label>The lenght in minutes of a long break</label>
+                <default>30</default>
+            </entry>
+            <entry name="pomodorosPerLongBreak" type="Int">
+                <label>The amount of pomodoros needed to take a long break</label>
+                <default>4</default>
+            </entry>
+        </group>        
+</kcfg>
+    
