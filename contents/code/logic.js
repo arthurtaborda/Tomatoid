@@ -128,13 +128,14 @@ function undoTask(id) {
 
 
 
-function startTask(id) {
+function startTask(id, name) {
     //plasmoid.popupIcon = QIcon("yakuake");
     
     console.log(plasmoid.popupIcon)
-    tomatoidTimer.taskId = id;
-    tomatoidTimer.totalSeconds = pomodoroLenght * 60;
-    tomatoidTimer.running = true;
+    timer.taskId = id;
+    timer.taskName = name;
+    timer.totalSeconds = pomodoroLenght * 60;
+    timer.running = true;
     inPomodoro = true;
     inBreak = false;
 }
@@ -147,11 +148,11 @@ function startBreak() {
     console.log(plasmoid.popupIcon)
     
     if(completedPomodoros % pomodorosPerLongBreak == 0) {
-        tomatoidTimer.totalSeconds = longBreakLenght * 60;
+        timer.totalSeconds = longBreakLenght * 60;
     } else {
-        tomatoidTimer.totalSeconds = shortBreakLenght * 60;
+        timer.totalSeconds = shortBreakLenght * 60;
     }
-    tomatoidTimer.running = true;
+    timer.running = true;
     inPomodoro = false;
     inBreak = true;
 }
@@ -162,10 +163,10 @@ function stop() {
     
     console.log(plasmoid.popupIcon)
     
-    tomatoidTimer.totalSeconds = 0;
-    tomatoidTimer.running = false;
+    timer.running = false;
     inPomodoro = false;
     inBreak = false;
+    timer.totalSeconds = 0;
 }
 
 

@@ -29,13 +29,13 @@ ListView {
     id: taskList
     anchors.fill: parent
     clip: true
-    highlightFollowsCurrentItem: !tomatoid.inPomodoro && !tomatoid.inBreak //when timer is running the highlight will not change
+    highlightFollowsCurrentItem: !tomatoid.timerRunning //when timer is running the highlight will not change
     
     Component.onCompleted: currentIndex = -1
     
     signal doTask(int taskIdentity)
     signal removeTask(int taskIdentity)
-    signal startTask(int taskIdentity)
+    signal startTask(int taskIdentity, string taskName)
     
     highlight: PlasmaComponents.Highlight {
         width: parent.width
@@ -60,18 +60,18 @@ ListView {
         onEntered: {
             taskList.currentIndex = index;
             
-            if(!done || highlightFollowsCurrentItem) { //dont enable highlight in completed task list when timer is running
+            if(!done || !tomatoid.timerRunning) { //dont enable highlight in completed task list when timer is running
                 taskList.highlightItem.opacity = 1; //reenable opacity when entered an item
             }
         }      
         onTaskDone: doTask(identity)        
         onRemoved: removeTask(identity)        
-        onStarted: startTask(identity)
+        onStarted: startTask(identity, taskName)
         onExited: {
-            if(highlightFollowsCurrentItem) { //when timer is not running turn off highlight when exited an item
-                taskList.highlightItem.opacity = 0;
-            } else {
+            if(tomatoid.timerRunning) {
                 taskList.highlightItem.opacity = done ? 0 : 1; //when timer is running dont turn off highlight in undone task list
+            } else {
+                taskList.highlightItem.opacity = 0; //when timer is not running turn off highlight when exited an item
             }
         }
     }      

@@ -20,7 +20,6 @@
 import QtQuick 1.1
 import org.kde.plasma.components 0.1 as PlasmaComponents
 import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.qtextracomponents 0.1 as QtExtras
 
 Item {
     id: taskItem
@@ -42,7 +41,7 @@ Item {
     signal started()
     signal exited()
     
-    height: 37
+    height: 32
     anchors.leftMargin: margin
     anchors.rightMargin: margin
     
@@ -66,7 +65,7 @@ Item {
             PlasmaComponents.CheckBox {
                 id: checkBox
                 checked: done
-                enabled: !tomatoid.inPomodoro && !tomatoid.inBreak
+                enabled: !tomatoid.timerRunning
                 anchors.left: parent.left
                 anchors.verticalCenter: parent.verticalCenter
                 
@@ -85,7 +84,7 @@ Item {
             Row {
                 id: toolBar
                 spacing: 5
-                visible: !tomatoid.inPomodoro && !tomatoid.inBreak
+                visible: !tomatoid.timerRunning
                 anchors.right: parent.right
                 anchors.verticalCenter: parent.verticalCenter
                 

@@ -24,104 +24,20 @@ import org.kde.qtextracomponents 0.1 as QtExtras
 
 import "plasmapackage:/code/logic.js" as Logic
 
-Item {
+Item {    
     property alias running: timer.running
     
-    property string stopButtonImage: "media-playback-stop"
-    property string playButtonImage: "media-playback-start"
-    property string pauseButtonImage: "media-playback-pause"
-    
-    property string timeText: Qt.formatTime(new Date(0,0,0,0,0, seconds), "mm:ss")
-    
-    property int seconds //variable
+    property int seconds // variable
     property int totalSeconds //constant
     
     property int taskId
+    property string taskName
     
-    signal stoped()
-    signal breakEnded()
-    signal pomodoroEnded()
+    signal timeout()
+    
     
     onTotalSecondsChanged: {
         seconds = totalSeconds;
-    } 
-    
-    function progressBarSize() {
-        var pct = progressBarSize / seconds;
-        var width = barBorder.width
-        
-    }
-    
-    Row {
-        id: buttons
-        spacing: 3
-        visible: tomatoid.inPomodoro
-        
-        PlasmaComponents.Button {
-            id: playPauseButton
-            iconSource: pauseButtonImage
-            
-            onClicked: {
-                if(timer.running) {
-                    iconSource = playButtonImage;
-                } else {
-                    iconSource = pauseButtonImage;
-                }
-                
-                timer.running = !timer.running
-            }
-        }
-        
-        PlasmaComponents.Button {
-            id: stopButton
-            iconSource: stopButtonImage
-            
-            onClicked: stoped()
-        }
-    }
-    
-    PlasmaComponents.ProgressBar {
-        id: progressBar
-        minimumValue: 0
-        maximumValue: 1
-        value: seconds / totalSeconds
-        anchors {
-            margins: 4
-            left: {
-                if(buttons.visible)
-                    return buttons.right
-                    else 
-                        return parent.left
-            }
-            right: parent.right
-            bottom: parent.bottom
-            top: parent.top
-        }
-    }
-    
-    
-    Rectangle {
-        id: timerRect
-        radius: 5
-        width: 50
-        height: 20
-        border.width: 1
-        border.color: "#777777"
-        anchors {
-            //right: parent.right
-            verticalCenter: progressBar.verticalCenter
-            horizontalCenter: progressBar.horizontalCenter
-        }            
-    }
-    
-    PlasmaComponents.Label {
-        text: timeText
-        //font.bold: true
-        font.pointSize: 12
-        anchors {
-            verticalCenter: timerRect.verticalCenter
-            horizontalCenter: timerRect.horizontalCenter
-        }
     }
     
     
@@ -137,11 +53,7 @@ Item {
                 seconds -= 1;
             } else {
                 totalSeconds = 0;
-                if(tomatoid.inPomodoro) {
-                    pomodoroEnded()
-                } else {
-                    breakEnded()
-                }
+                timeout()
             }
         }
     }

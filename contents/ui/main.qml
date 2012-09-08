@@ -31,20 +31,22 @@ Item {
     property int minimumHeight: 280
     property bool inPomodoro: false
     property bool inBreak: false
+    property bool timerRunning: inPomodoro || inBreak
     
     property int pomodoroLenght
     property int shortBreakLenght
     property int longBreakLenght
     property int pomodorosPerLongBreak
     
+    
     property int completedPomodoros: 0
     
     ListModel { id: completeTasks }
     ListModel { id: incompleteTasks }
     
+    
     Component.onCompleted: {
-        plasmoid.addEventListener("ConfigChanged", configChanged);
-        configChanged();
+        plasmoid.addEventListener("ConfigChanged", configChanged)
         
         Logic.parseConfig("completeTasks", completeTasks)
         Logic.parseConfig("incompleteTasks", incompleteTasks)
@@ -59,6 +61,15 @@ Item {
         longBreakLenght = plasmoid.readConfig("longBreakLenght");
         pomodorosPerLongBreak = plasmoid.readConfig("pomodorosPerLongBreak");
     }
+    
+    
+    property Component compactRepresentation: Component {
+        TomatoidIcon {
+            id: icon
+        }
+    }
+    
+    
     
     
     PlasmaComponents.ToolBar {
@@ -80,7 +91,9 @@ Item {
             top: toolBar.bottom
             left: parent.left
             right: parent.right
-            margins: 10
+            margins: 7
+            leftMargin: 25
+            rightMargin: 25
         }
     }
     
@@ -99,8 +112,16 @@ Item {
             top: tabBar.bottom
             left: parent.left
             right: parent.right
-            bottom: tomatoidTimer.top
+            bottom: parent.bottom
+            bottomMargin: timerRunning ? 32 : 5
             margins: 5
+            
+            Behavior on bottomMargin {
+                NumberAnimation {
+                    duration: 400
+                    easing.type: Easing.OutQuad
+                }
+            }
         }
         
         TaskList {
@@ -111,7 +132,7 @@ Item {
             
             onDoTask: Logic.doTask(taskIdentity)            
             onRemoveTask: Logic.removeIncompleteTask(taskIdentity)
-            onStartTask: Logic.startTask(taskIdentity)
+            onStartTask: Logic.startTask(taskIdentity, taskName)
         }
         
         TaskList {
@@ -126,32 +147,55 @@ Item {
     }
     
     
-    TomatoidTimer {
-        id: tomatoidTimer
+    property QtObject timer: TomatoidTimer {
+        id: timer
+        
+        onTimeout: {
+            if(inPomodoro) {
+                console.log(taskId)
+                Logic.completePomodoro(taskId)
+                Logic.startBreak()
+                Logic.notify("Pomodoro completed", "Great job! Now take a break and relax for a moment.");
+            } else if(inBreak) {
+                Logic.stop()
+                Logic.notify("Relax time is over", "Get back to work. Choose a task and start again.");
+            }
+        }
+    }
+    
+    
+    Chronometer {
+        id: chronometer
         height: 22
-        visible: inPomodoro || inBreak
+        seconds: timer.seconds
+        totalSeconds: timer.totalSeconds
+        opacity: timerRunning * 1
+        
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 300
+                easing.type: Easing.OutQuad
+            }
+        }
+        
+        onPlayPressed: {
+            timer.running = true
+        }
+        
+        onPausePressed: {
+            timer.running = false
+        }
+        
+        onStopPressed: {
+            Logic.stop()
+        }
+        
         anchors {
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
+            left: tomatoid.left
+            right: tomatoid.right
+            bottom: tomatoid.bottom
             leftMargin: 5
             bottomMargin: 5
-        }
-        
-        onStoped: {
-            Logic.stop()
-        }
-        
-        onPomodoroEnded: {
-            console.log(taskId)
-            Logic.completePomodoro(taskId)
-            Logic.startBreak()
-            Logic.notify("Pomodoro completed", "Great job! Now take a break and relax for a moment.");
-        }
-        
-        onBreakEnded: {
-            Logic.stop()
-            Logic.notify("Relax time is over", "Get back to work. Choose a task and start again.");
         }
     }
 }
