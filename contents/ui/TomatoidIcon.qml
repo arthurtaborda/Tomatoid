@@ -1,5 +1,5 @@
 /*
- *   Copyright 2011 Viranch Mehta <viranch.mehta@gmail.com>
+ *   Copyright 2013 Arthur Taborda <arthur.hvt@gmail.com>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU Library General Public License as
@@ -17,11 +17,11 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-import QtQuick 1.1
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.qtextracomponents 0.1 as QtExtras
+ import QtQuick 1.1
+ import org.kde.plasma.core 0.1 as PlasmaCore
+ import org.kde.qtextracomponents 0.1 as QtExtras
 
-Item {
+ Item {
     id: compactItem
     anchors.fill: parent
 
@@ -34,11 +34,6 @@ Item {
     property string taskName: timer.taskName
 
     property string timeString: Qt.formatTime(new Date(0,0,0,0,0, seconds), "mm:ss")
-
-
-    property string redIcon: "../icons/tomatoid-icon-red.png"
-    property string greyIcon: "drawing.svg"
-    property string greenIcon: "../icons/tomatoid-icon-green.png"
 
 
 
@@ -66,35 +61,16 @@ Item {
             anchors.fill: parent
             source: {
                 if(root.inPomodoro)
-                    return "tomatoid-running"
+                return "tomatoid-running"
                 if(root.inBreak)
-                    return "tomatoid-break"
+                return "tomatoid-break"
                 else
-                    return "tomatoid-idle"
+                return "tomatoid-idle"
             }
         }
-
-        /*QtExtras.QIconItem {
-            icon: {
-                if(root.inPomodoro)
-                    return new QIcon(compactItem.redIcon)
-                if(root.inBreak)
-                    return new QIcon(compactItem.greenIcon)
-                else
-                    return new QIcon(compactItem.greyIcon)
-            }
-            anchors.fill: parent
-            //fillMode: Image.PreserveAspectFit
-            smooth: true
-        }
-
-        QtExtras.QIconItem {
-            anchors.fill: parent
-            icon: QIcon("konqueror")
-        }*/
 
         Item {
-            id: batteryContainer
+            id: timerContainer
             anchors.centerIn: parent
             property real size: Math.min(parent.width, parent.height)
             width: size

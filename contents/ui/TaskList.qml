@@ -1,5 +1,5 @@
 /*
- *   Copyright 2012 Arthur Taborda <arthur.hvt@gmail.com>
+ *   Copyright 2013 Arthur Taborda <arthur.hvt@gmail.com>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU Library General Public License as
@@ -17,13 +17,13 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-import QtQuick 1.1
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
+ import QtQuick 1.1
+ import org.kde.plasma.core 0.1 as PlasmaCore
+ import org.kde.plasma.components 0.1 as PlasmaComponents
 
-import "plasmapackage:/code/logic.js" as Logic
+ import "plasmapackage:/code/logic.js" as Logic
 
-ListView {
+ ListView {
     property bool done //is a list of done tasks?
 
     id: taskList
@@ -70,7 +70,7 @@ ListView {
         onExited: {
             if(tomatoid.timerRunning) {
                 taskList.highlightItem.opacity = done ? 0 : 1; //when timer is running dont turn off highlight in undone task list
-            } else {
+                } else {
                 taskList.highlightItem.opacity = 0; //when timer is not running turn off highlight when exited an item
             }
         }

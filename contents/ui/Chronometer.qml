@@ -1,5 +1,5 @@
 /*
- *   Copyright 2012 Arthur Taborda <arthur.hvt@gmail.com>
+ *   Copyright 2013 Arthur Taborda <arthur.hvt@gmail.com>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU Library General Public License as
@@ -17,13 +17,13 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-import QtQuick 1.1
-import org.kde.plasma.components 0.1 as PlasmaComponents
+ import QtQuick 1.1
+ import org.kde.plasma.components 0.1 as PlasmaComponents
 
-Item {
-    property string stopButtonImage: "media-playback-stop"
-    property string playButtonImage: "media-playback-start"
-    property string pauseButtonImage: "media-playback-pause"
+ Item {
+    property string stopButtonImage: "kt-stop"
+    property string playButtonImage: "kt-start"
+    property string pauseButtonImage: "kt-pause"
 
     property string timeString: Qt.formatTime(new Date(0,0,0,0,0, seconds), "mm:ss")
 
@@ -43,13 +43,13 @@ Item {
         PlasmaComponents.Button {
             id: playPauseButton
             iconSource: {
-	      if(playing) return pauseButtonImage
-	      else return playButtonImage
-	    }
+                if(playing) return pauseButtonImage
+                else return playButtonImage
+            }
 
-            onClicked: {
-                if(playing) {
-                    pausePressed()
+          onClicked: {
+            if(playing) {
+                pausePressed()
                 } else {
                     playPressed()
                 }
@@ -61,9 +61,9 @@ Item {
             id: stopButton
             iconSource: stopButtonImage
             onClicked: {
-	      playing = !playing
-	      stopPressed()
-	    }
+                playing = !playing
+                stopPressed()
+            }
         }
     }
 
@@ -76,9 +76,9 @@ Item {
             margins: 4
             left: {
                 if(buttons.visible)
-                    return buttons.right
-                    else
-                        return parent.left
+                return buttons.right
+                else
+                return parent.left
             }
             right: parent.right
             bottom: parent.bottom

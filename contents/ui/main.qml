@@ -1,5 +1,5 @@
 /*
- *   Copyright 2012 Arthur Taborda <arthur.hvt@gmail.com>
+ *   Copyright 2013 Arthur Taborda <arthur.hvt@gmail.com>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU Library General Public License as
@@ -17,13 +17,13 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-import QtQuick 1.1
-import org.kde.plasma.core 0.1 as PlasmaCore
-import org.kde.plasma.components 0.1 as PlasmaComponents
+ import QtQuick 1.1
+ import org.kde.plasma.core 0.1 as PlasmaCore
+ import org.kde.plasma.components 0.1 as PlasmaComponents
 
-import "plasmapackage:/code/logic.js" as Logic
+ import "plasmapackage:/code/logic.js" as Logic
 
-Item {
+ Item {
     id: tomatoid
 
     property string appName: "Tomatoid"
@@ -156,12 +156,12 @@ Item {
                 Logic.completePomodoro(taskId)
                 Logic.startBreak()
                 Logic.notify("Pomodoro completed", "Great job! Now take a break and relax for a moment.");
-            } else if(inBreak) {
-                Logic.stop()
-                Logic.notify("Relax time is over", "Get back to work. Choose a task and start again.");
+                } else if(inBreak) {
+                    Logic.stop()
+                    Logic.notify("Relax time is over", "Get back to work. Choose a task and start again.");
+                }
             }
         }
-    }
 
     //chronometer with action buttons and regressive progress bar in the bottom. This will get the time from TomatoidTimer
     Chronometer {

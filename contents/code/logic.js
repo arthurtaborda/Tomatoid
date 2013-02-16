@@ -1,5 +1,5 @@
 /*
- *   Copyright 2012 Arthur Taborda <arthur.hvt@gmail.com>
+ *   Copyright 2013 Arthur Taborda <arthur.hvt@gmail.com>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU Library General Public License as
@@ -17,7 +17,7 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-function parseConfig(configName, model) {
+ function parseConfig(configName, model) {
     var tasksSourcesString = plasmoid.readConfig(configName).toString();
     var tasks = new Array();
     if (tasksSourcesString.length > 0)
@@ -146,10 +146,10 @@ function startBreak() {
 
     if(completedPomodoros % pomodorosPerLongBreak == 0) {
         timer.totalSeconds = //5;
-	longBreakLenght * 60;
+        longBreakLenght * 60;
     } else {
         timer.totalSeconds = //5;
-	shortBreakLenght * 60;
+        shortBreakLenght * 60;
     }
     timer.running = true;
     inPomodoro = false;
@@ -196,12 +196,6 @@ function completePomodoro(taskId) {
 
 
 function notify(summary, body) {
-//     var engine = dataEngine("executable")
-//     plasmoid.dataUpdated = function(source,data) {
-// 	label.text=data["stdout"];
-//     }
-//     engine.connectSource("df -h", plasmoid, 50);
-
     var engine = dataEngine("notifications");
     var service = engine.serviceForSource("notification");
     var op = service.operationDescription("createNotification");
