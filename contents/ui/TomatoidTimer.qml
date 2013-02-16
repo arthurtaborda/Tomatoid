@@ -18,39 +18,46 @@
  */
 
 import QtQuick 1.0
+// import Qt.multimedia 1.0
 import org.kde.plasma.core 0.1 as PlasmaCore
 import org.kde.plasma.components 0.1 as PlasmaComponents
 import org.kde.qtextracomponents 0.1 as QtExtras
 
 import "plasmapackage:/code/logic.js" as Logic
 
-Item {    
+Item {
     property alias running: timer.running
-    
+
     property int seconds // variable
     property int totalSeconds //constant
-    
+
     property int taskId
     property string taskName
-    
+
     signal timeout()
-    
-    
+
+
     onTotalSecondsChanged: {
         seconds = totalSeconds;
     }
-    
-    
+
+//     Audio {
+//          id: ticking
+//          source: "data/tomatoid-ticking.wav"
+//      }
+
+
     Timer {
         id: timer
         interval: 1000
         running: false
         repeat: true
-        
+
         onTriggered: {
             console.log(seconds)
             if(seconds > 1) {
                 seconds -= 1;
+//                 ticking.play()
             } else {
                 totalSeconds = 0;
                 timeout()

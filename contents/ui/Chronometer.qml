@@ -20,47 +20,53 @@
 import QtQuick 1.1
 import org.kde.plasma.components 0.1 as PlasmaComponents
 
-Item {    
+Item {
     property string stopButtonImage: "media-playback-stop"
     property string playButtonImage: "media-playback-start"
     property string pauseButtonImage: "media-playback-pause"
-    
+
     property string timeString: Qt.formatTime(new Date(0,0,0,0,0, seconds), "mm:ss")
-    
+
+    property bool playing: true
     property int seconds
     property int totalSeconds
-    
+
     signal stopPressed()
     signal playPressed()
     signal pausePressed()
-    
+
     Row {
         id: buttons
         spacing: 3
         visible: inPomodoro
-        
+
         PlasmaComponents.Button {
             id: playPauseButton
-            iconSource: pauseButtonImage
-            
-            onClicked: {                
-                if(iconSource == playButtonImage) {
-                    iconSource = pauseButtonImage
-                    playPressed()
-                } else {
-                    iconSource = playButtonImage
+            iconSource: {
+	      if(playing) return pauseButtonImage
+	      else return playButtonImage
+	    }
+
+            onClicked: {
+                if(playing) {
                     pausePressed()
+                } else {
+                    playPressed()
                 }
+                playing = !playing
             }
         }
-        
+
         PlasmaComponents.Button {
             id: stopButton
-            iconSource: stopButtonImage            
-            onClicked: stopPressed()
+            iconSource: stopButtonImage
+            onClicked: {
+	      playing = !playing
+	      stopPressed()
+	    }
         }
     }
-    
+
     PlasmaComponents.ProgressBar {
         id: progressBar
         minimumValue: 0
@@ -71,7 +77,7 @@ Item {
             left: {
                 if(buttons.visible)
                     return buttons.right
-                    else 
+                    else
                         return parent.left
             }
             right: parent.right
@@ -79,8 +85,8 @@ Item {
             top: parent.top
         }
     }
-    
-    
+
+
     Rectangle {
         id: timerRect
         radius: 5
@@ -89,15 +95,13 @@ Item {
         border.width: 1
         border.color: "#777777"
         anchors {
-            //right: parent.right
             verticalCenter: progressBar.verticalCenter
             horizontalCenter: progressBar.horizontalCenter
-        }            
+        }
     }
-    
+
     PlasmaComponents.Label {
         text: timeString
-        //font.bold: true
         color: "#000000"
         font.pointSize: 12
         anchors {

@@ -24,27 +24,34 @@ import org.kde.qtextracomponents 0.1 as QtExtras
 Item {
     id: compactItem
     anchors.fill: parent
-    
+
     property bool showOverlay: true
-    
+
+    property QtObject root: plasmoid.rootItem
     property QtObject timer: plasmoid.rootItem.timer
     property bool timerRunning: seconds > 0 || timer.running
-    property int seconds: timer.seconds    
+    property int seconds: timer.seconds
     property string taskName: timer.taskName
-    
+
     property string timeString: Qt.formatTime(new Date(0,0,0,0,0, seconds), "mm:ss")
-    
-    
+
+
+    property string redIcon: "../icons/tomatoid-icon-red.png"
+    property string greyIcon: "drawing.svg"
+    property string greenIcon: "../icons/tomatoid-icon-green.png"
+
+
+
     function configChanged() {
         showOverlay = plasmoid.readConfig("showBatteryString");
     }
-    
-    
+
+
     function isConstrained() {
         return (plasmoid.formFactor == Vertical || plasmoid.formFactor == Horizontal);
     }
-    
-    
+
+
     MouseArea {
         id: mouseArea
         anchors.fill: parent
@@ -52,21 +59,47 @@ Item {
         property int minimumWidth
         property int minimumHeight
         onClicked: plasmoid.togglePopup()
-        
+
+        PlasmaCore.Theme { id: theme }
+
+        PlasmaCore.IconItem {
+            anchors.fill: parent
+            source: {
+                if(root.inPomodoro)
+                    return "tomatoid-running"
+                if(root.inBreak)
+                    return "tomatoid-break"
+                else
+                    return "tomatoid-idle"
+            }
+        }
+
+        /*QtExtras.QIconItem {
+            icon: {
+                if(root.inPomodoro)
+                    return new QIcon(compactItem.redIcon)
+                if(root.inBreak)
+                    return new QIcon(compactItem.greenIcon)
+                else
+                    return new QIcon(compactItem.greyIcon)
+            }
+            anchors.fill: parent
+            //fillMode: Image.PreserveAspectFit
+            smooth: true
+        }
+
         QtExtras.QIconItem {
             anchors.fill: parent
             icon: QIcon("konqueror")
-        }
-        
+        }*/
+
         Item {
             id: batteryContainer
             anchors.centerIn: parent
             property real size: Math.min(parent.width, parent.height)
             width: size
             height: size
-            
-            PlasmaCore.Theme { id: theme }
-            
+
             Rectangle {
                 id: labelRect
                 // should be 40 when size is 90
@@ -79,10 +112,10 @@ Item {
                 radius: 4
                 opacity: timerRunning ?
                 (showOverlay ? 0.5 : (isConstrained() ? 0 : mouseArea.containsMouse*0.7)) : 0
-                
+
                 Behavior on opacity { NumberAnimation { duration: 100 } }
             }
-            
+
             Text {
                 id: overlayText
                 text: timeString
@@ -91,12 +124,6 @@ Item {
                 anchors.centerIn: labelRect
                 opacity: labelRect.opacity > 0 ? 1 : 0
             }
-        }
-        
-        PlasmaCore.ToolTip {
-            target: batteryContainer
-            subText: timerRunning ? "<b>" + taskName + ": </b>" + timeString : "<b>Not Running</b>";
-            image: "rajce"
         }
     }
 }

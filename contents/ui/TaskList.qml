@@ -25,18 +25,18 @@ import "plasmapackage:/code/logic.js" as Logic
 
 ListView {
     property bool done //is a list of done tasks?
-    
+
     id: taskList
     anchors.fill: parent
     clip: true
     highlightFollowsCurrentItem: !tomatoid.timerRunning //when timer is running the highlight will not change
-    
+
     Component.onCompleted: currentIndex = -1
-    
+
     signal doTask(int taskIdentity)
     signal removeTask(int taskIdentity)
     signal startTask(int taskIdentity, string taskName)
-    
+
     highlight: PlasmaComponents.Highlight {
         width: parent.width
         opacity: 0
@@ -47,7 +47,7 @@ ListView {
             }
         }
     }
-    
+
     delegate: TaskItem {
         id: item
         identity: taskId
@@ -56,16 +56,16 @@ ListView {
         pomos: pomodoros
         anchors.left: parent.left
         anchors.right: parent.right
-        
+
         onEntered: {
             taskList.currentIndex = index;
-            
+
             if(!done || !tomatoid.timerRunning) { //dont enable highlight in completed task list when timer is running
                 taskList.highlightItem.opacity = 1; //reenable opacity when entered an item
             }
-        }      
-        onTaskDone: doTask(identity)        
-        onRemoved: removeTask(identity)        
+        }
+        onTaskDone: doTask(identity)
+        onRemoved: removeTask(identity)
         onStarted: startTask(identity, taskName)
         onExited: {
             if(tomatoid.timerRunning) {
@@ -74,5 +74,5 @@ ListView {
                 taskList.highlightItem.opacity = 0; //when timer is not running turn off highlight when exited an item
             }
         }
-    }      
+    }
 }
