@@ -16,6 +16,9 @@
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
+var path = plasmoid.file("mainscript");
+lastchar = path.lastIndexOf("/");
+path = path.slice(0,lastchar);
 
  function parseConfig(configName, model) {
     var tasksSourcesString = plasmoid.readConfig(configName).toString();

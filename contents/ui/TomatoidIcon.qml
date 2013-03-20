@@ -21,6 +21,8 @@
  import org.kde.plasma.core 0.1 as PlasmaCore
  import org.kde.qtextracomponents 0.1 as QtExtras
 
+ import "plasmapackage:/code/logic.js" as Logic
+
  Item {
     id: compactItem
     anchors.fill: parent
@@ -57,15 +59,24 @@
 
         PlasmaCore.Theme { id: theme }
 
-        PlasmaCore.IconItem {
+        PlasmaCore.Svg {
+            id: svgIcon
+            imagePath: plasmoid.file("images", "tomatoid-simple.svgz")
+        }
+
+        PlasmaCore.SvgItem {
+            id: svgIconItem
             anchors.fill: parent
-            source: {
-                if(root.inPomodoro)
-                return "tomatoid-running"
-                if(root.inBreak)
-                return "tomatoid-break"
-                else
-                return "tomatoid-idle"
+            svg: svgIcon
+            elementId: {
+                if(root.inPomodoro && !timer.running)
+                    return "tomatoid-pause"
+                else if(root.inPomodoro)
+                    return "tomatoid-running"
+                else if(root.inBreak)
+                    return "tomatoid-break"
+                else if(!root.inPomodoro && !root.inBreak)
+                    return "tomatoid-idle"
             }
         }
 
@@ -86,8 +97,7 @@
                 border.color: "grey"
                 border.width: 2
                 radius: 4
-                opacity: timerRunning ?
-                (showOverlay ? 0.5 : (isConstrained() ? 0 : mouseArea.containsMouse*0.7)) : 0
+                opacity: 0//timerRunning ? (showOverlay ? 0.5 : (isConstrained() ? 0 : mouseArea.containsMouse*0.7)) : 0
 
                 Behavior on opacity { NumberAnimation { duration: 100 } }
             }
