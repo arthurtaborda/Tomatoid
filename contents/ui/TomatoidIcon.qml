@@ -24,92 +24,98 @@
  import "plasmapackage:/code/logic.js" as Logic
 
  Item {
-    id: compactItem
-    anchors.fill: parent
+	id: compactItem
+	anchors.fill: parent
 
-    property bool showOverlay: true
+	property bool showTimer: true
+	property string iconTheme: "tomatoid-flat"
 
-    property QtObject root: plasmoid.rootItem
-    property QtObject timer: plasmoid.rootItem.timer
-    property bool timerRunning: seconds > 0 || timer.running
-    property int seconds: timer.seconds
-    property string taskName: timer.taskName
+	property QtObject root: plasmoid.rootItem
+	property QtObject timer: plasmoid.rootItem.timer
+	property bool timerRunning: seconds > 0 || timer.running
+	property int seconds: timer.seconds
+	property string taskName: timer.taskName
 
-    property string timeString: Qt.formatTime(new Date(0,0,0,0,0, seconds), "mm:ss")
+	property string timeString: Qt.formatTime(new Date(0,0,0,0,0, seconds), "mm:ss")
 
-
-
-    function configChanged() {
-        showOverlay = plasmoid.readConfig("showBatteryString");
-    }
-
-
-    function isConstrained() {
-        return (plasmoid.formFactor == Vertical || plasmoid.formFactor == Horizontal);
-    }
+	Component.onCompleted: {
+		plasmoid.addEventListener("ConfigChanged", configChanged)
+	}
 
 
-    MouseArea {
-        id: mouseArea
-        anchors.fill: parent
-        hoverEnabled: true
-        property int minimumWidth
-        property int minimumHeight
-        onClicked: plasmoid.togglePopup()
+	function configChanged() {
+		showTimer = plasmoid.readConfig("showIconTimer");
+		iconTheme = plasmoid.readConfig("flatIconTheme") == true ? "tomatoid-flat" : "tomatoid-simple";
+		console.log("TOMATOID ICON CONFIG CHANGED - shoTimer: " + showTimer + " - iconTheme: " + iconTheme)
+	}
 
-        PlasmaCore.Theme { id: theme }
 
-        PlasmaCore.Svg {
-            id: svgIcon
-            imagePath: plasmoid.file("images", "tomatoid-simple.svgz")
-        }
+	function isConstrained() {
+		return (plasmoid.formFactor == Vertical || plasmoid.formFactor == Horizontal);
+	}
 
-        PlasmaCore.SvgItem {
-            id: svgIconItem
-            anchors.fill: parent
-            svg: svgIcon
-            elementId: {
-                if(root.inPomodoro && !timer.running)
-                    return "tomatoid-pause"
-                else if(root.inPomodoro)
-                    return "tomatoid-running"
-                else if(root.inBreak)
-                    return "tomatoid-break"
-                else if(!root.inPomodoro && !root.inBreak)
-                    return "tomatoid-idle"
-            }
-        }
 
-        Item {
-            id: timerContainer
-            anchors.centerIn: parent
-            property real size: Math.min(parent.width, parent.height)
-            width: size
-            height: size
+	MouseArea {
+		id: mouseArea
+		anchors.fill: parent
+		hoverEnabled: true
+		property int minimumWidth
+		property int minimumHeight
+		onClicked: plasmoid.togglePopup()
 
-            Rectangle {
-                id: labelRect
-                // should be 40 when size is 90
-                width: Math.max(parent.size*4/9, 35)
-                height: width/2
-                anchors.centerIn: parent
-                color: theme.backgroundColor
-                border.color: "grey"
-                border.width: 2
-                radius: 4
-                opacity: 0//timerRunning ? (showOverlay ? 0.5 : (isConstrained() ? 0 : mouseArea.containsMouse*0.7)) : 0
+		PlasmaCore.Theme { id: theme }
 
-                Behavior on opacity { NumberAnimation { duration: 100 } }
-            }
+		PlasmaCore.Svg {
+			id: svgIcon
+			imagePath: plasmoid.file("images", iconTheme + ".svgz")
+		}
 
-            Text {
-                id: overlayText
-                text: timeString
-                color: theme.textColor
-                font.pixelSize: Math.max(batteryContainer.size/8, 11)
-                anchors.centerIn: labelRect
-                opacity: labelRect.opacity > 0 ? 1 : 0
-            }
-        }
-    }
+		PlasmaCore.SvgItem {
+			id: svgIconItem
+			anchors.fill: parent
+			svg: svgIcon
+			elementId: {
+				if(root.inPomodoro && !timer.running)
+					return "tomatoid-pause"
+				else if(root.inPomodoro)
+					return "tomatoid-running"
+				else if(root.inBreak)
+					return "tomatoid-break"
+				else if(!root.inPomodoro && !root.inBreak)
+					return "tomatoid-idle"
+			}
+		}
+
+		Item {
+			id: timerContainer
+			anchors.centerIn: parent
+			property real size: Math.min(parent.width, parent.height)
+			width: size
+			height: size
+
+			Rectangle {
+				id: labelRect
+				// should be 40 when size is 90
+				width: Math.max(parent.size*4/9, 35)
+				height: width/2
+				anchors.centerIn: parent
+				color: theme.backgroundColor
+				border.color: "grey"
+				border.width: 2
+				radius: 4
+				opacity: timerRunning ? (showTimer ? 0.5 : (isConstrained() ? 0 : mouseArea.containsMouse*0.7)) : 0
+
+				Behavior on opacity { NumberAnimation { duration: 100 } }
+			}
+
+			Text {
+				id: overlayText
+				text: timeString
+				color: theme.textColor
+				font.pixelSize: Math.max(timerContainer.size/8, 11)
+				anchors.centerIn: labelRect
+				opacity: labelRect.opacity > 0 ? 1 : 0
+			}
+		}
+	}
 }

@@ -16,9 +16,8 @@
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-var path = plasmoid.file("mainscript");
-lastchar = path.lastIndexOf("/");
-path = path.slice(0,lastchar);
+
+var sep = "_"
 
  function parseConfig(configName, model) {
     var tasksSourcesString = plasmoid.readConfig(configName).toString();
@@ -28,7 +27,7 @@ path = path.slice(0,lastchar);
 
 
     for(var i = 0; i < tasks.length; i++) {
-        var task = tasks[i].split(",");
+        var task = tasks[i].split(sep);
         model.append({"taskId":parseInt(task[0]),"name":task[1],"pomodoros":parseInt(task[2])});
     }
 }
@@ -53,7 +52,7 @@ function addTask(taskName, pomodoros, model, configName) {
     var tasks = "";
 
     for(var i = 0; i < model.count; i++) {
-        tasks += model.get(i).taskId + "," + model.get(i).name + "," + model.get(i).pomodoros + "|"
+        tasks += model.get(i).taskId + sep + model.get(i).name + sep + model.get(i).pomodoros + "|"
     }
 
     var id = 0;
@@ -63,7 +62,7 @@ function addTask(taskName, pomodoros, model, configName) {
     }
 
 
-    tasks += id + "," + taskName + "," + pomodoros
+    tasks += id + sep + taskName + sep + pomodoros
 
 
     console.log(tasks);
@@ -92,10 +91,10 @@ function removeTask(id, model, configName) {
             if(tasks != "") {
                 tasks += "|";
             }
-            tasks += model.get(i).taskId + "," + model.get(i).name + "," + model.get(i).pomodoros;
+            tasks += model.get(i).taskId + sep + model.get(i).name + sep + model.get(i).pomodoros;
 
         } else {
-            removedTask = model.get(i).name + "," + model.get(i).pomodoros;
+            removedTask = model.get(i).name + sep + model.get(i).pomodoros;
             index = i;
         }
     }
@@ -110,7 +109,7 @@ function removeTask(id, model, configName) {
 
 function doTask(id) {
     var removedTask = removeIncompleteTask(id);
-    var split = removedTask.split(",");
+    var split = removedTask.split(sep);
 
     console.log(removedTask);
     console.log(split);
@@ -121,7 +120,7 @@ function doTask(id) {
 
 function undoTask(id) {
     var removedTask = removeCompleteTask(id);
-    var split = removedTask.split(",");
+    var split = removedTask.split(sep);
 
     console.log(removedTask);
     console.log(split);
@@ -135,8 +134,8 @@ function startTask(id, name) {
     console.log(plasmoid.popupIcon)
     timer.taskId = id;
     timer.taskName = name;
-    timer.totalSeconds = //5;
-    pomodoroLenght * 60;
+    timer.totalSeconds = 5;
+    //pomodoroLenght * 60;
     timer.running = true;
     inPomodoro = true;
     inBreak = false;
@@ -148,11 +147,11 @@ function startBreak() {
     console.log(plasmoid.popupIcon)
 
     if(completedPomodoros % pomodorosPerLongBreak == 0) {
-        timer.totalSeconds = //5;
-        longBreakLenght * 60;
+        timer.totalSeconds = 10;
+        //longBreakLenght * 60;
     } else {
-        timer.totalSeconds = //5;
-        shortBreakLenght * 60;
+        timer.totalSeconds = 5;
+        //shortBreakLenght * 60;
     }
     timer.running = true;
     inPomodoro = false;

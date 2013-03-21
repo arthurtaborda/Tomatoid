@@ -25,33 +25,33 @@
  import "plasmapackage:/code/logic.js" as Logic
 
  Item {
-    property alias running: timer.running
+	property alias running: timer.running
 
-    property int seconds // variable
-    property int totalSeconds //constant
+	property int seconds // variable
+	property int totalSeconds //constant
 
-    property int taskId
-    property string taskName
+	property int taskId
+	property string taskName
 
-    signal timeout()
+	signal timeout()
 
-    onTotalSecondsChanged: {
-        seconds = totalSeconds;
-    }
+	onTotalSecondsChanged: {
+		seconds = totalSeconds;
+	}
 
-    Timer {
-        id: timer
-        interval: 1000
-        running: false
-        repeat: true
+	Timer {
+		id: timer
+		interval: 1000
+		running: false
+		repeat: true
 
-        onTriggered: {
-            if(seconds > 1) {
-                seconds -= 1;
-            } else {
-                totalSeconds = 0;
-                timeout()
-            }
-        }
-    }
+		onTriggered: {
+			if(seconds > 1) {
+				seconds -= 1;
+			} else {
+				totalSeconds = 0;
+				timeout()
+			}
+		}
+	}
 }

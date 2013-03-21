@@ -22,113 +22,113 @@
  import org.kde.plasma.core 0.1 as PlasmaCore
 
  Item {
-    id: taskItem
+	id: taskItem
 
-    property bool done
-    property int pomos
-    property int identity
-    property string taskName
+	property bool done
+	property int pomos
+	property int identity
+	property string taskName
 
-    property string startIconImage: "chronometer"
-    property string removeIconImage: "kt-remove"
-    property string completeIconImage: "dialog-ok-apply"
-    property string undoIconImage: "edit-undo"
+	property string startIconImage: "chronometer"
+	property string removeIconImage: "kt-remove"
+	property string completeIconImage: "dialog-ok-apply"
+	property string undoIconImage: "edit-undo"
 
-    property int iconSize: 22
-    property int margin: 8
+	property int iconSize: 22
+	property int margin: 8
 
-    signal entered(int index)
-    signal taskDone()
-    signal removed()
-    signal started()
-    signal exited()
+	signal entered(int index)
+	signal taskDone()
+	signal removed()
+	signal started()
+	signal exited()
 
-    height: 32
-    anchors.leftMargin: margin
-    anchors.rightMargin: margin
+	height: 32
+	anchors.leftMargin: margin
+	anchors.rightMargin: margin
 
-    MouseArea {
-        id:mouseArea
-        anchors.fill: parent
-        hoverEnabled: true
-        onEntered: {
-            taskItem.entered(index)
-        }
+	MouseArea {
+		id:mouseArea
+		anchors.fill: parent
+		hoverEnabled: true
+		onEntered: {
+			taskItem.entered(index)
+		}
 
-        onExited: {
-            taskItem.exited(index)
-        }
-
-
-        Item {
-            id: row
-            width: parent.width
-            height: parent.height
-
-            PlasmaComponents.Label {
-                text: "( " + pomos + " ) " + taskName
-                anchors.left: parent.left
-                anchors.leftMargin: 4
-                anchors.verticalCenter: parent.verticalCenter
-            }
-
-            Row {
-                id: toolBar
-                spacing: 5
-                visible: !tomatoid.timerRunning
-                anchors.right: parent.right
-                anchors.verticalCenter: parent.verticalCenter
+		onExited: {
+			taskItem.exited(index)
+		}
 
 
-                PlasmaComponents.Button {
-                    id: removeButton
-                    iconSource: removeIconImage
-                    width: iconSize
-                    height: iconSize
-                    opacity: mouseArea.containsMouse * 1
+		Item {
+			id: row
+			width: parent.width
+			height: parent.height
 
-                    Behavior on opacity {
-                        NumberAnimation {
-                            duration: 400
-                            easing.type: Easing.OutQuad
-                        }
-                    }
+			PlasmaComponents.Label {
+				text: "( " + pomos + " ) " + taskName
+				anchors.left: parent.left
+				anchors.leftMargin: 4
+				anchors.verticalCenter: parent.verticalCenter
+			}
 
-                    onClicked: removed()
-                }
+			Row {
+				id: toolBar
+				spacing: 5
+				visible: !tomatoid.timerRunning
+				anchors.right: parent.right
+				anchors.verticalCenter: parent.verticalCenter
 
-                PlasmaComponents.Button {
-                    id: completeButton
-                    iconSource: {
-                        if(!done) return completeIconImage
-                        else return undoIconImage
-                    }
-                    width: iconSize
-                    height: iconSize
-                    enabled: !tomatoid.timerRunning
-                    opacity: mouseArea.containsMouse * 1
 
-                    Behavior on opacity {
-                        NumberAnimation {
-                            duration: 400
-                            easing.type: Easing.OutQuad
-                        }
-                    }
+				PlasmaComponents.Button {
+					id: removeButton
+					iconSource: removeIconImage
+					width: iconSize
+					height: iconSize
+					opacity: mouseArea.containsMouse * 1
 
-                    onClicked: taskDone()
-                }
+					Behavior on opacity {
+						NumberAnimation {
+							duration: 400
+							easing.type: Easing.OutQuad
+						}
+					}
 
-                PlasmaComponents.Button {
-                    id: startButton
-                    visible: !done
-                    text: "Start"
-                    iconSource: startIconImage
-                    width: 58
-                    height: iconSize
+					onClicked: removed()
+				}
 
-                    onClicked: started()
-                }
-            }
-        }
-    }
+				PlasmaComponents.Button {
+					id: completeButton
+					iconSource: {
+						if(!done) return completeIconImage
+						else return undoIconImage
+					}
+					width: iconSize
+					height: iconSize
+					enabled: !tomatoid.timerRunning
+					opacity: mouseArea.containsMouse * 1
+
+					Behavior on opacity {
+						NumberAnimation {
+							duration: 400
+							easing.type: Easing.OutQuad
+						}
+					}
+
+					onClicked: taskDone()
+				}
+
+				PlasmaComponents.Button {
+					id: startButton
+					visible: !done
+					text: "Start"
+					iconSource: startIconImage
+					width: 58
+					height: iconSize
+
+					onClicked: started()
+				}
+			}
+		}
+	}
 }

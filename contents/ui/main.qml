@@ -24,178 +24,178 @@
  import "plasmapackage:/code/logic.js" as Logic
 
  Item {
-    id: tomatoid
+	id: tomatoid
 
-    property string appName: "Tomatoid"
-    property int minimumWidth: 240
-    property int minimumHeight: 280
-    property bool inPomodoro: false
-    property bool inBreak: false
-    property bool timerRunning: inPomodoro || inBreak
+	property string appName: "Tomatoid"
+	property int minimumWidth: 240
+	property int minimumHeight: 280
+	property bool inPomodoro: false
+	property bool inBreak: false
+	property bool timerRunning: inPomodoro || inBreak
 
-    property int pomodoroLenght
-    property int shortBreakLenght
-    property int longBreakLenght
-    property int pomodorosPerLongBreak
-
-
-
-    property int completedPomodoros: 0
-
-    ListModel { id: completeTasks }
-    ListModel { id: incompleteTasks }
+	property int pomodoroLenght
+	property int shortBreakLenght
+	property int longBreakLenght
+	property int pomodorosPerLongBreak
 
 
-    Component.onCompleted: {
-        plasmoid.addEventListener("ConfigChanged", configChanged)
 
-        Logic.parseConfig("completeTasks", completeTasks)
-        Logic.parseConfig("incompleteTasks", incompleteTasks)
+	property int completedPomodoros: 0
 
-        plasmoid.popupIcon = QIcon("kde");
-    }
+	ListModel { id: completeTasks }
+	ListModel { id: incompleteTasks }
 
 
-    function configChanged() {
-        pomodoroLenght = plasmoid.readConfig("pomodoroLenght");
-        shortBreakLenght = plasmoid.readConfig("shortBreakLenght");
-        longBreakLenght = plasmoid.readConfig("longBreakLenght");
-        pomodorosPerLongBreak = plasmoid.readConfig("pomodorosPerLongBreak");
-    }
+	Component.onCompleted: {
+		plasmoid.addEventListener("ConfigChanged", configChanged)
+
+		Logic.parseConfig("completeTasks", completeTasks)
+		Logic.parseConfig("incompleteTasks", incompleteTasks)
+	}
 
 
-    property Component compactRepresentation: Component {
-        TomatoidIcon {
-            id: iconComponent
-        }
-    }
+	function configChanged() {
+		pomodoroLenght = plasmoid.readConfig("pomodoroLenght");
+		shortBreakLenght = plasmoid.readConfig("shortBreakLenght");
+		longBreakLenght = plasmoid.readConfig("longBreakLenght");
+		pomodorosPerLongBreak = plasmoid.readConfig("pomodorosPerLongBreak");
+	}
+
+
+	property Component compactRepresentation: Component {
+		TomatoidIcon {
+			id: iconComponent
+		}
+	}
 
 
 
 
-    PlasmaComponents.ToolBar {
-        id: toolBar
-        tools: TopBar {
-            id: topBar
-            icon: "kde"
-        }
-    }
+	PlasmaComponents.ToolBar {
+		id: toolBar
+		tools: TopBar {
+			id: topBar
+			icon: "kde"
+		}
+	}
 
-    PlasmaComponents.TabBar {
-        id: tabBar
-        height: 30
+	PlasmaComponents.TabBar {
+		id: tabBar
+		height: 30
 
-        PlasmaComponents.TabButton { tab: incompleteTaskList; text: "Tasks" }
-        PlasmaComponents.TabButton { tab: completeTaskList; text: "Completed" }
+		PlasmaComponents.TabButton { tab: incompleteTaskList; text: "Tasks" }
+		PlasmaComponents.TabButton { tab: completeTaskList; text: "Completed" }
 
-        anchors {
-            top: toolBar.bottom
-            left: parent.left
-            right: parent.right
-            margins: 7
-            leftMargin: 10
-            rightMargin: 10
-        }
-    }
-
-
-    PlasmaCore.FrameSvgItem {
-        id: taskFrame
-        anchors.fill: toolBarLayout
-        imagePath: "widgets/frame"
-        prefix: "sunken"
-    }
+		anchors {
+			top: toolBar.bottom
+			left: parent.left
+			right: parent.right
+			margins: 7
+			leftMargin: 10
+			rightMargin: 10
+		}
+	}
 
 
-    PlasmaComponents.TabGroup {
-        id: toolBarLayout
-        anchors {
-            top: tabBar.bottom
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-            bottomMargin: timerRunning ? 32 : 5
-            margins: 5
+	PlasmaCore.FrameSvgItem {
+		id: taskFrame
+		anchors.fill: toolBarLayout
+		imagePath: "widgets/frame"
+		prefix: "sunken"
+	}
 
-            Behavior on bottomMargin {
-                NumberAnimation {
-                    duration: 400
-                    easing.type: Easing.OutQuad
-                }
-            }
-        }
 
-        TaskList {
-            id: incompleteTaskList
+	PlasmaComponents.TabGroup {
+		id: toolBarLayout
 
-            model: incompleteTasks
-            done: false
+		anchors {
+			top: tabBar.bottom
+			left: parent.left
+			right: parent.right
+			bottom: parent.bottom
+			bottomMargin: timerRunning ? 32 : 5
+			margins: 5
 
-            onDoTask: Logic.doTask(taskIdentity)
-            onRemoveTask: Logic.removeIncompleteTask(taskIdentity)
-            onStartTask: Logic.startTask(taskIdentity, taskName)
-        }
+			Behavior on bottomMargin {
+				NumberAnimation {
+					duration: 400
+					easing.type: Easing.OutQuad
+				}
+			}
+		}
 
-        TaskList {
-            id: completeTaskList
+		TaskList {
+			id: incompleteTaskList
 
-            model: completeTasks
-            done: true
+			model: incompleteTasks
+			done: false
 
-            onDoTask: Logic.undoTask(taskIdentity)
-            onRemoveTask: Logic.removeCompleteTask(taskIdentity)
-        }
-    }
+			onDoTask: Logic.doTask(taskIdentity)
+			onRemoveTask: Logic.removeIncompleteTask(taskIdentity)
+			onStartTask: Logic.startTask(taskIdentity, taskName)
+		}
 
-    property QtObject timer: TomatoidTimer {
-        id: timer
+		TaskList {
+			id: completeTaskList
 
-        onTimeout: {
-            if(inPomodoro) {
-                console.log(taskId)
-                Logic.completePomodoro(taskId)
-                Logic.startBreak()
-                Logic.notify("Pomodoro completed", "Great job! Now take a break and relax for a moment.");
-                } else if(inBreak) {
-                    Logic.stop()
-                    Logic.notify("Relax time is over", "Get back to work. Choose a task and start again.");
-                }
-            }
-        }
+			model: completeTasks
+			done: true
 
-    //chronometer with action buttons and regressive progress bar in the bottom. This will get the time from TomatoidTimer
-    Chronometer {
-        id: chronometer
-        height: 22
-        seconds: timer.seconds
-        totalSeconds: timer.totalSeconds
-        opacity: timerRunning * 1
+			onDoTask: Logic.undoTask(taskIdentity)
+			onRemoveTask: Logic.removeCompleteTask(taskIdentity)
+		}
+	}
 
-        Behavior on opacity {
-            NumberAnimation {
-                duration: 300
-                easing.type: Easing.OutQuad
-            }
-        }
+	//Actual timer. This will store the remaining seconds, total seconds and will return a timeout in the end.
+	property QtObject timer: TomatoidTimer {
+		id: timer
 
-        onPlayPressed: {
-            timer.running = true
-        }
+		onTimeout: {
+			if(inPomodoro) {
+				console.log(taskId)
+				Logic.completePomodoro(taskId)
+				Logic.startBreak()
+				Logic.notify("Pomodoro completed", "Great job! Now take a break and relax for a moment.");
+			} else if(inBreak) {
+				Logic.stop()
+				Logic.notify("Relax time is over", "Get back to work. Choose a task and start again.");
+			}
+		}
+	}
 
-        onPausePressed: {
-            timer.running = false
-        }
+	//chronometer with action buttons and regressive progress bar in the bottom. This will get the time from TomatoidTimer
+	Chronometer {
+		id: chronometer
+		height: 22
+		seconds: timer.seconds
+		totalSeconds: timer.totalSeconds
+		opacity: timerRunning * 1 //only show if timer ir running
 
-        onStopPressed: {
-            Logic.stop()
-        }
+		Behavior on opacity {
+			NumberAnimation {
+				duration: 300
+				easing.type: Easing.OutQuad
+			}
+		}
 
-        anchors {
-            left: tomatoid.left
-            right: tomatoid.right
-            bottom: tomatoid.bottom
-            leftMargin: 5
-            bottomMargin: 5
-        }
-    }
+		onPlayPressed: {
+			timer.running = true
+		}
+
+		onPausePressed: {
+			timer.running = false
+		}
+
+		onStopPressed: {
+			Logic.stop()
+		}
+
+		anchors {
+			left: tomatoid.left
+			right: tomatoid.right
+			bottom: tomatoid.bottom
+			leftMargin: 5
+			bottomMargin: 5
+		}
+	}
 }

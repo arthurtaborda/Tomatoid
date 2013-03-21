@@ -21,92 +21,93 @@
  import org.kde.plasma.components 0.1 as PlasmaComponents
 
  Item {
-    property string stopButtonImage: "kt-stop"
-    property string playButtonImage: "kt-start"
-    property string pauseButtonImage: "kt-pause"
+	property string stopButtonImage: "media-playback-stop"
+	property string playButtonImage: "media-playback-start"
+	property string pauseButtonImage: "media-playback-pause"
 
-    property string timeString: Qt.formatTime(new Date(0,0,0,0,0, seconds), "mm:ss")
+	property string timeString: Qt.formatTime(new Date(0,0,0,0,0, seconds), "mm:ss")
 
-    property bool playing: true
-    property int seconds
-    property int totalSeconds
+	property bool running: true
+	property int seconds
+	property int totalSeconds
 
-    signal stopPressed()
-    signal playPressed()
-    signal pausePressed()
+	signal stopPressed()
+	signal playPressed()
+	signal pausePressed()
 
-    Row {
-        id: buttons
-        spacing: 3
-        visible: inPomodoro
+	Row {
+		id: buttons
+		spacing: 3
+		visible: inPomodoro
 
-        PlasmaComponents.Button {
-            id: playPauseButton
-            iconSource: {
-                if(playing) return pauseButtonImage
-                else return playButtonImage
-            }
+		PlasmaComponents.Button {
+			id: playPauseButton
+			iconSource: {
+				if(running) return pauseButtonImage
+				else return playButtonImage
+			}
 
-          onClicked: {
-            if(playing) {
-                pausePressed()
-                } else {
-                    playPressed()
-                }
-                playing = !playing
-            }
-        }
+		  onClicked: {
+				if(running) {
+					pausePressed()
+				} else {
+					playPressed()
+				}
 
-        PlasmaComponents.Button {
-            id: stopButton
-            iconSource: stopButtonImage
-            onClicked: {
-                playing = !playing
-                stopPressed()
-            }
-        }
-    }
+				running = !running
+			}
+		}
 
-    PlasmaComponents.ProgressBar {
-        id: progressBar
-        minimumValue: 0
-        maximumValue: 1
-        value: seconds / totalSeconds
-        anchors {
-            margins: 4
-            left: {
-                if(buttons.visible)
-                return buttons.right
-                else
-                return parent.left
-            }
-            right: parent.right
-            bottom: parent.bottom
-            top: parent.top
-        }
-    }
+		PlasmaComponents.Button {
+			id: stopButton
+			iconSource: stopButtonImage
+			onClicked: {
+				running = true
+				stopPressed()
+			}
+		}
+	}
+
+	PlasmaComponents.ProgressBar {
+		id: progressBar
+		minimumValue: 0
+		maximumValue: 1
+		value: seconds / totalSeconds
+		anchors {
+			margins: 4
+			left: {
+				if(buttons.visible)
+				return buttons.right
+				else
+				return parent.left
+			}
+			right: parent.right
+			bottom: parent.bottom
+			top: parent.top
+		}
+	}
 
 
-    Rectangle {
-        id: timerRect
-        radius: 5
-        width: 50
-        height: 20
-        border.width: 1
-        border.color: "#777777"
-        anchors {
-            verticalCenter: progressBar.verticalCenter
-            horizontalCenter: progressBar.horizontalCenter
-        }
-    }
+	Rectangle {
+		id: timerRect
+		radius: 5
+		width: 50
+		height: 20
+		border.width: 1
+		border.color: "#777777"
+		anchors {
+			verticalCenter: progressBar.verticalCenter
+			horizontalCenter: progressBar.horizontalCenter
+		}
+	}
 
-    PlasmaComponents.Label {
-        text: timeString
-        color: "#000000"
-        font.pointSize: 12
-        anchors {
-            verticalCenter: timerRect.verticalCenter
-            horizontalCenter: timerRect.horizontalCenter
-        }
-    }
+	PlasmaComponents.Label {
+		text: timeString
+		color: "#000000"
+		font.pointSize: 12
+		anchors {
+			verticalCenter: timerRect.verticalCenter
+			horizontalCenter: timerRect.horizontalCenter
+		}
+	}
 }

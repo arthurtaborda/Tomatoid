@@ -25,51 +25,51 @@
  import "plasmapackage:/code/logic.js" as Logic
 
  PlasmaComponents.ToolBarLayout {
-    id: topBar
+	id: topBar
 
-    property string icon
+	property string icon
 
-    PlasmaComponents.Label {
-        text: {
-            if(tomatoid.inPomodoro)
-            return "Running pomodoro #" + (tomatoid.completedPomodoros + 1)
-            else if(tomatoid.inBreak)
-            return "Time to relax"
+	PlasmaComponents.Label {
+		text: {
+			if(tomatoid.inPomodoro)
+			return "Running pomodoro #" + (tomatoid.completedPomodoros + 1)
+			else if(tomatoid.inBreak)
+			return "Time to relax"
 
-            return ""
-        }
-        visible: tomatoid.inPomodoro || tomatoid.inBreak
-    }
+			return ""
+		}
+		visible: tomatoid.inPomodoro || tomatoid.inBreak
+	}
 
-    Row {
-        spacing: 2
-        visible: !tomatoid.inPomodoro && !tomatoid.inBreak
-        PlasmaComponents.TextField {
-            id: taskField
-            placeholderText: "Task Name"
+	Row {
+		spacing: 2
+		visible: !tomatoid.inPomodoro && !tomatoid.inBreak
+		PlasmaComponents.TextField {
+			id: taskField
+			placeholderText: "Task Name"
 
-            Keys.onReturnPressed: {
-                add()
-            }
-        }
+			Keys.onReturnPressed: {
+				add()
+			}
+		}
 
 
-        PlasmaComponents.Button {
-            id: addTaskButton
-            iconSource: "list-add"
-            text: "Add"
-            width: 55
+		PlasmaComponents.Button {
+			id: addTaskButton
+			iconSource: "list-add"
+			text: "Add"
+			width: 55
 
-            onClicked: {
-                add()
-            }
-        }
-    }
+			onClicked: {
+				add()
+			}
+		}
+	}
 
-    function add() {
-        if(taskField.text != "") {
-            Logic.newTask(taskField.text)
-            taskField.text = ""
-        }
-    }
+	function add() {
+		if(taskField.text != "") {
+			Logic.newTask(taskField.text)
+			taskField.text = ""
+		}
+	}
 }
