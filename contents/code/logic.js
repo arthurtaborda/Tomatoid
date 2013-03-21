@@ -17,7 +17,9 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-var sep = "_"
+var sep = "_";
+var test = false;
+
 
  function parseConfig(configName, model) {
     var tasksSourcesString = plasmoid.readConfig(configName).toString();
@@ -134,8 +136,7 @@ function startTask(id, name) {
     console.log(plasmoid.popupIcon)
     timer.taskId = id;
     timer.taskName = name;
-    timer.totalSeconds = 5;
-    //pomodoroLenght * 60;
+    timer.totalSeconds = test ? 5 : pomodoroLenght * 60;
     timer.running = true;
     inPomodoro = true;
     inBreak = false;
@@ -147,11 +148,9 @@ function startBreak() {
     console.log(plasmoid.popupIcon)
 
     if(completedPomodoros % pomodorosPerLongBreak == 0) {
-        timer.totalSeconds = 10;
-        //longBreakLenght * 60;
+        timer.totalSeconds = test ? 10 : longBreakLenght * 60;
     } else {
-        timer.totalSeconds = 5;
-        //shortBreakLenght * 60;
+        timer.totalSeconds = test ? 5 : shortBreakLenght * 60;
     }
     timer.running = true;
     inPomodoro = false;
