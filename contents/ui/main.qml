@@ -133,6 +133,7 @@
 			onDoTask: Logic.doTask(taskIdentity)
 			onRemoveTask: Logic.removeIncompleteTask(taskIdentity)
 			onStartTask: Logic.startTask(taskIdentity, taskName)
+			onEditTaskName: Logic.editTaskName(taskIdentity, taskName)
 		}
 
 		TaskList {

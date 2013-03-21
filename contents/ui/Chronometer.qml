@@ -25,11 +25,13 @@
 	property string playButtonImage: "media-playback-start"
 	property string pauseButtonImage: "media-playback-pause"
 
+
 	property string timeString: Qt.formatTime(new Date(0,0,0,0,0, seconds), "mm:ss")
 
 	property bool running: true
 	property int seconds
 	property int totalSeconds
+	property int iconSize: 24
 
 	signal stopPressed()
 	signal playPressed()
@@ -40,14 +42,16 @@
 		spacing: 3
 		visible: inPomodoro
 
-		PlasmaComponents.Button {
+		PlasmaComponents.ToolButton {
 			id: playPauseButton
+			width: iconSize
+			height: iconSize
 			iconSource: {
 				if(running) return pauseButtonImage
 				else return playButtonImage
 			}
 
-		  onClicked: {
+			onClicked: {
 				if(running) {
 					pausePressed()
 				} else {
@@ -58,9 +62,11 @@
 			}
 		}
 
-		PlasmaComponents.Button {
+		PlasmaComponents.ToolButton {
 			id: stopButton
 			iconSource: stopButtonImage
+			width: iconSize
+			height: iconSize
 			onClicked: {
 				running = true
 				stopPressed()

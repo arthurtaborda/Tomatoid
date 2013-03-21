@@ -120,6 +120,17 @@ function doTask(id) {
 }
 
 
+function editTaskName(id, name) {
+    var removedTask = removeIncompleteTask(id);
+    var split = removedTask.split(sep);
+
+    console.log(removedTask);
+    console.log(split);
+
+    insertIncompleteTask(name, split[1]);
+}
+
+
 function undoTask(id) {
     var removedTask = removeCompleteTask(id);
     var split = removedTask.split(sep);

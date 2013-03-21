@@ -28,6 +28,7 @@
 	property int pomos
 	property int identity
 	property string taskName
+	property bool editMode
 
 	property string startIconImage: "chronometer"
 	property string removeIconImage: "kt-remove"
@@ -41,6 +42,7 @@
 	signal taskDone()
 	signal removed()
 	signal started()
+	signal saved()
 	signal exited()
 
 	height: 32
@@ -59,6 +61,10 @@
 			taskItem.exited(index)
 		}
 
+		onDoubleClicked: {
+			editMode = ! editMode
+		}
+
 
 		Item {
 			id: row
@@ -70,6 +76,25 @@
 				anchors.left: parent.left
 				anchors.leftMargin: 4
 				anchors.verticalCenter: parent.verticalCenter
+				visible: !editMode
+			}
+
+			PlasmaComponents.TextField {
+				id: taskNameEdit
+				text: taskName
+				visible: editMode
+				anchors.left: parent.left
+				anchors.right: toolBar.left
+				anchors.leftMargin: 4
+				anchors.rightMargin: 8
+				anchors.verticalCenter: parent.verticalCenter
+
+				Keys.onReturnPressed: {
+					if(taskNameEdit.text != "")
+						taskName = taskNameEdit.text
+					editMode = false
+					saved()
+				}
 			}
 
 			Row {
