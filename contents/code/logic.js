@@ -16,10 +16,8 @@
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 var sep = "_";
-var test = false;
-
+var test = true;
 
  function parseConfig(configName, model) {
     var tasksSourcesString = plasmoid.readConfig(configName).toString();
@@ -33,6 +31,16 @@ var test = false;
         model.append({"taskId":parseInt(task[0]),"name":task[1],"pomodoros":parseInt(task[2])});
     }
 }
+
+// function newTaskDB(taskName) {
+//     var db = openDataBaseSync("tomatoid_db", "1.0")
+//     db.transaction(
+//         function(tx) {
+//             tx.executeSql('CREATE TABLE IF NOT EXISTS tasks(task_name TEXT, complete_pomo INT, estimate_pomo INT)');
+//             tx.executeSql('INSERT INTO tasks VALUES(?, ?, ?)', [ taskName, 0, 0 ]);
+//         }
+//     )
+// }
 
 
 function newTask(taskName) {

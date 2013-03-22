@@ -27,8 +27,9 @@
 	id: tomatoid
 
 	property string appName: "Tomatoid"
-	property int minimumWidth: 240
-	property int minimumHeight: 280
+	property int minimumWidth: 280
+	property int minimumHeight: 320
+	property bool continuousMode: false
 	property bool inPomodoro: false
 	property bool inBreak: false
 	property bool timerRunning: inPomodoro || inBreak
@@ -55,6 +56,7 @@
 
 
 	function configChanged() {
+		continuousMode = plasmoid.readConfig("continuousMode");
 		pomodoroLenght = plasmoid.readConfig("pomodoroLenght");
 		shortBreakLenght = plasmoid.readConfig("shortBreakLenght");
 		longBreakLenght = plasmoid.readConfig("longBreakLenght");
@@ -160,6 +162,8 @@
 			} else if(inBreak) {
 				Logic.stop()
 				Logic.notify("Relax time is over", "Get back to work. Choose a task and start again.");
+				if(continuousMode)
+					Logic.startTask(timer.taskId, timer.taskName)
 			}
 		}
 	}
@@ -171,13 +175,6 @@
 		seconds: timer.seconds
 		totalSeconds: timer.totalSeconds
 		opacity: timerRunning * 1 //only show if timer ir running
-
-		Behavior on opacity {
-			NumberAnimation {
-				duration: 300
-				easing.type: Easing.OutQuad
-			}
-		}
 
 		onPlayPressed: {
 			timer.running = true

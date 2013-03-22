@@ -31,7 +31,7 @@
 	property bool running: true
 	property int seconds
 	property int totalSeconds
-	property int iconSize: 24
+	property int iconSize: 22
 
 	signal stopPressed()
 	signal playPressed()

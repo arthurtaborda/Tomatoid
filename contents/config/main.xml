@@ -16,7 +16,7 @@ xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
 			</entry>
 			<entry name="pomodoroLenght" type="Int">
 				<label>The lenght in minutes of one pomodoro</label>
-				<default>25</default>
+				<default>30</default>
 			</entry>
 			<entry name="shortBreakLenght" type="Int">
 				<label>The lenght in minutes of a short break</label>
@@ -24,7 +24,7 @@ xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
 			</entry>
 			<entry name="longBreakLenght" type="Int">
 				<label>The lenght in minutes of a long break</label>
-				<default>30</default>
+				<default>25</default>
 			</entry>
 			<entry name="pomodorosPerLongBreak" type="Int">
 				<label>The amount of pomodoros needed to take a long break</label>
@@ -39,6 +39,9 @@ xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
 			</entry>
 			<entry name="simpleIconTheme" type="Bool">
 				<default>false</default>
+			</entry>
+			<entry name="continuousMode" type="Bool">
+				<default>true</default>
 			</entry>
 		</group>
 </kcfg>

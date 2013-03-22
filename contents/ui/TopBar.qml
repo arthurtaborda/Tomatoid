@@ -15,23 +15,20 @@
  *   License along with this program; if not, write to the
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */
+*/
 
- import QtQuick 1.0
- import org.kde.plasma.core 0.1 as PlasmaCore
- import org.kde.plasma.components 0.1 as PlasmaComponents
- import org.kde.qtextracomponents 0.1 as QtExtras
+import QtQuick 1.1
+import org.kde.plasma.components 0.1 as PlasmaComponents
+import "plasmapackage:/code/logic.js" as Logic
 
- import "plasmapackage:/code/logic.js" as Logic
+PlasmaComponents.ToolBarLayout {
+id: topBar
 
- PlasmaComponents.ToolBarLayout {
-	id: topBar
+property string icon
 
-	property string icon
-
-	PlasmaComponents.Label {
-		text: {
-			if(tomatoid.inPomodoro)
+PlasmaComponents.Label {
+	text: {
+		if(tomatoid.inPomodoro)
 			return "Running pomodoro #" + (tomatoid.completedPomodoros + 1)
 			else if(tomatoid.inBreak)
 			return "Time to relax"

@@ -17,12 +17,7 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
- import QtQuick 1.0
- import org.kde.plasma.core 0.1 as PlasmaCore
- import org.kde.plasma.components 0.1 as PlasmaComponents
- import org.kde.qtextracomponents 0.1 as QtExtras
-
- import "plasmapackage:/code/logic.js" as Logic
+ import QtQuick 1.1
 
  Item {
 	property alias running: timer.running

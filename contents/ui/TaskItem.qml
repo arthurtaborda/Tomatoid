@@ -18,8 +18,8 @@
  */
 
  import QtQuick 1.1
- import org.kde.plasma.components 0.1 as PlasmaComponents
  import org.kde.plasma.core 0.1 as PlasmaCore
+ import org.kde.plasma.components 0.1 as PlasmaComponents
 
  Item {
 	id: taskItem
@@ -30,13 +30,17 @@
 	property string taskName
 	property bool editMode
 
-	property string startIconImage: "chronometer"
-	property string removeIconImage: "kt-remove"
-	property string completeIconImage: "dialog-ok-apply"
-	property string undoIconImage: "edit-undo"
+	property string startIconImage: "media-playback-start"
+	property string removeIconImage: "window-close"
+	property string completeIconImage: "media-record"
+	property string undoIconImage: "media-seek-backward"
 
 	property int iconSize: 22
 	property int margin: 8
+
+	property QtObject timer: plasmoid.rootItem.timer
+	property int seconds: timer.seconds
+	property bool timerRunning: seconds > 0 || timer.running
 
 	signal entered(int index)
 	signal taskDone()
@@ -48,6 +52,9 @@
 	height: 32
 	anchors.leftMargin: margin
 	anchors.rightMargin: margin
+
+
+	PlasmaCore.Theme { id: theme }
 
 	MouseArea {
 		id:mouseArea
@@ -62,7 +69,8 @@
 		}
 
 		onDoubleClicked: {
-			editMode = ! editMode
+			if(!timerRunning)
+				editMode = ! editMode
 		}
 
 
@@ -71,12 +79,14 @@
 			width: parent.width
 			height: parent.height
 
-			PlasmaComponents.Label {
+			Text {
 				text: "( " + pomos + " ) " + taskName
 				anchors.left: parent.left
+				anchors.right: toolBar.left
 				anchors.leftMargin: 4
 				anchors.verticalCenter: parent.verticalCenter
 				visible: !editMode
+				color: theme.textColor
 			}
 
 			PlasmaComponents.TextField {
@@ -106,23 +116,6 @@
 
 
 				PlasmaComponents.Button {
-					id: removeButton
-					iconSource: removeIconImage
-					width: iconSize
-					height: iconSize
-					opacity: mouseArea.containsMouse * 1
-
-					Behavior on opacity {
-						NumberAnimation {
-							duration: 400
-							easing.type: Easing.OutQuad
-						}
-					}
-
-					onClicked: removed()
-				}
-
-				PlasmaComponents.Button {
 					id: completeButton
 					iconSource: {
 						if(!done) return completeIconImage
@@ -133,14 +126,17 @@
 					enabled: !tomatoid.timerRunning
 					opacity: mouseArea.containsMouse * 1
 
-					Behavior on opacity {
-						NumberAnimation {
-							duration: 400
-							easing.type: Easing.OutQuad
-						}
-					}
-
 					onClicked: taskDone()
+				}
+
+				PlasmaComponents.Button {
+					id: removeButton
+					iconSource: removeIconImage
+					width: iconSize
+					height: iconSize
+					opacity: mouseArea.containsMouse * 1
+
+					onClicked: removed()
 				}
 
 				PlasmaComponents.Button {

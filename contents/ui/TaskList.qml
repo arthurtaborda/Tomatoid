@@ -18,10 +18,7 @@
  */
 
  import QtQuick 1.1
- import org.kde.plasma.core 0.1 as PlasmaCore
  import org.kde.plasma.components 0.1 as PlasmaComponents
-
- import "plasmapackage:/code/logic.js" as Logic
 
  ListView {
 	property bool done //is a list of done tasks?
@@ -39,7 +36,7 @@
     signal editTaskName(int taskIdentity, string taskName)
 
 	highlight: PlasmaComponents.Highlight {
-		width: parent.width
+		//width: parent.width
 		opacity: 0
 		Behavior on opacity {
 			NumberAnimation {
