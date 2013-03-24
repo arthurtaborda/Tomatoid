@@ -36,8 +36,6 @@ function parseConfig(configName, model) {
 	if (tasksSourcesString.length > 0)
 		tasks = tasksSourcesString.split(sep2);
 
-	console.log("TASKS:" + tasksSourcesString + "\n\n\n\n\n\n\n\n\n\n");
-
 	for(var i = 0; i < tasks.length; i++) {
 		var task = tasks[i].split(sep);
 		model.append({"taskId":parseInt(task[0]),"taskName":task[1],"donePomos":parseInt(task[2]),"estimatedPomos":parseInt(task[3])});

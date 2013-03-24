@@ -18,6 +18,7 @@
  */
 
 import QtQuick 1.1
+import QtMultimediaKit 1.1
 import org.kde.plasma.core 0.1 as PlasmaCore
 import org.kde.plasma.components 0.1 as PlasmaComponents
 
@@ -27,8 +28,11 @@ Item {
 	id: tomatoid
 
 	property string appName: "Tomatoid"
+
 	property int minimumWidth: 280
 	property int minimumHeight: 320
+
+	property bool playTickingSound: false
 	property bool continuousMode: false
 	property bool inPomodoro: false
 	property bool inBreak: false
@@ -40,6 +44,8 @@ Item {
 	property int pomodorosPerLongBreak
 
 	property int completedPomodoros: 0
+
+	property int tickingVolume: 50
 
 	ListModel { id: completeTasks }
 	ListModel { id: incompleteTasks }
@@ -54,6 +60,8 @@ Item {
 
 
 	function configChanged() {
+		tickingVolume = plasmoid.readConfig("tickingVolume");
+		playTickingSound = plasmoid.readConfig("playTickingSound");
 		continuousMode = plasmoid.readConfig("continuousMode");
 		pomodoroLenght = plasmoid.readConfig("pomodoroLenght");
 		shortBreakLenght = plasmoid.readConfig("shortBreakLenght");
@@ -144,10 +152,20 @@ Item {
 		}
 	}
 
+	SoundEffect {
+		id: tickingSound
+		source: plasmoid.file("data", "tomatoid-ticking.wav")
+		volume: tickingVolume / 100
+	}
+
 	//Actual timer. This will store the remaining seconds, total seconds and will return a timeout in the end.
 	property QtObject timer: TomatoidTimer {
 		id: timer
 
+		onTick: {
+			if(playTickingSound)
+				tickingSound.play();
+		}
 		onTimeout: {
 			if(inPomodoro) {
 				console.log(taskId)

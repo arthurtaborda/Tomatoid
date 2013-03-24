@@ -17,9 +17,9 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
- import QtQuick 1.1
+import QtQuick 1.1
 
- Item {
+Item {
 	property alias running: timer.running
 
 	property int seconds // variable
@@ -28,6 +28,7 @@
 	property int taskId
 	property string taskName
 
+	signal tick()
 	signal timeout()
 
 	onTotalSecondsChanged: {
@@ -41,6 +42,7 @@
 		repeat: true
 
 		onTriggered: {
+			tick()
 			if(seconds > 1) {
 				seconds -= 1;
 			} else {

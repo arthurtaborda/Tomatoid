@@ -19,7 +19,6 @@
 
  import QtQuick 1.1
  import org.kde.plasma.core 0.1 as PlasmaCore
- import org.kde.qtextracomponents 0.1 as QtExtras
 
  import "plasmapackage:/code/logic.js" as Logic
 
@@ -28,7 +27,7 @@
 	anchors.fill: parent
 
 	property bool showTimer: true
-	property string iconTheme: "tomatoid-flat"
+	property string iconPrefix: ""
 
 	property QtObject root: plasmoid.rootItem
 	property QtObject timer: plasmoid.rootItem.timer
@@ -45,8 +44,7 @@
 
 	function configChanged() {
 		showTimer = plasmoid.readConfig("showIconTimer");
-		iconTheme = plasmoid.readConfig("flatIconTheme") == true ? "tomatoid-flat" : "tomatoid-simple";
-		console.log("TOMATOID ICON CONFIG CHANGED - shoTimer: " + showTimer + " - iconTheme: " + iconTheme)
+		iconPrefix = plasmoid.readConfig("flatIconTheme") == true ? "" : "simple-";
 	}
 
 
@@ -67,7 +65,7 @@
 
 		PlasmaCore.Svg {
 			id: svgIcon
-			imagePath: plasmoid.file("images", iconTheme + ".svgz")
+			imagePath: plasmoid.file("images", "tomatoid.svgz")
 		}
 
 		PlasmaCore.SvgItem {
@@ -76,13 +74,13 @@
 			svg: svgIcon
 			elementId: {
 				if(root.inPomodoro && !timer.running)
-					return "tomatoid-pause"
+					return iconPrefix + "tomatoid-pause"
 				else if(root.inPomodoro)
-					return "tomatoid-running"
+					return iconPrefix + "tomatoid-running"
 				else if(root.inBreak)
-					return "tomatoid-break"
+					return iconPrefix + "tomatoid-break"
 				else if(!root.inPomodoro && !root.inBreak)
-					return "tomatoid-idle"
+					return iconPrefix + "tomatoid-idle"
 			}
 		}
 
