@@ -33,10 +33,9 @@
 	signal doTask(int taskIdentity)
 	signal removeTask(int taskIdentity)
 	signal startTask(int taskIdentity, string taskName)
-    signal editTaskName(int taskIdentity, string taskName)
+	signal renameTask(int taskIdentity, string name)
 
 	highlight: PlasmaComponents.Highlight {
-		//width: parent.width
 		opacity: 0
 		Behavior on opacity {
 			NumberAnimation {
@@ -49,9 +48,10 @@
 	delegate: TaskItem {
 		id: item
 		identity: taskId
-		taskName: name
+		name: taskName
 		done: taskList.done
-		pomos: pomodoros
+		donePomodoros: donePomos
+		estimatedPomodoros: estimatedPomos
 		anchors.left: parent.left
 		anchors.right: parent.right
 
@@ -65,7 +65,7 @@
 		onTaskDone: doTask(identity)
 		onRemoved: removeTask(identity)
 		onStarted: startTask(identity, taskName)
-		onSaved: editTaskName(identity, taskName)
+		onSaveName: renameTask(identity, name)
 		onExited: {
 			if(tomatoid.timerRunning) {
 				taskList.highlightItem.opacity = done ? 0 : 1; //when timer is running dont turn off highlight in undone task list

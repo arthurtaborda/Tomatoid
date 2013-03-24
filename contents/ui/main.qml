@@ -17,13 +17,13 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
- import QtQuick 1.1
- import org.kde.plasma.core 0.1 as PlasmaCore
- import org.kde.plasma.components 0.1 as PlasmaComponents
+import QtQuick 1.1
+import org.kde.plasma.core 0.1 as PlasmaCore
+import org.kde.plasma.components 0.1 as PlasmaComponents
 
- import "plasmapackage:/code/logic.js" as Logic
+import "plasmapackage:/code/logic.js" as Logic
 
- Item {
+Item {
 	id: tomatoid
 
 	property string appName: "Tomatoid"
@@ -38,8 +38,6 @@
 	property int shortBreakLenght
 	property int longBreakLenght
 	property int pomodorosPerLongBreak
-
-
 
 	property int completedPomodoros: 0
 
@@ -70,9 +68,6 @@
 		}
 	}
 
-
-
-
 	PlasmaComponents.ToolBar {
 		id: toolBar
 		tools: TopBar {
@@ -85,8 +80,8 @@
 		id: tabBar
 		height: 30
 
-		PlasmaComponents.TabButton { tab: incompleteTaskList; text: "Tasks" }
-		PlasmaComponents.TabButton { tab: completeTaskList; text: "Completed" }
+		PlasmaComponents.TabButton { tab: incompleteTaskList; text: i18n("Tasks") }
+		PlasmaComponents.TabButton { tab: completeTaskList; text: i18n("Completed") }
 
 		anchors {
 			top: toolBar.bottom
@@ -135,7 +130,7 @@
 			onDoTask: Logic.doTask(taskIdentity)
 			onRemoveTask: Logic.removeIncompleteTask(taskIdentity)
 			onStartTask: Logic.startTask(taskIdentity, taskName)
-			onEditTaskName: Logic.editTaskName(taskIdentity, taskName)
+			onRenameTask: Logic.renameTask(taskIdentity, name)
 		}
 
 		TaskList {
@@ -158,11 +153,11 @@
 				console.log(taskId)
 				Logic.completePomodoro(taskId)
 				Logic.startBreak()
-				Logic.notify("Pomodoro completed", "Great job! Now take a break and relax for a moment.");
+				Logic.notify(i18n("Pomodoro completed"), i18n("Great job! Now take a break and relax for a moment."));
 			} else if(inBreak) {
 				Logic.stop()
-				Logic.notify("Relax time is over", "Get back to work. Choose a task and start again.");
-				if(continuousMode)
+				Logic.notify(i18n("Relax time is over"), i18n("Get back to work. Choose a task and start again."));
+				if(continuousMode && completedPomodoros % pomodorosPerLongBreak)
 					Logic.startTask(timer.taskId, timer.taskName)
 			}
 		}

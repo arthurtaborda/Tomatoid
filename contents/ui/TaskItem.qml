@@ -25,9 +25,10 @@
 	id: taskItem
 
 	property bool done
-	property int pomos
+	property int donePomodoros
+	property int estimatedPomodoros
 	property int identity
-	property string taskName
+	property string name
 	property bool editMode
 
 	property string startIconImage: "media-playback-start"
@@ -38,15 +39,13 @@
 	property int iconSize: 22
 	property int margin: 8
 
-	property QtObject timer: plasmoid.rootItem.timer
-	property int seconds: timer.seconds
-	property bool timerRunning: seconds > 0 || timer.running
+	property bool timerRunning: tomatoid.timerRunning
 
+	signal saveName(string name)
 	signal entered(int index)
 	signal taskDone()
 	signal removed()
 	signal started()
-	signal saved()
 	signal exited()
 
 	height: 32
@@ -80,7 +79,7 @@
 			height: parent.height
 
 			Text {
-				text: "( " + pomos + " ) " + taskName
+				text: "( " + donePomodoros + "/" + estimatedPomodoros + " ) " + name
 				anchors.left: parent.left
 				anchors.right: toolBar.left
 				anchors.leftMargin: 4
@@ -90,8 +89,8 @@
 			}
 
 			PlasmaComponents.TextField {
-				id: taskNameEdit
-				text: taskName
+				id: nameEdit
+				text: name
 				visible: editMode
 				anchors.left: parent.left
 				anchors.right: toolBar.left
@@ -100,10 +99,10 @@
 				anchors.verticalCenter: parent.verticalCenter
 
 				Keys.onReturnPressed: {
-					if(taskNameEdit.text != "")
-						taskName = taskNameEdit.text
+					if(nameEdit.text != "")
+						name = nameEdit.text
 					editMode = false
-					saved()
+					saveName(name)
 				}
 			}
 
@@ -113,7 +112,6 @@
 				visible: !tomatoid.timerRunning
 				anchors.right: parent.right
 				anchors.verticalCenter: parent.verticalCenter
-
 
 				PlasmaComponents.Button {
 					id: completeButton
@@ -142,7 +140,7 @@
 				PlasmaComponents.Button {
 					id: startButton
 					visible: !done
-					text: "Start"
+					text: i18n("Start")
 					iconSource: startIconImage
 					width: 58
 					height: iconSize

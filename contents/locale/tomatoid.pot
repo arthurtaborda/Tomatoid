@@ -1,0 +1,76 @@
+# plasma-applet-tomatoid language translation file.
+# Copyright (C) 2012 Glad Deschrijver
+# This file is distributed under the same license as the plasma-applet-tomatoid package.
+# 
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-03-24 14:50-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../ui/main.qml:83
+msgid "Tasks"
+msgstr ""
+
+#: ../ui/main.qml:84
+msgid "Completed"
+msgstr ""
+
+#: ../ui/main.qml:156
+msgid "Pomodoro completed"
+msgstr ""
+
+#: ../ui/main.qml:156
+msgid "Great job! Now take a break and relax for a moment."
+msgstr ""
+
+#: ../ui/main.qml:159
+msgid "Relax time is over"
+msgstr ""
+
+#: ../ui/main.qml:159
+msgid "Get back to work. Choose a task and start again."
+msgstr ""
+
+#: ../ui/TaskItem.qml:145
+msgid "Start"
+msgstr ""
+
+#: ../ui/TopBar.qml:33
+msgid "Running pomodoro #"
+msgstr ""
+
+#: ../ui/TopBar.qml:35
+msgid "Break time!"
+msgstr ""
+
+#: ../ui/TopBar.qml:50
+msgid "The estimation of pomodoros needed to finish this task"
+msgstr ""
+
+#: ../ui/TopBar.qml:67
+msgid "Task Name"
+msgstr ""
+
+#: ../ui/TopBar.qml:77
+msgid "Add"
+msgstr ""
+
+#: rc.js:1
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr ""
+
+#: rc.js:2
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr ""
