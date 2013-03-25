@@ -140,7 +140,7 @@
 				PlasmaComponents.Button {
 					id: startButton
 					visible: !done
-					text: i18n("Start")
+					text: qsTr("Start")
 					iconSource: startIconImage
 					width: 58
 					height: iconSize

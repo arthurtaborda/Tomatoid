@@ -30,9 +30,9 @@ PlasmaComponents.ToolBarLayout {
 	PlasmaComponents.Label {
 		text: {
 			if(tomatoid.inPomodoro)
-				return i18n("Running pomodoro #") + (tomatoid.completedPomodoros + 1)
+				return qsTr("Running pomodoro #") + (tomatoid.completedPomodoros + 1)
 			else if(tomatoid.inBreak)
-				return i18n("Break time!")
+				return qsTr("Break time!")
 
 			return ""
 		}
@@ -47,7 +47,7 @@ PlasmaComponents.ToolBarLayout {
 		PlasmaCore.ToolTip {
 			id: estimatedPomosToolTip
 			target: estimatedPomosField
-			subText: i18n("The estimation of pomodoros needed to finish this task")
+			subText: qsTr("The estimation of pomodoros needed to finish this task")
 		}
 
 		PlasmaComponents.TextField {
@@ -64,7 +64,7 @@ PlasmaComponents.ToolBarLayout {
 
 		PlasmaComponents.TextField {
 			id: taskField
-			placeholderText: i18n("Task Name")
+			placeholderText: qsTr("Task Name")
 
 			Keys.onReturnPressed: {
 				add()
@@ -74,7 +74,7 @@ PlasmaComponents.ToolBarLayout {
 		PlasmaComponents.Button {
 			id: addTaskButton
 			iconSource: "list-add"
-			text: i18n("Add")
+			text: qsTr("Add")
 			width: 55
 
 			onClicked: {
