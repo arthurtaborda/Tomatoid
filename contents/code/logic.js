@@ -18,7 +18,7 @@
  */
 var sep = "_,$";
 var sep2 = "|&*";
-var test = false;
+var test = true;
 
 // function newTaskDB(taskName) {
 //     var db = openDataBaseSync("tomatoid_db", "1.0")
@@ -163,7 +163,7 @@ function startTask(id, taskName) {
 	console.log(plasmoid.popupIcon)
 	timer.taskId = id;
 	timer.taskName = taskName;
-	timer.totalSeconds = test ? pomodoroLenght : pomodoroLenght * 60;
+	timer.totalSeconds = test ? 5 : pomodoroLenght * 60;
 	timer.running = true;
 	inPomodoro = true;
 	inBreak = false;
@@ -174,9 +174,9 @@ function startBreak() {
 	console.log(plasmoid.popupIcon)
 
 	if(completedPomodoros % pomodorosPerLongBreak == 0) {
-		timer.totalSeconds = test ? longBreakLenght : longBreakLenght * 60;
+		timer.totalSeconds = test ? 10 : longBreakLenght * 60;
 	} else {
-		timer.totalSeconds = test ? shortBreakLenght : shortBreakLenght * 60;
+		timer.totalSeconds = test ? 7 : shortBreakLenght * 60;
 	}
 	timer.running = true;
 	inPomodoro = false;

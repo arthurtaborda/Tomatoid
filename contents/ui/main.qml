@@ -27,16 +27,23 @@ import "plasmapackage:/code/logic.js" as Logic
 Item {
 	id: tomatoid
 
+	//************ OPTIONS ************
+
 	property string appName: "Tomatoid"
 
 	property int minimumWidth: 280
 	property int minimumHeight: 320
 
+	property bool playNotificationSound: true
 	property bool playTickingSound: false
 	property bool continuousMode: false
 	property bool inPomodoro: false
 	property bool inBreak: false
 	property bool timerRunning: inPomodoro || inBreak
+
+	property bool popupNotification: true
+	property bool kdeNotification: false
+	property bool noNotification: false
 
 	property int pomodoroLenght
 	property int shortBreakLenght
@@ -47,9 +54,10 @@ Item {
 
 	property int tickingVolume: 50
 
+	//************ /OPTIONS ************
+
 	ListModel { id: completeTasks }
 	ListModel { id: incompleteTasks }
-
 
 	Component.onCompleted: {
 		plasmoid.addEventListener("ConfigChanged", configChanged)
@@ -60,6 +68,7 @@ Item {
 
 
 	function configChanged() {
+		playNotificationSound = plasmoid.readConfig("playNotificationSound");
 		tickingVolume = plasmoid.readConfig("tickingVolume");
 		playTickingSound = plasmoid.readConfig("playTickingSound");
 		continuousMode = plasmoid.readConfig("continuousMode");
@@ -67,6 +76,9 @@ Item {
 		shortBreakLenght = plasmoid.readConfig("shortBreakLenght");
 		longBreakLenght = plasmoid.readConfig("longBreakLenght");
 		pomodorosPerLongBreak = plasmoid.readConfig("pomodorosPerLongBreak");
+		popupNotification = plasmoid.readConfig("popupNotification");
+		kdeNotification = plasmoid.readConfig("kdeNotification");
+		noNotification = plasmoid.readConfig("noNotification");
 	}
 
 
@@ -153,9 +165,14 @@ Item {
 	}
 
 	SoundEffect {
+		id: notificationSound
+		source: plasmoid.file("data", "notification.wav") //FIX not playing
+	}
+
+	SoundEffect {
 		id: tickingSound
 		source: plasmoid.file("data", "tomatoid-ticking.wav")
-		volume: tickingVolume / 100
+		volume: tickingVolume / 100 //volume from 0.1 to 1.0
 	}
 
 	//Actual timer. This will store the remaining seconds, total seconds and will return a timeout in the end.
@@ -167,15 +184,23 @@ Item {
 				tickingSound.play();
 		}
 		onTimeout: {
+			if(popupNotification)
+				plasmoid.showPopup(5000)
+
 			if(inPomodoro) {
 				console.log(taskId)
 				Logic.completePomodoro(taskId)
 				Logic.startBreak()
-				Logic.notify(i18n("Pomodoro completed"), i18n("Great job! Now take a break and relax for a moment."));
+				if(playNotificationSound)
+					notificationSound.play();
+
+				if(kdeNotification)
+					Logic.notify(i18n("Pomodoro completed"), i18n("Great job! Now take a break and relax for a moment."));
 			} else if(inBreak) {
 				Logic.stop()
-				Logic.notify(i18n("Relax time is over"), i18n("Get back to work. Choose a task and start again."));
-				if(continuousMode && completedPomodoros % pomodorosPerLongBreak)
+				if(kdeNotification)
+					Logic.notify(i18n("Relax time is over"), i18n("Get back to work. Choose a task and start again."));
+				if(continuousMode && completedPomodoros % pomodorosPerLongBreak) //if continuous mode and long break
 					Logic.startTask(timer.taskId, timer.taskName)
 			}
 		}

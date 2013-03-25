@@ -42,8 +42,8 @@ Item {
 		repeat: true
 
 		onTriggered: {
-			tick()
 			if(seconds > 1) {
+				tick()
 				seconds -= 1;
 			} else {
 				totalSeconds = 0;
