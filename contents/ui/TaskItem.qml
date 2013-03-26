@@ -79,7 +79,12 @@
 			height: parent.height
 
 			Text {
-				text: "( " + donePomodoros + "/" + estimatedPomodoros + " ) " + name
+				text: {
+					t = "( " + donePomodoros
+					if(estimatedPomodoros > 0) t += "/" + estimatedPomodoros
+					t += " ) " + name
+					return t
+				}
 				anchors.left: parent.left
 				anchors.right: toolBar.left
 				anchors.leftMargin: 4
