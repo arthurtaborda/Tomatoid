@@ -64,6 +64,8 @@ Item {
 
 		Logic.parseConfig("completeTasks", completeTasks)
 		Logic.parseConfig("incompleteTasks", incompleteTasks)
+
+		plasmoid.setBackgroundHints( 0 )
 	}
 
 
