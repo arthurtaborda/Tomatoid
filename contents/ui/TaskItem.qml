@@ -52,6 +52,9 @@
 	anchors.leftMargin: margin
 	anchors.rightMargin: margin
 
+	anchors.left: parent.left
+	anchors.right: parent.right
+
 
 	PlasmaCore.Theme { id: theme }
 
@@ -145,7 +148,7 @@
 				PlasmaComponents.Button {
 					id: startButton
 					visible: !done
-					text: qsTr("Start")
+					text: i18n("Start")
 					iconSource: startIconImage
 					width: 58
 					height: iconSize

@@ -101,8 +101,8 @@ Item {
 		id: tabBar
 		height: 30
 
-		PlasmaComponents.TabButton { tab: incompleteTaskList; text: qsTr("Tasks") }
-		PlasmaComponents.TabButton { tab: completeTaskList; text: qsTr("Completed") }
+		PlasmaComponents.TabButton { tab: incompleteTaskList; text: i18n("Tasks") }
+		PlasmaComponents.TabButton { tab: completeTaskList; text: i18n("Completed") }
 
 		anchors {
 			top: toolBar.bottom
@@ -196,11 +196,11 @@ Item {
 					notificationSound.play();
 
 				if(kdeNotification)
-					Logic.notify(qsTr("Pomodoro completed"), qsTr("Great job! Now take a break and relax for a moment."));
+					Logic.notify(i18n("Pomodoro completed"), i18n("Great job! Now take a break and relax for a moment."));
 			} else if(inBreak) {
 				Logic.stop()
 				if(kdeNotification)
-					Logic.notify(qsTr("Relax time is over"), qsTr("Get back to work. Choose a task and start again."));
+					Logic.notify(i18n("Relax time is over"), i18n("Get back to work. Choose a task and start again."));
 				if(continuousMode && completedPomodoros % pomodorosPerLongBreak) //if continuous mode and long break
 					Logic.startTask(timer.taskId, timer.taskName)
 			}

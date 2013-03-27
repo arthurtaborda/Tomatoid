@@ -17,15 +17,15 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
- import QtQuick 1.1
- import org.kde.plasma.components 0.1 as PlasmaComponents
+import QtQuick 1.1
+import org.kde.plasma.components 0.1 as PlasmaComponents
 
- ListView {
+ListView {
 	property bool done //is a list of done tasks?
 
 	id: taskList
 	anchors.fill: parent
-	clip: true
+	clip: true //view itens only inside the container
 	highlightFollowsCurrentItem: !tomatoid.timerRunning //when timer is running the highlight will not change
 
 	Component.onCompleted: currentIndex = -1
@@ -52,8 +52,6 @@
 		done: taskList.done
 		donePomodoros: donePomos
 		estimatedPomodoros: estimatedPomos
-		anchors.left: parent.left
-		anchors.right: parent.right
 
 		onEntered: {
 			taskList.currentIndex = index;
