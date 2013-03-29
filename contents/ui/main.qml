@@ -64,6 +64,8 @@ Item {
 
 		Logic.parseConfig("completeTasks", completeTasks)
 		Logic.parseConfig("incompleteTasks", incompleteTasks)
+
+		plasmoid.setBackgroundHints( 0 )
 	}
 
 
@@ -92,7 +94,6 @@ Item {
 		id: toolBar
 		tools: TopBar {
 			id: topBar
-			icon: "kde"
 		}
 	}
 

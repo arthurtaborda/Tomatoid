@@ -1,76 +1,172 @@
-# plasma-applet-tomatoid language translation file.
-# Copyright (C) 2012 Glad Deschrijver
-# This file is distributed under the same license as the plasma-applet-tomatoid package.
-# 
-#
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-24 14:50-0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Qt-Contexts: true\n"
 
-#: ../ui/main.qml:83
-msgid "Tasks"
-msgstr ""
-
-#: ../ui/main.qml:84
-msgid "Completed"
-msgstr ""
-
-#: ../ui/main.qml:156
-msgid "Pomodoro completed"
-msgstr ""
-
-#: ../ui/main.qml:156
-msgid "Great job! Now take a break and relax for a moment."
-msgstr ""
-
-#: ../ui/main.qml:159
-msgid "Relax time is over"
-msgstr ""
-
-#: ../ui/main.qml:159
-msgid "Get back to work. Choose a task and start again."
-msgstr ""
-
-#: ../ui/TaskItem.qml:145
+#: ../ui/TaskItem.qml:143
+msgctxt "TaskItem|"
 msgid "Start"
 msgstr ""
 
 #: ../ui/TopBar.qml:33
+msgctxt "TopBar|"
 msgid "Running pomodoro #"
 msgstr ""
 
 #: ../ui/TopBar.qml:35
+msgctxt "TopBar|"
 msgid "Break time!"
 msgstr ""
 
 #: ../ui/TopBar.qml:50
+msgctxt "TopBar|"
 msgid "The estimation of pomodoros needed to finish this task"
 msgstr ""
 
 #: ../ui/TopBar.qml:67
+msgctxt "TopBar|"
 msgid "Task Name"
 msgstr ""
 
 #: ../ui/TopBar.qml:77
+msgctxt "TopBar|"
 msgid "Add"
 msgstr ""
 
-#: rc.js:1
-msgctxt "NAME OF TRANSLATORS"
-msgid "Your names"
+#: ../ui/config.ui:27
+msgctxt "devicenotifierConfig|"
+msgid "General"
 msgstr ""
 
-#: rc.js:2
-msgctxt "EMAIL OF TRANSLATORS"
-msgid "Your emails"
+#: ../ui/config.ui:39
+msgctxt "devicenotifierConfig|"
+msgid "Play ticking sound"
+msgstr ""
+
+#: ../ui/config.ui:58
+msgctxt "devicenotifierConfig|"
+msgid "Show icon timer"
+msgstr ""
+
+#: ../ui/config.ui:213
+msgctxt "devicenotifierConfig|"
+msgid "Flat"
+msgstr ""
+
+#: ../ui/config.ui:223
+msgctxt "devicenotifierConfig|"
+msgid "Simple"
+msgstr ""
+
+#: ../ui/config.ui:252
+msgctxt "devicenotifierConfig|"
+msgid ""
+"Make next pomodoro start automatically after a break. Stop next long break."
+msgstr ""
+
+#: ../ui/config.ui:258
+msgctxt "devicenotifierConfig|"
+msgid "Continuous mode"
+msgstr ""
+
+#: ../ui/config.ui:274
+msgctxt "devicenotifierConfig|"
+msgid "Icon theme"
+msgstr ""
+
+#: ../ui/config.ui:283
+msgctxt "devicenotifierConfig|"
+msgid "Time"
+msgstr ""
+
+#: ../ui/config.ui:295
+msgctxt "devicenotifierConfig|"
+msgid "Short break lenght"
+msgstr ""
+
+#: ../ui/config.ui:314
+msgctxt "devicenotifierConfig|"
+msgid " pomodoros"
+msgstr ""
+
+#: ../ui/config.ui:352
+msgctxt "devicenotifierConfig|"
+msgid "Pomodoros/long break"
+msgstr ""
+
+#: ../ui/config.ui:368
+msgctxt "devicenotifierConfig|"
+msgid "Long break lenght"
+msgstr ""
+
+#: ../ui/config.ui:387 ../ui/config.ui:428 ../ui/config.ui:488
+msgctxt "devicenotifierConfig|"
+msgid " minutes"
+msgstr ""
+
+#: ../ui/config.ui:469
+msgctxt "devicenotifierConfig|"
+msgid "Pomodoro lenght"
+msgstr ""
+
+#: ../ui/config.ui:519
+msgctxt "devicenotifierConfig|"
+msgid "Notification"
+msgstr ""
+
+#: ../ui/config.ui:531
+msgctxt "devicenotifierConfig|"
+msgid "Play notification sound"
+msgstr ""
+
+#: ../ui/config.ui:547
+msgctxt "devicenotifierConfig|"
+msgid "Notification action"
+msgstr ""
+
+#: ../ui/config.ui:559
+msgctxt "devicenotifierConfig|"
+msgid "Pop up tomatoid"
+msgstr ""
+
+#: ../ui/config.ui:575
+msgctxt "devicenotifierConfig|"
+msgid "Standart KDE notification"
+msgstr ""
+
+#: ../ui/config.ui:588
+msgctxt "devicenotifierConfig|"
+msgid "Do nothing"
+msgstr ""
+
+#: ../ui/main.qml:102
+msgctxt "main|"
+msgid "Tasks"
+msgstr ""
+
+#: ../ui/main.qml:103
+msgctxt "main|"
+msgid "Completed"
+msgstr ""
+
+#: ../ui/main.qml:197
+msgctxt "main|"
+msgid "Pomodoro completed"
+msgstr ""
+
+#: ../ui/main.qml:197
+msgctxt "main|"
+msgid "Great job! Now take a break and relax for a moment."
+msgstr ""
+
+#: ../ui/main.qml:201
+msgctxt "main|"
+msgid "Relax time is over"
+msgstr ""
+
+#: ../ui/main.qml:201
+msgctxt "main|"
+msgid "Get back to work. Choose a task and start again."
 msgstr ""

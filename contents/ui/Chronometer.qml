@@ -96,7 +96,7 @@
 
 	Rectangle {
 		id: timerRect
-		radius: 5
+		radius: 2
 		width: 50
 		height: 20
 		border.width: 1

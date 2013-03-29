@@ -18,7 +18,7 @@
  */
 var sep = "_,$";
 var sep2 = "|&*";
-var test = true;
+var test = false;
 
 // function newTaskDB(taskName) {
 //     var db = openDataBaseSync("tomatoid_db", "1.0")

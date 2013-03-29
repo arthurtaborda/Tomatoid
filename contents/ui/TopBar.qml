@@ -26,6 +26,7 @@ PlasmaComponents.ToolBarLayout {
 	id: topBar
 
 	property string icon
+	property int spacing: 3
 
 	PlasmaComponents.Label {
 		text: {
@@ -41,21 +42,24 @@ PlasmaComponents.ToolBarLayout {
 	}
 
 	Row {
-		spacing: 2
+		id: addTaskRow
 		visible: !tomatoid.inPomodoro && !tomatoid.inBreak
+		anchors.left: topBar.left
+		anchors.right: topBar.right
 
 		PlasmaCore.ToolTip {
 			id: estimatedPomosToolTip
 			target: estimatedPomosField
-			subText: i18n("The estimation of pomodoros needed to finish this task")
+			subText: i18n("The estimation of pomodoros necessary to complete this task")
 		}
 
 		PlasmaComponents.TextField {
 			id: estimatedPomosField
-			placeholderText: "0"
+			placeholderText: i18n("Est.")
+			height: addTaskButton.height
+			width: 50
 
 			validator: IntValidator { bottom: 1; top: 99 }
-			width: 50
 
 			Keys.onReturnPressed: {
 				add()
@@ -65,6 +69,11 @@ PlasmaComponents.ToolBarLayout {
 		PlasmaComponents.TextField {
 			id: taskField
 			placeholderText: i18n("Task Name")
+			height: addTaskButton.height
+			anchors.leftMargin: topBar.spacing
+			anchors.rightMargin: topBar.spacing
+			anchors.left: estimatedPomosField.right
+			anchors.right: addTaskButton.left
 
 			Keys.onReturnPressed: {
 				add()
@@ -74,8 +83,7 @@ PlasmaComponents.ToolBarLayout {
 		PlasmaComponents.Button {
 			id: addTaskButton
 			iconSource: "list-add"
-			text: i18n("Add")
-			width: 55
+			anchors.right: addTaskRow.right
 
 			onClicked: {
 				add()
