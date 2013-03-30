@@ -41,6 +41,10 @@
 
 	property bool timerRunning: tomatoid.timerRunning
 
+	onTimerRunningChanged: {
+		if(timerRunning) editMode = false
+	}
+
 	signal rename(string name)
 	signal entered(int index)
 	signal taskDone()
@@ -72,7 +76,7 @@
 
 		onDoubleClicked: {
 			if(!timerRunning && !done)
-				editMode = ! editMode
+				editMode = !editMode
 		}
 
 
