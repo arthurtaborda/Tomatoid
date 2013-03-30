@@ -61,9 +61,8 @@ PlasmaComponents.ToolBarLayout {
 
 			validator: IntValidator { bottom: 1; top: 99 }
 
-			Keys.onPressed: {
-				if (event.key == Qt.Key_Enter)
-					add()
+			Keys.onReturnPressed: {
+				add()
 			}
 		}
 
