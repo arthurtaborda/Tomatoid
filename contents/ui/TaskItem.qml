@@ -27,7 +27,7 @@
 	property bool done
 	property int donePomodoros
 	property int estimatedPomodoros
-	property int identity
+	property string identity
 	property string name
 	property bool editMode
 
@@ -41,7 +41,7 @@
 
 	property bool timerRunning: tomatoid.timerRunning
 
-	signal saveName(string name)
+	signal rename(string name)
 	signal entered(int index)
 	signal taskDone()
 	signal removed()
@@ -71,7 +71,7 @@
 		}
 
 		onDoubleClicked: {
-			if(!timerRunning)
+			if(!timerRunning && !done)
 				editMode = ! editMode
 		}
 
@@ -84,7 +84,8 @@
 			Text {
 				text: {
 					t = "( " + donePomodoros
-					if(estimatedPomodoros > 0) t += "/" + estimatedPomodoros
+					if(estimatedPomodoros > 0)
+						t += "/" + estimatedPomodoros
 					t += " ) " + name
 					return t
 				}
@@ -110,7 +111,7 @@
 					if(nameEdit.text != "")
 						name = nameEdit.text
 					editMode = false
-					saveName(name)
+					rename(name)
 				}
 			}
 
@@ -148,9 +149,7 @@
 				PlasmaComponents.Button {
 					id: startButton
 					visible: !done
-					text: i18n("Start")
 					iconSource: startIconImage
-					width: 58
 					height: iconSize
 
 					onClicked: started()

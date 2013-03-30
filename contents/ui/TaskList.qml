@@ -30,10 +30,10 @@ ListView {
 
 	Component.onCompleted: currentIndex = -1
 
-	signal doTask(int taskIdentity)
-	signal removeTask(int taskIdentity)
-	signal startTask(int taskIdentity, string taskName)
-	signal renameTask(int taskIdentity, string name)
+	signal doTask(string taskIdentity)
+	signal removeTask(string taskIdentity)
+	signal startTask(string taskIdentity, string taskName)
+	signal renameTask(string taskIdentity, string newName)
 
 	highlight: PlasmaComponents.Highlight {
 		opacity: 0
@@ -63,7 +63,7 @@ ListView {
 		onTaskDone: doTask(identity)
 		onRemoved: removeTask(identity)
 		onStarted: startTask(identity, taskName)
-		onSaveName: renameTask(identity, name)
+		onRename: renameTask(identity, name)
 		onExited: {
 			if(tomatoid.timerRunning) {
 				taskList.highlightItem.opacity = done ? 0 : 1; //when timer is running dont turn off highlight in undone task list

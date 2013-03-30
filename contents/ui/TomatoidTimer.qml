@@ -25,7 +25,7 @@ Item {
 	property int seconds // variable
 	property int totalSeconds //constant
 
-	property int taskId
+	property string taskId
 	property string taskName
 
 	signal tick()

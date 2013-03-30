@@ -151,7 +151,7 @@ Item {
 			onDoTask: Logic.doTask(taskIdentity)
 			onRemoveTask: Logic.removeIncompleteTask(taskIdentity)
 			onStartTask: Logic.startTask(taskIdentity, taskName)
-			onRenameTask: Logic.renameTask(taskIdentity, name)
+			onRenameTask: Logic.renameTask(taskIdentity, newName)
 		}
 
 		TaskList {
@@ -167,7 +167,7 @@ Item {
 
 	SoundEffect {
 		id: notificationSound
-		source: plasmoid.file("data", "notification.wav") //FIX not playing
+		source: plasmoid.file("data", "notification.wav")
 	}
 
 	SoundEffect {
@@ -185,6 +185,8 @@ Item {
 				tickingSound.play();
 		}
 		onTimeout: {
+			if(playNotificationSound)
+				notificationSound.play();
 			if(popupNotification)
 				plasmoid.showPopup(5000)
 
@@ -192,8 +194,6 @@ Item {
 				console.log(taskId)
 				Logic.completePomodoro(taskId)
 				Logic.startBreak()
-				if(playNotificationSound)
-					notificationSound.play();
 
 				if(kdeNotification)
 					Logic.notify(i18n("Pomodoro completed"), i18n("Great job! Now take a break and relax for a moment."));

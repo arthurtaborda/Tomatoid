@@ -16,8 +16,8 @@
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-var sep = "_,$";
-var sep2 = "|&*";
+var sep = "~";
+var sep2 = "%";
 var test = false;
 
 // function newTaskDB(taskName) {
@@ -38,7 +38,7 @@ function parseConfig(configName, model) {
 
 	for(var i = 0; i < tasks.length; i++) {
 		var task = tasks[i].split(sep);
-		model.append({"taskId":parseInt(task[0]),"taskName":task[1],"donePomos":parseInt(task[2]),"estimatedPomos":parseInt(task[3])});
+		model.append({"taskId":task[0], "taskName":task[1], "donePomos":parseInt(task[2]), "estimatedPomos":parseInt(task[3])});
 	}
 }
 
@@ -62,29 +62,33 @@ function removeCompleteTask(id) {
 
 
 function addTask(taskName, donePomos, estimatedPomos, model, configName) {
-	var id = 0;
+	var id = randomString(10);
 	var tasks = "";
 
 	if(model.count > 0) {
-		var id = parseInt(model.get(model.count-1).taskId) + 1 //get next possible id
-
 		for(var i = 0; i < model.count; i++) {
 			tasks += model.get(i).taskId + sep + model.get(i).taskName + sep +
 			model.get(i).donePomos + sep + model.get(i).estimatedPomos + sep2
 		}
 	}
 
+	//make sure no one is going to fuck with the kcfg separation.
+	taskName = taskName.replace(new RegExp(sep,"gm"), "");
+	taskName = taskName.replace(new RegExp(sep2,"gm"), "");
+
 	tasks += id + sep + taskName + sep + donePomos + sep + estimatedPomos
 
 	console.log(tasks);
 	plasmoid.writeConfig(configName, tasks);
-	model.append({"taskId":id,"taskName":taskName,"donePomos":donePomos,"estimatedPomos":estimatedPomos});
+	model.append({"taskId":id, "taskName":taskName, "donePomos":donePomos, "estimatedPomos":estimatedPomos});
 }
 
 function removeTask(id, model, configName) {
 	var removedTask = "";
 	var tasks = "";
 	var index = 0;
+
+	console.log(id);
 
 	for(var i = 0; i < model.count; i++) {
 		var task = model.get(i);
@@ -99,6 +103,7 @@ function removeTask(id, model, configName) {
 	}
 
 	console.log(tasks);
+	console.log(removedTask);
 	plasmoid.writeConfig(configName, tasks);
 	model.remove(index);
 
@@ -107,12 +112,9 @@ function removeTask(id, model, configName) {
 
 
 function renameTask(id, taskName) {
-	var index = 0;
+	var index = 0
 	var tasks = "";
 	var model = incompleteTasks;
-
-	console.log(id);
-	console.log(taskName);
 
 	for(var i = 0; i < model.count; i++) {
 		var task = model.get(i);
@@ -121,7 +123,7 @@ function renameTask(id, taskName) {
 		tasks += task.taskId + sep;
 
 		if(id == task.taskId) {
-			index = id;
+			index = i;
 			tasks += taskName; //if id matches, insert changed name
 		} else {
 			tasks += task.taskName;
@@ -130,8 +132,7 @@ function renameTask(id, taskName) {
 		tasks += sep + task.donePomos + sep + task.estimatedPomos;
 	}
 
-	console.log(tasks);
-	console.log(index);
+	console.log(id + ": " + tasks);
 	plasmoid.writeConfig("incompleteTasks", tasks);
 	model.setProperty(index, "taskName", taskName);
 }
@@ -141,7 +142,6 @@ function doTask(id) {
 	var removedTask = removeIncompleteTask(id);
 	var split = removedTask.split(sep);
 
-	console.log(removedTask);
 	console.log(split);
 
 	insertCompleteTask(split[0], split[1], split[2]);
@@ -152,7 +152,6 @@ function undoTask(id) {
 	var removedTask = removeCompleteTask(id);
 	var split = removedTask.split(sep);
 
-	console.log(removedTask);
 	console.log(split);
 
 	insertIncompleteTask(split[0], split[1], split[2]);
@@ -234,4 +233,15 @@ function notify(summary, body) {
 	service.startOperationCall(op);
 
 	console.log(op)
+}
+
+
+function randomString(len) {
+	var charSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	var randomString = "";
+	for (var i = 0; i < len; i++) {
+		var randomPoz = Math.floor(Math.random() * charSet.length);
+		randomString += charSet.substring(randomPoz,randomPoz+1);
+	}
+	return randomString;
 }
