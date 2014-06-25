@@ -40,10 +40,11 @@
 	Row {
 		id: buttons
 		spacing: 3
-		visible: inPomodoro
+		visible: inPomodoro || inBreak
 
 		PlasmaComponents.ToolButton {
 			id: playPauseButton
+			visible: inPomodoro
 			width: iconSize
 			height: iconSize
 			iconSource: {
