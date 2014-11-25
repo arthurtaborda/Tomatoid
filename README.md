@@ -1,4 +1,4 @@
-[b][u]DEPENDENCIES:
+DEPENDENCIES:
 
 - KDE 4.10.1 or later (4.10 has a bug with notifications)
 - pulseaudio (ensure pulseaudio is running: pulseaudio --start)
@@ -7,13 +7,11 @@
 - qtmobility (for Arch)
 - qt-mobility (other distros)
 
-make sure you have these dependencies installed before add tomatoid to your panel, it may crash your plasma-desktop.[/u][/b]
+make sure you have these dependencies installed before add tomatoid to your panel, it may crash your plasma-desktop.
 
 Pomodoro is a time management method developed by Francesco Cirillo in the late 1980s. The technique uses a timer to break down periods of work into 25-minute intervals called 'Pomodoros' (from the Italian word for 'tomatoes') separated by breaks. Closely related to concepts such as timeboxing and iterative and incremental development used in software design. The method is based on the idea that frequent breaks can improve mental agility.
 
 Tomatoid is a pomodoro timer for KDE and is written in QML + Javascript
-
-GIT Repository: https://github.com/arthurtaborda/Tomatoid
 
 
 KEYBOARD SHORTCUTS:
@@ -23,6 +21,7 @@ Space: play/pause timer
 S: stop
 R: rename
 
-[b]Not possible features due plasma limitations:[/b]
+
+Not possible features due plasma limitations:
 
 Install tomatoid in KDE notification system
