@@ -28,6 +28,8 @@ PlasmaComponents.ToolBarLayout {
 	property string icon
 	property int spacing: 3
 
+	property alias query: taskField
+
 	PlasmaComponents.Label {
 		text: {
 			if(tomatoid.inPomodoro)
@@ -39,6 +41,19 @@ PlasmaComponents.ToolBarLayout {
 		}
 
 		visible: tomatoid.inPomodoro || tomatoid.inBreak
+	}
+
+	Keys.onPressed: {
+		switch(event.key) {
+			case Qt.Key_Tab: {
+				if(taskField.focus)
+					estimatedPomosField.focus = true;
+				else
+					taskField.focus = true;
+				event.accepted = true;
+				break;
+			}
+		}
 	}
 
 	Row {
@@ -86,7 +101,8 @@ PlasmaComponents.ToolBarLayout {
 			anchors.right: addTaskRow.right
 
 			onClicked: {
-				add()
+				add();
+				taskField.forceActiveFocus();
 			}
 		}
 	}

@@ -29,13 +29,7 @@
 	property bool showTimer: true
 	property string iconPrefix: ""
 
-	property QtObject root: plasmoid.rootItem
-	property QtObject timer: plasmoid.rootItem.timer
-	property bool timerRunning: seconds > 0 || timer.running
-	property int seconds: timer.seconds
-	property string taskName: timer.taskName
-
-	property string timeString: Qt.formatTime(new Date(0,0,0,0,0, seconds), "mm:ss")
+	property string timeString: Qt.formatTime(new Date(0,0,0,0,0, tomatoid.timer.seconds), "mm:ss")
 
 	Component.onCompleted: {
 		plasmoid.addEventListener("ConfigChanged", configChanged)
@@ -73,13 +67,13 @@
 			anchors.fill: parent
 			svg: svgIcon
 			elementId: {
-				if(root.inPomodoro && !timer.running)
+				if(tomatoid.inPomodoro && !tomatoid.timer.running)
 					return iconPrefix + "tomatoid-pause"
-				else if(root.inPomodoro)
+				else if(tomatoid.inPomodoro)
 					return iconPrefix + "tomatoid-running"
-				else if(root.inBreak)
+				else if(tomatoid.inBreak)
 					return iconPrefix + "tomatoid-break"
-				else if(!root.inPomodoro && !root.inBreak)
+				else if(!tomatoid.inPomodoro && !tomatoid.inBreak)
 					return iconPrefix + "tomatoid-idle"
 			}
 		}
@@ -101,7 +95,7 @@
 				border.color: "grey"
 				border.width: 2
 				radius: 4
-				opacity: timerRunning ? (showTimer ? 0.5 : (isConstrained() ? 0 : mouseArea.containsMouse*0.7)) : 0
+				opacity: tomatoid.timerActive ? (showTimer ? 0.5 : (isConstrained() ? 0 : mouseArea.containsMouse*0.7)) : 0
 
 				Behavior on opacity { NumberAnimation { duration: 100 } }
 			}

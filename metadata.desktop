@@ -11,6 +11,7 @@ X-Plasma-API=declarativeappletscript
 X-Plasma-DefaultSize=280,320
 X-Plasma-MainScript=ui/main.qml
 X-Plasma-NotificationArea=true
+X-Plasma-OptionalExtensions=LaunchApp
 
 X-KDE-PluginInfo-Author=Arthur Taborda
 X-KDE-PluginInfo-Email=arthur.hvt@gmail.com

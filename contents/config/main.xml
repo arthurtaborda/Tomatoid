@@ -65,6 +65,18 @@ xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
 			</entry>
 			<entry name="noNotification" type="Bool">
 				<default>false</default>
+			</entry>			
+			<entry name="actionStartTimer" type="String">
+				<default></default>
+			</entry>			
+			<entry name="actionStartBreak" type="String">
+				<default></default>
+			</entry>			
+			<entry name="actionEndBreak" type="String">
+				<default></default>
+			</entry>			
+			<entry name="actionEndCycle" type="String">
+				<default></default>
 			</entry>
 		</group>
 </kcfg>

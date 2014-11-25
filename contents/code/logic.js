@@ -78,7 +78,7 @@ function addTask(taskName, donePomos, estimatedPomos, model, configName) {
 
 	tasks += id + sep + taskName + sep + donePomos + sep + estimatedPomos
 
-	console.log(tasks);
+	console.log("tasks: " + tasks);
 	plasmoid.writeConfig(configName, tasks);
 	model.append({"taskId":id, "taskName":taskName, "donePomos":donePomos, "estimatedPomos":estimatedPomos});
 }
@@ -88,7 +88,7 @@ function removeTask(id, model, configName) {
 	var tasks = "";
 	var index = 0;
 
-	console.log(id);
+	console.log("ID of task to remove: " + id);
 
 	for(var i = 0; i < model.count; i++) {
 		var task = model.get(i);
@@ -102,8 +102,8 @@ function removeTask(id, model, configName) {
 		}
 	}
 
-	console.log(tasks);
-	console.log(removedTask);
+	console.log("tasks: " + tasks);
+	console.log("Task to remove: " + removedTask);
 	plasmoid.writeConfig(configName, tasks);
 	model.remove(index);
 
@@ -142,8 +142,6 @@ function doTask(id) {
 	var removedTask = removeIncompleteTask(id);
 	var split = removedTask.split(sep);
 
-	console.log(split);
-
 	insertCompleteTask(split[0], split[1], split[2]);
 }
 
@@ -152,13 +150,24 @@ function undoTask(id) {
 	var removedTask = removeCompleteTask(id);
 	var split = removedTask.split(sep);
 
-	console.log(split);
-
 	insertIncompleteTask(split[0], split[1], split[2]);
+}
+
+function runCommand(command) {
+	if(command){
+		var params = command.split(" ");
+		var app = params[0];
+		params.shift();
+		console.log(app);
+		console.log(params);
+		plasmoid.runCommand(app, params);
+	}
 }
 
 
 function startTask(id, taskName) {
+	runCommand(tomatoid.actionStartTimer);
+
 	console.log(plasmoid.popupIcon)
 	timer.taskId = id;
 	timer.taskName = taskName;
@@ -170,6 +179,7 @@ function startTask(id, taskName) {
 
 
 function startBreak() {
+	runCommand(tomatoid.actionStartBreak);
 	console.log(plasmoid.popupIcon)
 
 	if(completedPomodoros % pomodorosPerLongBreak == 0) {
@@ -180,6 +190,16 @@ function startBreak() {
 	timer.running = true;
 	inPomodoro = false;
 	inBreak = true;
+}
+
+function endBreak() {
+	runCommand(tomatoid.actionEndBreak);
+
+	if(completedPomodoros % pomodorosPerLongBreak == 0) {
+		runCommand(tomatoid.actionEndCycle);
+	}
+
+	stop();
 }
 
 

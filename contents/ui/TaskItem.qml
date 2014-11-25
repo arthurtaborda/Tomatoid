@@ -30,6 +30,7 @@
 	property string identity
 	property string name
 	property bool editMode
+	property bool active
 
 	property string startIconImage: "media-playback-start"
 	property string removeIconImage: "window-close"
@@ -39,7 +40,7 @@
 	property int iconSize: 22
 	property int margin: 8
 
-	property bool timerRunning: tomatoid.timerRunning
+	property bool timerRunning: tomatoid.timerActive
 
 	onTimerRunningChanged: {
 		if(timerRunning) editMode = false
@@ -60,6 +61,14 @@
 	anchors.right: parent.right
 
 
+	function doRename() {
+		if(!timerRunning && !done)
+			editMode = true
+
+		nameEdit.forceActiveFocus();
+	}
+
+
 	PlasmaCore.Theme { id: theme }
 
 	MouseArea {
@@ -75,8 +84,7 @@
 		}
 
 		onDoubleClicked: {
-			if(!timerRunning && !done)
-				editMode = !editMode
+			doRename();
 		}
 
 
@@ -122,7 +130,7 @@
 			Row {
 				id: toolBar
 				spacing: 5
-				visible: !tomatoid.timerRunning
+				visible: !timerRunning
 				anchors.right: parent.right
 				anchors.verticalCenter: parent.verticalCenter
 
@@ -134,8 +142,8 @@
 					}
 					width: iconSize
 					height: iconSize
-					enabled: !tomatoid.timerRunning
-					opacity: mouseArea.containsMouse * 1
+					enabled: !timerRunning
+					opacity: active * 1
 
 					onClicked: taskDone()
 				}
@@ -145,7 +153,7 @@
 					iconSource: removeIconImage
 					width: iconSize
 					height: iconSize
-					opacity: mouseArea.containsMouse * 1
+					opacity: active * 1
 
 					onClicked: removed()
 				}

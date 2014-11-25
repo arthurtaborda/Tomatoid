@@ -28,7 +28,7 @@
 
 	property string timeString: Qt.formatTime(new Date(0,0,0,0,0, seconds), "mm:ss")
 
-	property bool running: true
+	property bool running: tomatoid.timer.running
 	property int seconds
 	property int totalSeconds
 	property int iconSize: 22
@@ -44,7 +44,6 @@
 
 		PlasmaComponents.ToolButton {
 			id: playPauseButton
-			visible: inPomodoro
 			width: iconSize
 			height: iconSize
 			iconSource: {
@@ -69,7 +68,6 @@
 			width: iconSize
 			height: iconSize
 			onClicked: {
-				running = true
 				stopPressed()
 			}
 		}
@@ -106,15 +104,15 @@
 			verticalCenter: progressBar.verticalCenter
 			horizontalCenter: progressBar.horizontalCenter
 		}
-	}
 
-	PlasmaComponents.Label {
-		text: timeString
-		color: "#000000"
-		font.pointSize: 12
-		anchors {
-			verticalCenter: timerRect.verticalCenter
-			horizontalCenter: timerRect.horizontalCenter
+		PlasmaComponents.Label {
+			text: timeString
+			color: "#000000"
+			font.pointSize: 12
+			anchors {
+				verticalCenter: timerRect.verticalCenter
+				horizontalCenter: timerRect.horizontalCenter
+			}
 		}
 	}
 }

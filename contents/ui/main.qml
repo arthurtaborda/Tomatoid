@@ -39,7 +39,7 @@ Item {
 	property bool continuousMode: false
 	property bool inPomodoro: false
 	property bool inBreak: false
-	property bool timerRunning: inPomodoro || inBreak
+	property bool timerActive: inPomodoro || inBreak
 
 	property bool popupNotification: true
 	property bool kdeNotification: false
@@ -50,14 +50,22 @@ Item {
 	property int longBreakLenght
 	property int pomodorosPerLongBreak
 
+	property string actionStartTimer
+	property string actionStartBreak
+	property string actionEndBreak
+	property string actionEndCycle
+
 	property int completedPomodoros: 0
 
 	property int tickingVolume: 50
 
 	//************ /OPTIONS ************
 
+	//list of tasks
 	ListModel { id: completeTasks }
 	ListModel { id: incompleteTasks }
+
+	property Item currentView: toolBarLayout.currentTab
 
 	Component.onCompleted: {
 		plasmoid.addEventListener("ConfigChanged", configChanged)
@@ -65,22 +73,27 @@ Item {
 		Logic.parseConfig("completeTasks", completeTasks)
 		Logic.parseConfig("incompleteTasks", incompleteTasks)
 
-		plasmoid.setBackgroundHints( 0 )
+		plasmoid.setBackgroundHints(0);
+		tomatoid.forceActiveFocus();
 	}
 
 
 	function configChanged() {
-		playNotificationSound = plasmoid.readConfig("playNotificationSound");
-		tickingVolume = plasmoid.readConfig("tickingVolume");
-		playTickingSound = plasmoid.readConfig("playTickingSound");
-		continuousMode = plasmoid.readConfig("continuousMode");
-		pomodoroLenght = plasmoid.readConfig("pomodoroLenght");
-		shortBreakLenght = plasmoid.readConfig("shortBreakLenght");
-		longBreakLenght = plasmoid.readConfig("longBreakLenght");
-		pomodorosPerLongBreak = plasmoid.readConfig("pomodorosPerLongBreak");
-		popupNotification = plasmoid.readConfig("popupNotification");
-		kdeNotification = plasmoid.readConfig("kdeNotification");
-		noNotification = plasmoid.readConfig("noNotification");
+		playNotificationSound 	= plasmoid.readConfig("playNotificationSound");
+		tickingVolume 			= plasmoid.readConfig("tickingVolume");
+		playTickingSound 		= plasmoid.readConfig("playTickingSound");
+		continuousMode 			= plasmoid.readConfig("continuousMode");
+		pomodoroLenght 			= plasmoid.readConfig("pomodoroLenght");
+		shortBreakLenght 		= plasmoid.readConfig("shortBreakLenght");
+		longBreakLenght 		= plasmoid.readConfig("longBreakLenght");
+		pomodorosPerLongBreak 	= plasmoid.readConfig("pomodorosPerLongBreak");
+		popupNotification 		= plasmoid.readConfig("popupNotification");
+		kdeNotification 		= plasmoid.readConfig("kdeNotification");
+		noNotification 			= plasmoid.readConfig("noNotification");
+		actionStartTimer 		= plasmoid.readConfig("actionStartTimer");
+		actionStartBreak 		= plasmoid.readConfig("actionStartBreak");
+		actionEndBreak 			= plasmoid.readConfig("actionEndBreak");
+		actionEndCycle 			= plasmoid.readConfig("actionEndCycle");
 	}
 
 
@@ -92,6 +105,8 @@ Item {
 
 	PlasmaComponents.ToolBar {
 		id: toolBar
+		property alias query: topBar.query
+
 		tools: TopBar {
 			id: topBar
 		}
@@ -99,10 +114,13 @@ Item {
 
 	PlasmaComponents.TabBar {
 		id: tabBar
-		height: 30
+		height: 35
+
+		currentTab: incompleteTaskList
+		onCurrentTabChanged: tomatoid.forceActiveFocus();
 
 		PlasmaComponents.TabButton { tab: incompleteTaskList; text: i18n("Tasks") }
-		PlasmaComponents.TabButton { tab: completeTaskList; text: i18n("Completed") }
+		PlasmaComponents.TabButton { tab: completeTaskList; text: i18n("Done") }
 
 		anchors {
 			top: toolBar.bottom
@@ -131,7 +149,7 @@ Item {
 			left: parent.left
 			right: parent.right
 			bottom: parent.bottom
-			bottomMargin: timerRunning ? 32 : 5
+			bottomMargin: timerActive ? 32 : 5
 			margins: 5
 
 			Behavior on bottomMargin {
@@ -141,6 +159,7 @@ Item {
 				}
 			}
 		}
+
 
 		TaskList {
 			id: incompleteTaskList
@@ -164,6 +183,52 @@ Item {
 			onRemoveTask: Logic.removeCompleteTask(taskIdentity)
 		}
 	}
+
+	Keys.forwardTo: [tabBar.layout]
+
+	Keys.onPressed: {
+		switch(event.key) {
+			case Qt.Key_Up: {
+				console.log("root up")
+				currentView.decrementCurrentIndex();
+				event.accepted = true;
+				break;
+			}
+			case Qt.Key_Down: {
+				console.log("root down")
+				currentView.incrementCurrentIndex();
+				event.accepted = true;
+				break;
+			}
+			case Qt.Key_Escape: {
+				plasmoid.togglePopup();
+				event.accepted = true;
+				break;
+			}
+			case Qt.Key_Tab: {
+				console.log("root tab")
+				toolBar.query.focus = true;
+				event.accepted = true;
+				break;
+			}
+			case Qt.Key_Space: {
+				if(tomatoid.timerActive)
+					timer.running = !timer.running
+				event.accepted = true;
+				break;
+			}
+			case Qt.Key_S: {
+				if(tomatoid.timerActive)
+					Logic.stop()
+				event.accepted = true;
+				break;
+			}
+			default: {
+				console.log(event.key);
+			}
+		}
+	}
+
 
 	SoundEffect {
 		id: notificationSound
@@ -198,7 +263,7 @@ Item {
 				if(kdeNotification)
 					Logic.notify(i18n("Pomodoro completed"), i18n("Great job! Now take a break and relax for a moment."));
 			} else if(inBreak) {
-				Logic.stop()
+				Logic.endBreak()
 				if(kdeNotification)
 					Logic.notify(i18n("Relax time is over"), i18n("Get back to work. Choose a task and start again."));
 				if(continuousMode && completedPomodoros % pomodorosPerLongBreak) //if continuous mode and long break
@@ -213,7 +278,7 @@ Item {
 		height: 22
 		seconds: timer.seconds
 		totalSeconds: timer.totalSeconds
-		opacity: timerRunning * 1 //only show if timer ir running
+		opacity: timerActive * 1 //only show if timer is running
 
 		onPlayPressed: {
 			timer.running = true
