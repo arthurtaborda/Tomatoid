@@ -15,11 +15,12 @@ Tomatoid is a pomodoro timer for KDE and is written in QML + Javascript
 
 
 KEYBOARD SHORTCUTS:
-x: do/undo task
-Enter: start task
-Space: play/pause timer
-S: stop
-R: rename
+
+- X: do/undo task
+- Enter: start task
+- Space: play/pause timer
+- S: stop
+- R: rename
 
 
 Not possible features due plasma limitations:
