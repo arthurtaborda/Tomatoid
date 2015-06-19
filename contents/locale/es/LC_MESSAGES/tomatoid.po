@@ -8,11 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-19 09:49-0300\n"
+"POT-Creation-Date: 2015-06-19 09:53-0300\n"
 "PO-Revision-Date: 2013-03-29 13:15-0300\n"
-"Last-Translator: Arthur Taborda <arthur.hvt@gmail.com>\n"
-"Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
-"Language: pt_BR\n"
+"Last-Translator: Nico Rodsevich <nico.rodsevich@gmail.com>\n"
+"Language-Team: Argentinian Spanish <kde-i18n-es_AR@kde.org>\n"
+"Language: es_AR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,7 +23,7 @@ msgstr ""
 #. i18n: file: ../config/main.xml:14
 #: ../ui/main.qml:124 rc.js:92 rc.js:94
 msgid "Tasks"
-msgstr "Tarefas"
+msgstr "Tareas"
 
 #: ../ui/main.qml:125
 msgid "Done"
@@ -35,15 +35,15 @@ msgstr "Pomodoro finalizado"
 
 #: ../ui/main.qml:273
 msgid "Great job! Now take a break and relax for a moment."
-msgstr "Bom trabalho! Agora descanse um pouco."
+msgstr "¡Buen trabajo! Ahora descansa un poco."
 
 #: ../ui/main.qml:277
 msgid "Relax time is over"
-msgstr "O descanso acabou"
+msgstr "Se terminó el descanso"
 
 #: ../ui/main.qml:277
 msgid "Get back to work. Choose a task and start again."
-msgstr "Volte ao trabalho. Escolha uma tarefa para recomeçar"
+msgstr "Velve a trabajar. Elige una tarea para volver a empezar"
 
 #: ../ui/TopBar.qml:36
 msgid "Running pomodoro #"
@@ -51,11 +51,12 @@ msgstr "Pomodoro #"
 
 #: ../ui/TopBar.qml:38
 msgid "Break time!"
-msgstr "Hora do descanso!"
+msgstr "¡A descansar!"
 
 #: ../ui/TopBar.qml:68
 msgid "The estimation of pomodoros necessary to complete this task"
-msgstr "A estimativa de pomodoros necessária para completar esta tarefa"
+msgstr ""
+"Una estimación de cantidad de pomodoros necesaria para completar esta tarea"
 
 #: ../ui/TopBar.qml:73
 msgid "Est."
@@ -63,26 +64,26 @@ msgstr "Est."
 
 #: ../ui/TopBar.qml:86
 msgid "Task Name"
-msgstr "Nome da tarefa"
+msgstr "Nombre de la tarea"
 
 #. i18n: file: ../ui/config.ui:27
 #. i18n: ectx: attribute (title), widget (QWidget, general)
 #: rc.js:3
 msgid "General"
-msgstr "Geral"
+msgstr "General"
 
 #. i18n: file: ../ui/config.ui:35
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_playTickingSound)
 #: rc.js:6
 msgid "Play ticking sound"
-msgstr "Tocam som de relógio"
+msgstr "Reproducir sonido"
 
 #. i18n: file: ../ui/config.ui:115
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_playTickingSoundOnBreaks)
 #: rc.js:9
 #, fuzzy
 msgid "Play ticking sound on breaks"
-msgstr "Tocam som de relógio"
+msgstr "Reproducir sonido"
 
 #. i18n: file: ../ui/config.ui:129
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_continuousMode)
@@ -90,8 +91,8 @@ msgstr "Tocam som de relógio"
 msgid ""
 "Make next pomodoro start automatically after a break. Stop after long break."
 msgstr ""
-"Faz o próximo pomodoro iniciar automaticamente depois de um descanso. Para "
-"após o descanso longo."
+"Hacer que el próximo pomodoro inicie automáticamente después de um descanso. "
+"Parar después de un descanso largo."
 
 #. i18n: file: ../ui/config.ui:132
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_continuousMode)
@@ -99,40 +100,40 @@ msgstr ""
 #, fuzzy
 msgid "Start pomodoro automatically after break"
 msgstr ""
-"Faz o próximo pomodoro iniciar automaticamente depois de um descanso. Para "
-"após o descanso longo."
+"Hacer que el próximo pomodoro inicie automáticamente después de um descanso. "
+"Parar después de un descanso largo."
 
 #. i18n: file: ../ui/config.ui:156
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_showIconTimer)
 #: rc.js:18
 #, fuzzy
 msgid "Show timer"
-msgstr "Mostrar contador no ícone"
+msgstr "Mostrar contador sobre el ícono"
 
 #. i18n: file: ../ui/config.ui:180
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #: rc.js:21
 #, fuzzy
 msgid "Icon theme:"
-msgstr "Ícone"
+msgstr "Ícono"
 
 #. i18n: file: ../ui/config.ui:190
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_flatIconTheme)
 #: rc.js:24
 msgid "Flat"
-msgstr "Padrão"
+msgstr "Plano"
 
 #. i18n: file: ../ui/config.ui:200
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_simpleIconTheme)
 #: rc.js:27
 msgid "Simple"
-msgstr "Simples"
+msgstr "Simple"
 
 #. i18n: file: ../ui/config.ui:236
 #. i18n: ectx: attribute (title), widget (QWidget, time)
 #: rc.js:30
 msgid "Time"
-msgstr "Tempo"
+msgstr "Tiempo"
 
 #. i18n: file: ../ui/config.ui:244
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_pomodorosPerLongBreak)
@@ -152,7 +153,7 @@ msgstr " pomodoros"
 #: rc.js:39
 #, fuzzy
 msgid "Short break:"
-msgstr "Descanso curto"
+msgstr "Duración de descanso corto"
 
 #. i18n: file: ../ui/config.ui:283
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_pomodoroLenght)
@@ -175,26 +176,26 @@ msgstr ""
 #: rc.js:54
 #, fuzzy
 msgid "Long break:"
-msgstr "Descanso longo"
+msgstr "Duración de descanso largo"
 
 #. i18n: file: ../ui/config.ui:419
 #. i18n: ectx: attribute (title), widget (QWidget, notification)
 #: rc.js:57
 msgid "Notification"
-msgstr "Notificações"
+msgstr "Notificaciones"
 
 #. i18n: file: ../ui/config.ui:425
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_playNotificationSound)
 #: rc.js:60
 msgid "Play notification sound"
-msgstr "Tocar som de notificação"
+msgstr "Reproducir sonido de notificación"
 
 #. i18n: file: ../ui/config.ui:435
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: rc.js:63
 #, fuzzy
 msgid "Notification Action"
-msgstr "Ação de notificação"
+msgstr "Acción de notificación"
 
 #. i18n: file: ../ui/config.ui:441
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_popupNotification)
@@ -206,44 +207,44 @@ msgstr "Abrir tomatoid"
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_kdeNotification)
 #: rc.js:69
 msgid "Standart KDE notification"
-msgstr "Notificação padrão do KDE"
+msgstr "Notificación por defecto de KDE"
 
 #. i18n: file: ../ui/config.ui:458
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_noNotification)
 #: rc.js:72
 msgid "Do nothing"
-msgstr "Fazer nada"
+msgstr "No hacer nada"
 
 #. i18n: file: ../ui/config.ui:482
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: rc.js:75
 msgid "Actions"
-msgstr ""
+msgstr "Acciones"
 
 #. i18n: file: ../ui/config.ui:488
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: rc.js:78
 msgid "Run command"
-msgstr ""
+msgstr "Ejecutar Comando"
 
 #. i18n: file: ../ui/config.ui:503
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: rc.js:81
 msgid "Start timer: "
-msgstr ""
+msgstr "Empezar temporizador: "
 
 #. i18n: file: ../ui/config.ui:513
 #. i18n: ectx: property (text), widget (QLabel, label_7)
 #: rc.js:84
 msgid "End break:"
-msgstr ""
+msgstr "Terminar descanso:"
 
 #. i18n: file: ../ui/config.ui:523
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: rc.js:87
 #, fuzzy
 msgid "Start break:"
-msgstr "Descanso curto"
+msgstr "Duración de descanso corto"
 
 #. i18n: file: ../ui/config.ui:533
 #. i18n: ectx: property (text), widget (QLabel, label_9)
@@ -254,37 +255,37 @@ msgstr ""
 #. i18n: file: ../config/main.xml:19
 #: rc.js:96
 msgid "The lenght in minutes of one pomodoro"
-msgstr "A duração em minutos de um pomodoro"
+msgstr "La duracón en minutos de nm pomodoro"
 
 #. i18n: file: ../config/main.xml:23
 #: rc.js:98
 msgid "The lenght in minutes of a short break"
-msgstr "A duração em minutos de um descanso curto"
+msgstr "Duración en minutos de un descanso corto"
 
 #. i18n: file: ../config/main.xml:27
 #: rc.js:100
 msgid "The lenght in minutes of a long break"
-msgstr "A duração em minutos de um descanso longo"
+msgstr "Duración en minutos de un descanso largo"
 
 #. i18n: file: ../config/main.xml:31
 #: rc.js:102
 msgid "The amount of pomodoros needed to take a long break"
-msgstr "A quantidade de pomodoros necessária para iniciar um descanso longo"
+msgstr "Cantidad de pomodoros necesaria para iniciar un descanso largo"
 
 #. i18n: file: ../config/main.xml:36
 #: rc.js:104
 msgid "Make the timer in icon visible"
-msgstr "Faz o contador no ícone visivel"
+msgstr "Visualizar contador sobre ícono"
 
 #: rc.js:105
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Nome do tradutor"
+msgstr "Nombre del traductor"
 
 #: rc.js:106
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "Email do tradutor"
+msgstr "Email del traductor"
 
 #~ msgid "Completed"
 #~ msgstr "Finalizados"
@@ -293,7 +294,7 @@ msgstr "Email do tradutor"
 #~ msgstr "Modo contínuo"
 
 #~ msgid "Pomodoros/long break"
-#~ msgstr "Pomodoro/descanso longo"
+#~ msgstr "Pomodoros para descanso largo"
 
 #~ msgid "Pomodoro lenght"
-#~ msgstr "Pomodoro"
+#~ msgstr "Duración del Pomodoro"

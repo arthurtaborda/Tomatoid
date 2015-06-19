@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-29 21:13-0300\n"
+"POT-Creation-Date: 2015-06-19 10:23-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,47 +19,47 @@ msgstr ""
 
 #. i18n: file: ../config/main.xml:10
 #. i18n: file: ../config/main.xml:14
-#: ../ui/main.qml:104 rc.js:71 rc.js:73
+#: ../ui/main.qml:124 rc.js:92 rc.js:94
 msgid "Tasks"
 msgstr ""
 
-#: ../ui/main.qml:105
-msgid "Completed"
+#: ../ui/main.qml:125
+msgid "Done"
 msgstr ""
 
-#: ../ui/main.qml:199
+#: ../ui/main.qml:273
 msgid "Pomodoro completed"
 msgstr ""
 
-#: ../ui/main.qml:199
+#: ../ui/main.qml:273
 msgid "Great job! Now take a break and relax for a moment."
 msgstr ""
 
-#: ../ui/main.qml:203
+#: ../ui/main.qml:277
 msgid "Relax time is over"
 msgstr ""
 
-#: ../ui/main.qml:203
+#: ../ui/main.qml:277
 msgid "Get back to work. Choose a task and start again."
 msgstr ""
 
-#: ../ui/TopBar.qml:34
+#: ../ui/TopBar.qml:36
 msgid "Running pomodoro #"
 msgstr ""
 
-#: ../ui/TopBar.qml:36
+#: ../ui/TopBar.qml:38
 msgid "Break time!"
 msgstr ""
 
-#: ../ui/TopBar.qml:53
+#: ../ui/TopBar.qml:68
 msgid "The estimation of pomodoros necessary to complete this task"
 msgstr ""
 
-#: ../ui/TopBar.qml:58
+#: ../ui/TopBar.qml:73
 msgid "Est."
 msgstr ""
 
-#: ../ui/TopBar.qml:71
+#: ../ui/TopBar.qml:86
 msgid "Task Name"
 msgstr ""
 
@@ -69,162 +69,204 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-#. i18n: file: ../ui/config.ui:39
-#. i18n: ectx: property (text), widget (QLabel, label_10)
+#. i18n: file: ../ui/config.ui:35
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_playTickingSound)
 #: rc.js:6
 msgid "Play ticking sound"
 msgstr ""
 
-#. i18n: file: ../ui/config.ui:58
-#. i18n: ectx: property (text), widget (QLabel, label_7)
+#. i18n: file: ../ui/config.ui:115
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_playTickingSoundOnBreaks)
 #: rc.js:9
-msgid "Show icon timer"
+msgid "Play ticking sound on breaks"
 msgstr ""
 
-#. i18n: file: ../ui/config.ui:213
-#. i18n: ectx: property (text), widget (QRadioButton, kcfg_flatIconTheme)
+#. i18n: file: ../ui/config.ui:129
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_continuousMode)
 #: rc.js:12
-msgid "Flat"
-msgstr ""
-
-#. i18n: file: ../ui/config.ui:223
-#. i18n: ectx: property (text), widget (QRadioButton, kcfg_simpleIconTheme)
-#: rc.js:15
-msgid "Simple"
-msgstr ""
-
-#. i18n: file: ../ui/config.ui:252
-#. i18n: ectx: property (toolTip), widget (QLabel, label_9)
-#: rc.js:18
 msgid ""
 "Make next pomodoro start automatically after a break. Stop after long break."
 msgstr ""
 
-#. i18n: file: ../ui/config.ui:258
-#. i18n: ectx: property (text), widget (QLabel, label_9)
-#: rc.js:21
-msgid "Continuous mode"
+#. i18n: file: ../ui/config.ui:132
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_continuousMode)
+#: rc.js:15
+msgid "Start pomodoro automatically after break"
 msgstr ""
 
-#. i18n: file: ../ui/config.ui:274
+#. i18n: file: ../ui/config.ui:156
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_showIconTimer)
+#: rc.js:18
+msgid "Show timer"
+msgstr ""
+
+#. i18n: file: ../ui/config.ui:180
 #. i18n: ectx: property (text), widget (QLabel, label_8)
-#: rc.js:24
-msgid "Icon theme"
+#: rc.js:21
+msgid "Icon theme:"
 msgstr ""
 
-#. i18n: file: ../ui/config.ui:283
-#. i18n: ectx: attribute (title), widget (QWidget, time)
+#. i18n: file: ../ui/config.ui:190
+#. i18n: ectx: property (text), widget (QRadioButton, kcfg_flatIconTheme)
+#: rc.js:24
+msgid "Flat"
+msgstr ""
+
+#. i18n: file: ../ui/config.ui:200
+#. i18n: ectx: property (text), widget (QRadioButton, kcfg_simpleIconTheme)
 #: rc.js:27
+msgid "Simple"
+msgstr ""
+
+#. i18n: file: ../ui/config.ui:236
+#. i18n: ectx: attribute (title), widget (QWidget, time)
+#: rc.js:30
 msgid "Time"
 msgstr ""
 
-#. i18n: file: ../ui/config.ui:295
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: rc.js:30
-msgid "Short break lenght"
-msgstr ""
-
-#. i18n: file: ../ui/config.ui:314
+#. i18n: file: ../ui/config.ui:244
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_pomodorosPerLongBreak)
 #: rc.js:33
 msgid " pomodoros"
 msgstr ""
 
-#. i18n: file: ../ui/config.ui:352
-#. i18n: ectx: property (text), widget (QLabel, label_4)
+#. i18n: file: ../ui/config.ui:263
+#. i18n: ectx: property (text), widget (QLabel, label)
 #: rc.js:36
-msgid "Pomodoros/long break"
+msgid "Pomodoro:"
 msgstr ""
 
-#. i18n: file: ../ui/config.ui:368
-#. i18n: ectx: property (text), widget (QLabel, label_3)
+#. i18n: file: ../ui/config.ui:273
+#. i18n: ectx: property (text), widget (QLabel, label_2)
 #: rc.js:39
-msgid "Long break lenght"
+msgid "Short break:"
 msgstr ""
 
-#. i18n: file: ../ui/config.ui:387
+#. i18n: file: ../ui/config.ui:283
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_pomodoroLenght)
-#. i18n: file: ../ui/config.ui:428
+#. i18n: file: ../ui/config.ui:299
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_shortBreakLenght)
-#. i18n: file: ../ui/config.ui:488
+#. i18n: file: ../ui/config.ui:325
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_longBreakLenght)
 #: rc.js:42 rc.js:45 rc.js:51
 msgid " minutes"
 msgstr ""
 
-#. i18n: file: ../ui/config.ui:469
-#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: file: ../ui/config.ui:315
+#. i18n: ectx: property (text), widget (QLabel, label_4)
 #: rc.js:48
-msgid "Pomodoro lenght"
+msgid "Cycle:"
 msgstr ""
 
-#. i18n: file: ../ui/config.ui:519
-#. i18n: ectx: attribute (title), widget (QWidget, notification)
+#. i18n: file: ../ui/config.ui:341
+#. i18n: ectx: property (text), widget (QLabel, label_3)
 #: rc.js:54
+msgid "Long break:"
+msgstr ""
+
+#. i18n: file: ../ui/config.ui:419
+#. i18n: ectx: attribute (title), widget (QWidget, notification)
+#: rc.js:57
 msgid "Notification"
 msgstr ""
 
-#. i18n: file: ../ui/config.ui:531
+#. i18n: file: ../ui/config.ui:425
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_playNotificationSound)
-#: rc.js:57
+#: rc.js:60
 msgid "Play notification sound"
 msgstr ""
 
-#. i18n: file: ../ui/config.ui:547
+#. i18n: file: ../ui/config.ui:435
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: rc.js:60
-msgid "Notification action"
+#: rc.js:63
+msgid "Notification Action"
 msgstr ""
 
-#. i18n: file: ../ui/config.ui:559
+#. i18n: file: ../ui/config.ui:441
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_popupNotification)
-#: rc.js:63
+#: rc.js:66
 msgid "Pop up tomatoid"
 msgstr ""
 
-#. i18n: file: ../ui/config.ui:575
+#. i18n: file: ../ui/config.ui:451
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_kdeNotification)
-#: rc.js:66
+#: rc.js:69
 msgid "Standart KDE notification"
 msgstr ""
 
-#. i18n: file: ../ui/config.ui:588
+#. i18n: file: ../ui/config.ui:458
 #. i18n: ectx: property (text), widget (QRadioButton, kcfg_noNotification)
-#: rc.js:69
+#: rc.js:72
 msgid "Do nothing"
 msgstr ""
 
-#. i18n: file: ../config/main.xml:19
+#. i18n: file: ../ui/config.ui:482
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: rc.js:75
+msgid "Actions"
+msgstr ""
+
+#. i18n: file: ../ui/config.ui:488
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: rc.js:78
+msgid "Run command"
+msgstr ""
+
+#. i18n: file: ../ui/config.ui:503
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: rc.js:81
+msgid "Start timer: "
+msgstr ""
+
+#. i18n: file: ../ui/config.ui:513
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: rc.js:84
+msgid "End break:"
+msgstr ""
+
+#. i18n: file: ../ui/config.ui:523
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: rc.js:87
+msgid "Start break:"
+msgstr ""
+
+#. i18n: file: ../ui/config.ui:533
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#: rc.js:90
+msgid "End cycle:"
+msgstr ""
+
+#. i18n: file: ../config/main.xml:19
+#: rc.js:96
 msgid "The lenght in minutes of one pomodoro"
 msgstr ""
 
 #. i18n: file: ../config/main.xml:23
-#: rc.js:77
+#: rc.js:98
 msgid "The lenght in minutes of a short break"
 msgstr ""
 
 #. i18n: file: ../config/main.xml:27
-#: rc.js:79
+#: rc.js:100
 msgid "The lenght in minutes of a long break"
 msgstr ""
 
 #. i18n: file: ../config/main.xml:31
-#: rc.js:81
+#: rc.js:102
 msgid "The amount of pomodoros needed to take a long break"
 msgstr ""
 
 #. i18n: file: ../config/main.xml:36
-#: rc.js:83
+#: rc.js:104
 msgid "Make the timer in icon visible"
 msgstr ""
 
-#: rc.js:84
+#: rc.js:105
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr ""
 
-#: rc.js:85
+#: rc.js:106
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
