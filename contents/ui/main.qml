@@ -46,10 +46,10 @@ Item {
 	property bool kdeNotification: false
 	property bool noNotification: false
 
-	property int pomodoroLenght
-	property int shortBreakLenght
-	property int longBreakLenght
-	property int pomodorosPerLongBreak
+	property int pomodoroLenght: 25
+	property int shortBreakLenght: 5
+	property int longBreakLenght: 20
+	property int pomodorosPerLongBreak: 4
 
 	property string actionStartTimer
 	property string actionStartBreak
