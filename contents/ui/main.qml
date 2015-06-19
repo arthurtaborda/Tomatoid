@@ -35,8 +35,8 @@ Item {
 	property int minimumHeight: 320
 
 	property bool playNotificationSound: true
-	property bool playNotificationSoundOnBreaks: true
 	property bool playTickingSound: false
+	property bool playTickingSoundOnBreaks: true
 	property bool continuousMode: false
 	property bool inPomodoro: false
 	property bool inBreak: false
@@ -83,11 +83,12 @@ Item {
 		playNotificationSound 	= plasmoid.readConfig("playNotificationSound");
 		tickingVolume 			= plasmoid.readConfig("tickingVolume");
 		playTickingSound 		= plasmoid.readConfig("playTickingSound");
+                playTickingSoundOnBreaks        = plasmoid.readConfig("playTickingSoundOnBreaks");
 		continuousMode 			= plasmoid.readConfig("continuousMode");
 		pomodoroLenght 			= plasmoid.readConfig("pomodoroLenght");
 		shortBreakLenght 		= plasmoid.readConfig("shortBreakLenght");
 		longBreakLenght 		= plasmoid.readConfig("longBreakLenght");
-		pomodorosPerLongBreak 	= plasmoid.readConfig("pomodorosPerLongBreak");
+		pomodorosPerLongBreak 	        = plasmoid.readConfig("pomodorosPerLongBreak");
 		popupNotification 		= plasmoid.readConfig("popupNotification");
 		kdeNotification 		= plasmoid.readConfig("kdeNotification");
 		noNotification 			= plasmoid.readConfig("noNotification");
@@ -248,7 +249,11 @@ Item {
 
 		onTick: {
 			if(playTickingSound)
-				tickingSound.play();
+                                if(inBreak)
+                                        if(playTickingSoundOnBreaks)
+                                                tickingSound.play();
+                                else
+                                        tickingSound.play();
 		}
 		onTimeout: {
 			if(playNotificationSound)

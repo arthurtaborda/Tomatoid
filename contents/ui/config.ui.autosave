@@ -109,7 +109,7 @@
          <item>
           <widget class="QCheckBox" name="kcfg_playTickingSoundOnBreaks">
            <property name="text">
-            <string>Play tiking sound on breaks</string>
+            <string>Play ticking sound on breaks</string>
            </property>
           </widget>
          </item>
