@@ -109,7 +109,7 @@
          <item>
           <widget class="QCheckBox" name="kcfg_playTickingSoundOnBreaks">
            <property name="text">
-            <string>Play tiking sound on breaks</string>
+            <string>Play ticking sound on breaks</string>
            </property>
           </widget>
          </item>
@@ -584,5 +584,38 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>kcfg_playTickingSound</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcfg_tickingVolume</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>36</x>
+     <y>54</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>183</x>
+     <y>56</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kcfg_playTickingSound</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcfg_playTickingSoundOnBreaks</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>45</x>
+     <y>56</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>96</x>
+     <y>86</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
