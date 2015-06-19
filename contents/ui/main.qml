@@ -36,7 +36,7 @@ Item {
 
 	property bool playNotificationSound: true
 	property bool playTickingSound: false
-	property bool playTickingSoundOnBreaks: true
+	property bool playTickingSoundOnBreaks: false
 	property bool continuousMode: false
 	property bool inPomodoro: false
 	property bool inBreak: false
@@ -80,7 +80,7 @@ Item {
 
 
 	function configChanged() {
-		playNotificationSound 	= plasmoid.readConfig("playNotificationSound");
+		playNotificationSound 	        = plasmoid.readConfig("playNotificationSound");
 		tickingVolume 			= plasmoid.readConfig("tickingVolume");
 		playTickingSound 		= plasmoid.readConfig("playTickingSound");
                 playTickingSoundOnBreaks        = plasmoid.readConfig("playTickingSoundOnBreaks");
@@ -248,12 +248,15 @@ Item {
 		id: timer
 
 		onTick: {
-			if(playTickingSound)
-                                if(inBreak)
-                                        if(playTickingSoundOnBreaks)
+			if(playTickingSound){
+                                if(inBreak){
+                                        if(playTickingSoundOnBreaks){
                                                 tickingSound.play();
-                                else
+                                        }
+                                } else {
                                         tickingSound.play();
+                                }
+                        }
 		}
 		onTimeout: {
 			if(playNotificationSound)
