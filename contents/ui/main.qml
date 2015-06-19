@@ -35,6 +35,7 @@ Item {
 	property int minimumHeight: 320
 
 	property bool playNotificationSound: true
+	property bool playNotificationSoundOnBreaks: true
 	property bool playTickingSound: false
 	property bool continuousMode: false
 	property bool inPomodoro: false
