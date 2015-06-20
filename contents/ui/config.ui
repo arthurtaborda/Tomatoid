@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>391</width>
+    <width>392</width>
     <height>301</height>
    </rect>
   </property>
@@ -20,7 +20,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="general">
       <attribute name="title">
@@ -39,7 +39,7 @@
          <item>
           <widget class="QSlider" name="kcfg_tickingVolume">
            <property name="enabled">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
            <property name="minimumSize">
             <size>
@@ -85,6 +85,39 @@
             </size>
            </property>
           </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="kcfg_playTickingSoundOnBreaks">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Play ticking sound on breaks</string>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -557,5 +590,38 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>kcfg_playTickingSound</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcfg_tickingVolume</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>36</x>
+     <y>54</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>183</x>
+     <y>56</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kcfg_playTickingSound</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcfg_playTickingSoundOnBreaks</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>45</x>
+     <y>56</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>96</x>
+     <y>86</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

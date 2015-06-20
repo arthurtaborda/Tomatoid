@@ -36,6 +36,7 @@ Item {
 
 	property bool playNotificationSound: true
 	property bool playTickingSound: false
+	property bool playTickingSoundOnBreaks: false
 	property bool continuousMode: false
 	property bool inPomodoro: false
 	property bool inBreak: false
@@ -45,10 +46,10 @@ Item {
 	property bool kdeNotification: false
 	property bool noNotification: false
 
-	property int pomodoroLenght
-	property int shortBreakLenght
-	property int longBreakLenght
-	property int pomodorosPerLongBreak
+	property int pomodoroLenght: 25
+	property int shortBreakLenght: 5
+	property int longBreakLenght: 20
+	property int pomodorosPerLongBreak: 4
 
 	property string actionStartTimer
 	property string actionStartBreak
@@ -79,14 +80,15 @@ Item {
 
 
 	function configChanged() {
-		playNotificationSound 	= plasmoid.readConfig("playNotificationSound");
+		playNotificationSound 	        = plasmoid.readConfig("playNotificationSound");
 		tickingVolume 			= plasmoid.readConfig("tickingVolume");
 		playTickingSound 		= plasmoid.readConfig("playTickingSound");
+                playTickingSoundOnBreaks        = plasmoid.readConfig("playTickingSoundOnBreaks");
 		continuousMode 			= plasmoid.readConfig("continuousMode");
 		pomodoroLenght 			= plasmoid.readConfig("pomodoroLenght");
 		shortBreakLenght 		= plasmoid.readConfig("shortBreakLenght");
 		longBreakLenght 		= plasmoid.readConfig("longBreakLenght");
-		pomodorosPerLongBreak 	= plasmoid.readConfig("pomodorosPerLongBreak");
+		pomodorosPerLongBreak 	        = plasmoid.readConfig("pomodorosPerLongBreak");
 		popupNotification 		= plasmoid.readConfig("popupNotification");
 		kdeNotification 		= plasmoid.readConfig("kdeNotification");
 		noNotification 			= plasmoid.readConfig("noNotification");
@@ -246,8 +248,15 @@ Item {
 		id: timer
 
 		onTick: {
-			if(playTickingSound)
-				tickingSound.play();
+			if(playTickingSound){
+                                if(inBreak){
+                                        if(playTickingSoundOnBreaks){
+                                                tickingSound.play();
+                                        }
+                                } else {
+                                        tickingSound.play();
+                                }
+                        }
 		}
 		onTimeout: {
 			if(playNotificationSound)
