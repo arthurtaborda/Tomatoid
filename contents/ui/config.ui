@@ -149,6 +149,39 @@
         </layout>
        </item>
        <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <spacer name="horizontalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="kcfg_completeContinuosMode">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Start pomodoro also after long breaks</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
         <layout class="QHBoxLayout" name="horizontalLayout_5">
          <item>
           <widget class="QCheckBox" name="kcfg_showIconTimer">
@@ -187,7 +220,7 @@
          <item>
           <widget class="QRadioButton" name="kcfg_flatIconTheme">
            <property name="text">
-            <string>Flat</string>
+            <string>F&amp;lat</string>
            </property>
            <property name="checked">
             <bool>true</bool>
@@ -448,7 +481,7 @@
           <item>
            <widget class="QRadioButton" name="kcfg_kdeNotification">
             <property name="text">
-             <string>Standart KDE notification</string>
+             <string>Standart &amp;KDE notification</string>
             </property>
            </widget>
           </item>
@@ -620,6 +653,22 @@
     <hint type="destinationlabel">
      <x>96</x>
      <y>86</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kcfg_continuousMode</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcfg_completeContinuosMode</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>80</x>
+     <y>111</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>126</x>
+     <y>138</y>
     </hint>
    </hints>
   </connection>
