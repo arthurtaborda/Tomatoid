@@ -149,11 +149,11 @@ msgid "Short break:"
 msgstr "Duración de descanso corto:"
 
 #. i18n: file: ../ui/config.ui:283
-#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_pomodoroLenght)
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_pomodoroLength)
 #. i18n: file: ../ui/config.ui:299
-#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_shortBreakLenght)
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_shortBreakLength)
 #. i18n: file: ../ui/config.ui:325
-#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_longBreakLenght)
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_longBreakLength)
 #: rc.js:42 rc.js:45 rc.js:51
 msgid " minutes"
 msgstr " minutos"
@@ -244,17 +244,17 @@ msgstr "Fin de ciclo:"
 
 #. i18n: file: ../config/main.xml:19
 #: rc.js:96
-msgid "The lenght in minutes of one pomodoro"
+msgid "The length in minutes of one pomodoro"
 msgstr "La duracón en minutos de um pomodoro"
 
 #. i18n: file: ../config/main.xml:23
 #: rc.js:98
-msgid "The lenght in minutes of a short break"
+msgid "The length in minutes of a short break"
 msgstr "Duración en minutos de un descanso corto"
 
 #. i18n: file: ../config/main.xml:27
 #: rc.js:100
-msgid "The lenght in minutes of a long break"
+msgid "The length in minutes of a long break"
 msgstr "Duración en minutos de un descanso largo"
 
 #. i18n: file: ../config/main.xml:31
@@ -286,5 +286,5 @@ msgstr "Email del traductor"
 #~ msgid "Pomodoros/long break"
 #~ msgstr "Pomodoros para descanso largo"
 
-#~ msgid "Pomodoro lenght"
+#~ msgid "Pomodoro length"
 #~ msgstr "Duración del Pomodoro"

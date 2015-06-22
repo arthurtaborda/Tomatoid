@@ -143,11 +143,11 @@ msgid "Short break:"
 msgstr ""
 
 #. i18n: file: ../ui/config.ui:283
-#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_pomodoroLenght)
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_pomodoroLength)
 #. i18n: file: ../ui/config.ui:299
-#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_shortBreakLenght)
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_shortBreakLength)
 #. i18n: file: ../ui/config.ui:325
-#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_longBreakLenght)
+#. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_longBreakLength)
 #: rc.js:42 rc.js:45 rc.js:51
 msgid " minutes"
 msgstr ""
@@ -238,17 +238,17 @@ msgstr ""
 
 #. i18n: file: ../config/main.xml:19
 #: rc.js:96
-msgid "The lenght in minutes of one pomodoro"
+msgid "The length in minutes of one pomodoro"
 msgstr ""
 
 #. i18n: file: ../config/main.xml:23
 #: rc.js:98
-msgid "The lenght in minutes of a short break"
+msgid "The length in minutes of a short break"
 msgstr ""
 
 #. i18n: file: ../config/main.xml:27
 #: rc.js:100
-msgid "The lenght in minutes of a long break"
+msgid "The length in minutes of a long break"
 msgstr ""
 
 #. i18n: file: ../config/main.xml:31

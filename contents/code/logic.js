@@ -18,7 +18,7 @@
  */
 var sep = "~";
 var sep2 = "%";
-var test = true;
+var test = false;
 var testPomodoroDuration = 3;
 var testBreakDuration = 1;
 var testLongBreakDuration = 4;
@@ -174,7 +174,7 @@ function startTask(id, taskName) {
 	console.log(plasmoid.popupIcon)
 	timer.taskId = id;
 	timer.taskName = taskName;
-	timer.totalSeconds = test ? testPomodoroDuration : pomodoroLenght * 60;
+	timer.totalSeconds = test ? testPomodoroDuration : pomodoroLength * 60;
 	timer.running = true;
 	inPomodoro = true;
 	inBreak = false;
@@ -186,9 +186,9 @@ function startBreak() {
 	console.log(plasmoid.popupIcon)
 
 	if(completedPomodoros % pomodorosPerLongBreak == 0) {
-		timer.totalSeconds = test ? testLongBreakDuration : longBreakLenght * 60;
+		timer.totalSeconds = test ? testLongBreakDuration : longBreakLength * 60;
 	} else {
-		timer.totalSeconds = test ? testBreakDuration : shortBreakLenght * 60;
+		timer.totalSeconds = test ? testBreakDuration : shortBreakLength * 60;
 	}
 	timer.running = true;
 	inPomodoro = false;
@@ -268,3 +268,4 @@ function randomString(len) {
 	}
 	return randomString;
 }
+

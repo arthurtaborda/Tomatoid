@@ -46,9 +46,9 @@ Item {
 	property bool kdeNotification: false
 	property bool noNotification: false
 
-	property int pomodoroLenght: 25
-	property int shortBreakLenght: 5
-	property int longBreakLenght: 20
+	property int pomodoroLength: 25
+	property int shortBreakLength: 5
+	property int longBreakLength: 20
 	property int pomodorosPerLongBreak: 4
 
 	property string actionStartTimer
@@ -85,9 +85,9 @@ Item {
 		playTickingSound 		= plasmoid.readConfig("playTickingSound");
                 playTickingSoundOnBreaks        = plasmoid.readConfig("playTickingSoundOnBreaks");
 		continuousMode 			= plasmoid.readConfig("continuousMode");
-		pomodoroLenght 			= plasmoid.readConfig("pomodoroLenght");
-		shortBreakLenght 		= plasmoid.readConfig("shortBreakLenght");
-		longBreakLenght 		= plasmoid.readConfig("longBreakLenght");
+		pomodoroLength 			= plasmoid.readConfig("pomodoroLength");
+		shortBreakLength 		= plasmoid.readConfig("shortBreakLength");
+		longBreakLength 		= plasmoid.readConfig("longBreakLength");
 		pomodorosPerLongBreak 	        = plasmoid.readConfig("pomodorosPerLongBreak");
 		popupNotification 		= plasmoid.readConfig("popupNotification");
 		kdeNotification 		= plasmoid.readConfig("kdeNotification");

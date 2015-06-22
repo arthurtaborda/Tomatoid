@@ -13,16 +13,16 @@
             <label>Tasks</label>
             <default></default>
         </entry>
-        <entry name="pomodoroLenght" type="Int">
-            <label>The lenght in minutes of one pomodoro</label>
+        <entry name="pomodoroLength" type="Int">
+            <label>The length in minutes of one pomodoro</label>
             <default>25</default>
         </entry>
-        <entry name="shortBreakLenght" type="Int">
-            <label>The lenght in minutes of a short break</label>
+        <entry name="shortBreakLength" type="Int">
+            <label>The length in minutes of a short break</label>
             <default>5</default>
         </entry>
-        <entry name="longBreakLenght" type="Int">
-            <label>The lenght in minutes of a long break</label>
+        <entry name="longBreakLength" type="Int">
+            <label>The length in minutes of a long break</label>
             <default>20</default>
         </entry>
         <entry name="pomodorosPerLongBreak" type="Int">
