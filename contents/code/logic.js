@@ -18,9 +18,9 @@
  */
 var sep = "~";
 var sep2 = "%";
-var test = false;
-var testPomodoroDuration = 2;
-var testBreakDuration = 2;
+var test = true;
+var testPomodoroDuration = 3;
+var testBreakDuration = 1;
 var testLongBreakDuration = 4;
 
 // function newTaskDB(taskName) {

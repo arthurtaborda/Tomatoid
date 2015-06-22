@@ -85,7 +85,7 @@
             <label></label>
             <default></default>
         </entry>
-        <entry name="completeContinuosMode" type="Bool">
+        <entry name="completeContinuousMode" type="Bool">
             <label></label>
             <default>false</default>
         </entry>
