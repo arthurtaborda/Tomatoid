@@ -62,9 +62,6 @@
            <property name="singleStep">
             <number>1</number>
            </property>
-           <property name="value">
-            <number>50</number>
-           </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -149,6 +146,39 @@
         </layout>
        </item>
        <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <spacer name="horizontalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="kcfg_completeContinuousMode">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Start pomodoro also after long breaks</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
         <layout class="QHBoxLayout" name="horizontalLayout_5">
          <item>
           <widget class="QCheckBox" name="kcfg_showIconTimer">
@@ -187,7 +217,7 @@
          <item>
           <widget class="QRadioButton" name="kcfg_flatIconTheme">
            <property name="text">
-            <string>Flat</string>
+            <string>F&amp;lat</string>
            </property>
            <property name="checked">
             <bool>true</bool>
@@ -249,9 +279,6 @@
            <property name="maximum">
             <number>10</number>
            </property>
-           <property name="value">
-            <number>4</number>
-           </property>
           </widget>
          </item>
          <item row="2" column="0">
@@ -278,7 +305,7 @@
           </widget>
          </item>
          <item row="2" column="1">
-          <widget class="QSpinBox" name="kcfg_pomodoroLenght">
+          <widget class="QSpinBox" name="kcfg_pomodoroLength">
            <property name="suffix">
             <string> minutes</string>
            </property>
@@ -287,14 +314,11 @@
            </property>
            <property name="maximum">
             <number>60</number>
-           </property>
-           <property name="value">
-            <number>25</number>
            </property>
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QSpinBox" name="kcfg_shortBreakLenght">
+          <widget class="QSpinBox" name="kcfg_shortBreakLength">
            <property name="suffix">
             <string> minutes</string>
            </property>
@@ -303,9 +327,6 @@
            </property>
            <property name="maximum">
             <number>60</number>
-           </property>
-           <property name="value">
-            <number>5</number>
            </property>
           </widget>
          </item>
@@ -320,7 +341,7 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QSpinBox" name="kcfg_longBreakLenght">
+          <widget class="QSpinBox" name="kcfg_longBreakLength">
            <property name="suffix">
             <string> minutes</string>
            </property>
@@ -329,9 +350,6 @@
            </property>
            <property name="maximum">
             <number>60</number>
-           </property>
-           <property name="value">
-            <number>20</number>
            </property>
           </widget>
          </item>
@@ -448,7 +466,7 @@
           <item>
            <widget class="QRadioButton" name="kcfg_kdeNotification">
             <property name="text">
-             <string>Standart KDE notification</string>
+             <string>Standart &amp;KDE notification</string>
             </property>
            </widget>
           </item>
@@ -620,6 +638,22 @@
     <hint type="destinationlabel">
      <x>96</x>
      <y>86</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kcfg_continuousMode</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcfg_completeContinuousMode</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>80</x>
+     <y>111</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>126</x>
+     <y>138</y>
     </hint>
    </hints>
   </connection>
